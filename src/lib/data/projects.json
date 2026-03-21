@@ -1,0 +1,164 @@
+[
+  {
+    "id": 1,
+    "title": "Brand Identity",
+    "tag": "ID / VISUAL",
+    "year": "2024",
+    "tone": "yellow",
+    "icon": "✦",
+    "cover": "/assets/branding/File 1.jpeg",
+    "desc": "Innovative solutions for your growth.",
+    "fullDesc": "We focus on developing mindset, discovering leadership potential and team building, helping companies improve processes and create teams with glowing eyes.",
+    "stats": [
+      { "val": "7500 hours", "label": "project work" },
+      { "val": "7000 people", "label": "impacted" },
+      { "val": "10 years", "label": "experience" }
+    ],
+    "gallery": [
+      { "type": "image", "url": "/assets/branding/File 1.jpeg", "title": "Brand Strategy" },
+      { "type": "image", "url": "/assets/branding/File 2.jpeg", "title": "Logo Concept" },
+      { "type": "image", "url": "/assets/branding/File 3.jpeg", "title": "Visual Pattern" },
+      { "type": "image", "url": "/assets/branding/File 4.jpeg", "title": "Typography" },
+      { "type": "image", "url": "/assets/branding/File 1.jpeg", "title": "Main Visual" },
+      { "type": "image", "url": "/assets/branding/File 2.jpeg", "title": "Details" },
+      { "type": "image", "url": "/assets/branding/File 3.jpeg", "title": "Applications" },
+      { "type": "image", "url": "/assets/branding/File 4.jpeg", "title": "Final Result" }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Digital Experiences",
+    "tag": "WEB / APP",
+    "year": "2024",
+    "tone": "blue",
+    "icon": "🌐",
+    "cover": "/assets/digital/cover.jpg",
+    "desc": "Clean structure. Loud energy.",
+    "fullDesc": "We craft digital ecosystems that vibrate. Our focus is on high-performance architecture and seamless user journeys that bridge the gap between art and tech.",
+    "stats": [
+      { "val": "42 sites", "label": "launched" },
+      { "val": "0.4s", "label": "avg load time" },
+      { "val": "99.9%", "label": "uptime" }
+    ],
+    "gallery": [
+      { "type": "image", "url": "/assets/digital/1.jpg", "title": "UX Flow" },
+      { "type": "image", "url": "/assets/digital/2.jpg", "title": "Mobile UI" },
+      { "type": "image", "url": "/assets/digital/3.jpg", "title": "Design System" },
+      { "type": "image", "url": "/assets/digital/4.jpg", "title": "Code View" },
+      { "type": "image", "url": "/assets/digital/5.jpg", "title": "Backend" },
+      { "type": "image", "url": "/assets/digital/6.jpg", "title": "Interactive" },
+      { "type": "image", "url": "/assets/digital/7.jpg", "title": "Mobile First" },
+      { "type": "image", "url": "/assets/digital/8.jpg", "title": "Architecture" },
+      { "type": "image", "url": "/assets/digital/9.jpg", "title": "Core System" },
+      { "type": "image", "url": "/assets/digital/10.jpg", "title": "Final Product" }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Social Media Management",
+    "tag": "CONTENT / SOCIAL",
+    "year": "2024",
+    "tone": "dark",
+    "icon": "📱",
+    "cover": "/assets/social/cover.jpg",
+    "desc": "Attention is the new currency.",
+    "fullDesc": "We manage your social presence from strategy to execution. Focusing on viral loops, community engagement, and aesthetic consistency across all platforms.",
+    "stats": [
+      { "val": "1.2M", "label": "engagement" },
+      { "val": "24/7", "label": "monitoring" },
+      { "val": "15", "label": "brands managed" }
+    ],
+    "gallery": [
+      { "type": "image", "url": "/assets/social/IMG_6068.jpg", "title": "Campaign Launch" },
+      { "type": "image", "url": "/assets/social/IMG_6069.PNG", "title": "Social Feed" },
+      { "type": "image", "url": "/assets/social/dasd.png", "title": "Grid View" },
+      { "type": "image", "url": "/assets/social/Gemini_Generated_Image_cz3fy9cz3fy9cz3f.png", "title": "Engagement Stats" },
+      { "type": "image", "url": "/assets/social/IMG_6068.jpg", "title": "Viral Content" },
+      { "type": "image", "url": "/assets/social/IMG_6069.PNG", "title": "Brand Story" }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Video Editing",
+    "tag": "MOTION / VIDEO",
+    "year": "2024",
+    "tone": "blue",
+    "icon": "✂️",
+    "cover": "/assets/video/cover.jpg",
+    "desc": "Dynamic storytelling at scale.",
+    "fullDesc": "High-end post-production for commercials, social content, and documentaries. We handle color grading, sound design, and rhythm-based editing.",
+    "stats": [
+      { "val": "500+", "label": "video cuts" },
+      { "val": "4K", "label": "native res" },
+      { "val": "100%", "label": "on-time delivery" }
+    ],
+    "gallery": [
+      { "type": "image", "url": "/assets/video/1.jpg", "title": "Cinematic Horizontal" },
+      { "type": "image", "url": "/assets/video/2.jpg", "title": "Vertical Reel" },
+      { "type": "image", "url": "/assets/video/3.jpg", "title": "Short Edit" },
+      { "type": "image", "url": "/assets/video/4.jpg", "title": "Process Detail" },
+      { "type": "image", "url": "/assets/video/5.jpg", "title": "Unused Slot" },
+      { "type": "image", "url": "/assets/video/6.jpg", "title": "Brand Documentary" },
+      { "type": "image", "url": "/assets/video/7.jpg", "title": "Tik Tok Reel" },
+      { "type": "image", "url": "/assets/video/8.jpg", "title": "Motion Graphics" },
+      { "type": "image", "url": "/assets/video/9.jpg", "title": "Color Grading" },
+      { "type": "image", "url": "/assets/video/10.jpg", "title": "Final Cut" }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Graphics & Print",
+    "tag": "PRINT / ART",
+    "year": "2024",
+    "tone": "dark",
+    "icon": "🎨",
+    "cover": "/assets/graphics/cover.jpg",
+    "desc": "Physical designs you can touch.",
+    "fullDesc": "Layout, typography, and print production. We design posters, books, and packaging that make an impact in the real world.",
+    "stats": [
+      { "val": "200", "label": "poster runs" },
+      { "val": "Pantone", "label": "matched" },
+      { "val": "12", "label": "book designs" }
+    ],
+    "gallery": [
+      { "type": "image", "url": "/assets/graphics/1.jpg", "title": "Gallery Wall" },
+      { "type": "image", "url": "/assets/graphics/2.jpg", "title": "Letterpress" },
+      { "type": "image", "url": "/assets/graphics/3.jpg", "title": "Book Layout" },
+      { "type": "image", "url": "/assets/graphics/4.jpg", "title": "Ink Mixing" },
+      { "type": "image", "url": "/assets/graphics/5.jpg", "title": "Finished Print" },
+      { "type": "image", "url": "/assets/graphics/6.jpg", "title": "Poster Set" },
+      { "type": "image", "url": "/assets/graphics/7.jpg", "title": "Typography Set" },
+      { "type": "image", "url": "/assets/graphics/8.jpg", "title": "Color Swatch" },
+      { "type": "image", "url": "/assets/graphics/9.jpg", "title": "Paper Texture" },
+      { "type": "image", "url": "/assets/graphics/10.jpg", "title": "Bound Volume" }
+    ]
+  },
+  {
+    "id": 10,
+    "title": "3D Models",
+    "tag": "3D / CGI",
+    "year": "2024",
+    "tone": "yellow",
+    "icon": "🪐",
+    "cover": "/assets/models/cover.jpg",
+    "desc": "Depth beyond the screen.",
+    "fullDesc": "Full-stack CGI and 3D modeling for products, environments, and character design. We build assets that look and feel tactile.",
+    "stats": [
+      { "val": "2K", "label": "polygons" },
+      { "val": "Cycles", "label": "rendering" },
+      { "val": "85", "label": "assets built" }
+    ],
+    "gallery": [
+      { "type": "image", "url": "/assets/models/1.jpg", "title": "Abstract CGI" },
+      { "type": "image", "url": "/assets/models/2.jpg", "title": "Mesh Flow" },
+      { "type": "image", "url": "/assets/models/3.jpg", "title": "Lighting Rig" },
+      { "type": "image", "url": "/assets/models/4.jpg", "title": "Texture Map" },
+      { "type": "image", "url": "/assets/models/5.jpg", "title": "Final Render" },
+      { "type": "image", "url": "/assets/models/6.jpg", "title": "Shadow Study" },
+      { "type": "image", "url": "/assets/models/7.jpg", "title": "Polygon Mesh" },
+      { "type": "image", "url": "/assets/models/8.jpg", "title": "Environment" },
+      { "type": "image", "url": "/assets/models/9.jpg", "title": "Node Setup" },
+      { "type": "image", "url": "/assets/models/10.jpg", "title": "CGI Final" }
+    ]
+  }
+]

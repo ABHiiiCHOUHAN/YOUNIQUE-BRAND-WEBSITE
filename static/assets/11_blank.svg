@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 792 612">
+  <!-- Generator: Adobe Illustrator 29.7.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 8)  -->
+  <defs>
+    <style>
+      .st0, .st1, .st2, .st3, .st4 {
+        fill: #3d3d3d;
+      }
+
+      .st1 {
+        font-size: 127.78px;
+      }
+
+      .st1, .st2, .st4 {
+        font-family: EricaOne-Regular, 'Erica One';
+      }
+
+      .st2, .st4 {
+        font-size: 122.02px;
+      }
+
+      .st5 {
+        fill: #fff;
+        stroke-width: 7px;
+      }
+
+      .st5, .st6 {
+        stroke: #3d3d3d;
+        stroke-miterlimit: 10;
+      }
+
+      .st3 {
+        font-family: NauryzRedKeds, NauryzRedKeds;
+        font-size: 86.13px;
+      }
+
+      .st3, .st4, .st7 {
+        display: none;
+      }
+
+      .st6 {
+        fill: none;
+        stroke-width: 3px;
+      }
+    </style>
+  </defs>
+  <rect class="st6" x="43.24" y="378.71" width="635.66" height="126.81"/>
+  <rect class="st6" x="85.06" y="139.21" width="380.79" height="161.05" transform="translate(-48.92 82.11) rotate(-15.59)"/>
+  <text class="st4"><tspan x="78.18" y="385.42"></tspan><tspan x="78.18" y="484.72">DEFAULT</tspan></text>
+  <text class="st3" transform="translate(369.39 356.01)"><tspan x="0" y="0">THE</tspan></text>
+  <g class="st7">
+    <text class="st1" transform="translate(116.94 313.42) rotate(-15.59)"><tspan x="0" y="0">DEFY</tspan></text>
+    <rect class="st5" x="62.04" y="185.91" width="15.81" height="14.54" transform="translate(-51.23 27.27) rotate(-16.24)"/>
+    <rect class="st5" x="105.68" y="339.55" width="15.81" height="14.54" transform="translate(-92.45 45.6) rotate(-16.24)"/>
+    <rect class="st5" x="472.58" y="237.88" width="15.81" height="14.54" transform="translate(-49.38 144.14) rotate(-16.24)"/>
+    <rect class="st5" x="429.3" y="82.75" width="15.81" height="14.54" transform="translate(-7.73 125.85) rotate(-16.24)"/>
+  </g>
+  <text class="st2" transform="translate(697.89 492.8)"><tspan x="0" y="0">.</tspan></text>
+  <rect class="st0" x="756.6" y="347.56" width="16.46" height="188.15"/>
+</svg>

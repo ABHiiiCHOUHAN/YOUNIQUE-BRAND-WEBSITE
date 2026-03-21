@@ -1,0 +1,303 @@
+0 verbose cli /usr/local/bin/node /usr/local/lib/node_modules/npm/bin/npm-cli.js
+1 info using npm@11.9.0
+2 info using node@v24.14.0
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/abhiii/Documents/web_dev_draft/my-app/.npmrc
+5 silly config load:file:/Users/abhiii/.npmrc
+6 silly config load:file:/usr/local/etc/npmrc
+7 verbose title npm exec jsrepo@latest add https://reactbits.dev/r/CircularGallery-JS-CSS --yes --cwd .
+8 verbose argv "exec" "--yes" "--" "jsrepo@latest" "add" "https://reactbits.dev/r/CircularGallery-JS-CSS" "--yes" "--cwd" "."
+9 verbose logfile logs-max:10 dir:/Users/abhiii/Documents/web_dev_draft/my-app/.npm-cache/_logs/2026-03-20T19_44_06_475Z-
+10 verbose logfile /Users/abhiii/Documents/web_dev_draft/my-app/.npm-cache/_logs/2026-03-20T19_44_06_475Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 http fetch GET 200 https://registry.npmjs.org/jsrepo 379ms (cache miss)
+14 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+15 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+16 silly idealTree buildDeps
+17 silly fetch manifest jsrepo@3.7.0
+18 silly packumentCache full:https://registry.npmjs.org/jsrepo cache-miss
+19 http fetch GET 200 https://registry.npmjs.org/npm 493ms
+20 http fetch GET 200 https://registry.npmjs.org/jsrepo 87ms (cache miss)
+21 silly packumentCache full:https://registry.npmjs.org/jsrepo set size:undefined disposed:false
+22 silly fetch manifest svelte@^5.0.0
+23 silly packumentCache full:https://registry.npmjs.org/svelte cache-miss
+24 http fetch GET 200 https://registry.npmjs.org/svelte 231ms (cache miss)
+25 silly packumentCache full:https://registry.npmjs.org/svelte set size:undefined disposed:false
+26 silly fetch manifest vue@^3.0.0
+27 silly packumentCache full:https://registry.npmjs.org/vue cache-miss
+28 http fetch GET 200 https://registry.npmjs.org/vue 232ms (cache miss)
+29 silly packumentCache full:https://registry.npmjs.org/vue set size:undefined disposed:false
+30 silly fetch manifest typescript@*
+31 silly packumentCache full:https://registry.npmjs.org/typescript cache-miss
+32 http fetch GET 200 https://registry.npmjs.org/typescript 662ms (cache miss)
+33 silly packumentCache full:https://registry.npmjs.org/typescript set size:undefined disposed:false
+34 silly placeDep ROOT jsrepo@3.7.0 OK for:  want: 3.7.0
+35 silly fetch manifest commander@^14.0.3
+36 silly packumentCache full:https://registry.npmjs.org/commander cache-miss
+37 silly fetch manifest oxc-parser@^0.114.0
+38 silly packumentCache full:https://registry.npmjs.org/oxc-parser cache-miss
+39 silly fetch manifest unconfig@^7.5.0
+40 silly packumentCache full:https://registry.npmjs.org/unconfig cache-miss
+41 http fetch GET 200 https://registry.npmjs.org/commander 127ms (cache miss)
+42 silly packumentCache full:https://registry.npmjs.org/commander set size:undefined disposed:false
+43 http fetch GET 200 https://registry.npmjs.org/oxc-parser 130ms (cache miss)
+44 silly packumentCache full:https://registry.npmjs.org/oxc-parser set size:undefined disposed:false
+45 http fetch GET 200 https://registry.npmjs.org/unconfig 290ms (cache miss)
+46 silly packumentCache full:https://registry.npmjs.org/unconfig set size:undefined disposed:false
+47 silly placeDep ROOT commander@14.0.3 OK for: jsrepo@3.7.0 want: ^14.0.3
+48 silly placeDep ROOT oxc-parser@0.114.0 OK for: jsrepo@3.7.0 want: ^0.114.0
+49 silly placeDep ROOT unconfig@7.5.0 OK for: jsrepo@3.7.0 want: ^7.5.0
+50 silly fetch manifest @oxc-project/types@^0.114.0
+51 silly packumentCache full:https://registry.npmjs.org/@oxc-project%2ftypes cache-miss
+52 silly fetch manifest @oxc-parser/binding-darwin-x64@0.114.0
+53 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-darwin-x64 cache-miss
+54 silly fetch manifest @oxc-parser/binding-freebsd-x64@0.114.0
+55 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-freebsd-x64 cache-miss
+56 silly fetch manifest @oxc-parser/binding-wasm32-wasi@0.114.0
+57 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-wasm32-wasi cache-miss
+58 silly fetch manifest @oxc-parser/binding-darwin-arm64@0.114.0
+59 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-darwin-arm64 cache-miss
+60 silly fetch manifest @oxc-parser/binding-android-arm64@0.114.0
+61 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-android-arm64 cache-miss
+62 silly fetch manifest @oxc-parser/binding-linux-x64-gnu@0.114.0
+63 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-x64-gnu cache-miss
+64 silly fetch manifest @oxc-parser/binding-linux-x64-musl@0.114.0
+65 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-x64-musl cache-miss
+66 silly fetch manifest @oxc-parser/binding-win32-x64-msvc@0.114.0
+67 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-win32-x64-msvc cache-miss
+68 http fetch GET 200 https://registry.npmjs.org/@oxc-project%2ftypes 94ms (cache miss)
+69 silly packumentCache full:https://registry.npmjs.org/@oxc-project%2ftypes set size:undefined disposed:false
+70 silly fetch manifest @oxc-parser/binding-linux-arm64-gnu@0.114.0
+71 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-arm64-gnu cache-miss
+72 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-darwin-x64 256ms (cache miss)
+73 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-darwin-x64 set size:undefined disposed:false
+74 silly fetch manifest @oxc-parser/binding-linux-ppc64-gnu@0.114.0
+75 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-ppc64-gnu cache-miss
+76 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-android-arm64 293ms (cache miss)
+77 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-android-arm64 set size:undefined disposed:false
+78 silly fetch manifest @oxc-parser/binding-linux-s390x-gnu@0.114.0
+79 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-s390x-gnu cache-miss
+80 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-freebsd-x64 375ms (cache miss)
+81 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-freebsd-x64 set size:undefined disposed:false
+82 silly fetch manifest @oxc-parser/binding-win32-ia32-msvc@0.114.0
+83 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-win32-ia32-msvc cache-miss
+84 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-linux-x64-musl 425ms (cache miss)
+85 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-x64-musl set size:undefined disposed:false
+86 silly fetch manifest @oxc-parser/binding-android-arm-eabi@0.114.0
+87 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-android-arm-eabi cache-miss
+88 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-win32-x64-msvc 555ms (cache miss)
+89 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-win32-x64-msvc set size:undefined disposed:false
+90 silly fetch manifest @oxc-parser/binding-linux-arm64-musl@0.114.0
+91 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-arm64-musl cache-miss
+92 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-linux-s390x-gnu 271ms (cache miss)
+93 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-s390x-gnu set size:undefined disposed:false
+94 silly fetch manifest @oxc-parser/binding-win32-arm64-msvc@0.114.0
+95 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-win32-arm64-msvc cache-miss
+96 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-linux-x64-gnu 567ms (cache miss)
+97 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-x64-gnu set size:undefined disposed:false
+98 silly fetch manifest @oxc-parser/binding-linux-riscv64-gnu@0.114.0
+99 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-riscv64-gnu cache-miss
+100 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-darwin-arm64 577ms (cache miss)
+101 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-darwin-arm64 set size:undefined disposed:false
+102 silly fetch manifest @oxc-parser/binding-openharmony-arm64@0.114.0
+103 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-openharmony-arm64 cache-miss
+104 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-win32-ia32-msvc 220ms (cache miss)
+105 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-win32-ia32-msvc set size:undefined disposed:false
+106 silly fetch manifest @oxc-parser/binding-linux-riscv64-musl@0.114.0
+107 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-riscv64-musl cache-miss
+108 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-linux-ppc64-gnu 352ms (cache miss)
+109 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-ppc64-gnu set size:undefined disposed:false
+110 silly fetch manifest @oxc-parser/binding-linux-arm-gnueabihf@0.114.0
+111 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-arm-gnueabihf cache-miss
+112 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-linux-arm64-gnu 650ms (cache miss)
+113 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-arm64-gnu set size:undefined disposed:false
+114 silly fetch manifest @oxc-parser/binding-linux-arm-musleabihf@0.114.0
+115 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-arm-musleabihf cache-miss
+116 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-wasm32-wasi 814ms (cache miss)
+117 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-wasm32-wasi set size:undefined disposed:false
+118 silly fetch manifest @quansync/fs@^1.0.0
+119 silly packumentCache full:https://registry.npmjs.org/@quansync%2ffs cache-miss
+120 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-linux-riscv64-gnu 281ms (cache miss)
+121 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-riscv64-gnu set size:undefined disposed:false
+122 silly fetch manifest defu@^6.1.4
+123 silly packumentCache full:https://registry.npmjs.org/defu cache-miss
+124 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-linux-arm-gnueabihf 262ms (cache miss)
+125 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-arm-gnueabihf set size:undefined disposed:false
+126 silly fetch manifest jiti@^2.6.1
+127 silly packumentCache full:https://registry.npmjs.org/jiti cache-miss
+128 http fetch GET 200 https://registry.npmjs.org/defu 80ms (cache miss)
+129 silly packumentCache full:https://registry.npmjs.org/defu set size:undefined disposed:false
+130 silly fetch manifest quansync@^1.0.0
+131 silly packumentCache full:https://registry.npmjs.org/quansync cache-miss
+132 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-linux-riscv64-musl 376ms (cache miss)
+133 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-riscv64-musl set size:undefined disposed:false
+134 silly fetch manifest unconfig-core@7.5.0
+135 silly packumentCache full:https://registry.npmjs.org/unconfig-core cache-miss
+136 http fetch GET 200 https://registry.npmjs.org/jiti 101ms (cache miss)
+137 silly packumentCache full:https://registry.npmjs.org/jiti set size:undefined disposed:false
+138 http fetch GET 200 https://registry.npmjs.org/quansync 77ms (cache miss)
+139 silly packumentCache full:https://registry.npmjs.org/quansync set size:undefined disposed:false
+140 http fetch GET 200 https://registry.npmjs.org/@quansync%2ffs 225ms (cache miss)
+141 silly packumentCache full:https://registry.npmjs.org/@quansync%2ffs set size:undefined disposed:false
+142 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-linux-arm64-musl 519ms (cache miss)
+143 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-arm64-musl set size:undefined disposed:false
+144 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-openharmony-arm64 513ms (cache miss)
+145 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-openharmony-arm64 set size:undefined disposed:false
+146 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-win32-arm64-msvc 670ms (cache miss)
+147 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-win32-arm64-msvc set size:undefined disposed:false
+148 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-linux-arm-musleabihf 517ms (cache miss)
+149 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-linux-arm-musleabihf set size:undefined disposed:false
+150 http fetch GET 200 https://registry.npmjs.org/unconfig-core 341ms (cache miss)
+151 silly packumentCache full:https://registry.npmjs.org/unconfig-core set size:undefined disposed:false
+152 http fetch GET 200 https://registry.npmjs.org/@oxc-parser%2fbinding-android-arm-eabi 917ms (cache miss)
+153 silly packumentCache full:https://registry.npmjs.org/@oxc-parser%2fbinding-android-arm-eabi set size:undefined disposed:false
+154 silly placeDep ROOT @oxc-parser/binding-android-arm-eabi@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+155 silly placeDep ROOT @oxc-parser/binding-android-arm64@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+156 silly placeDep ROOT @oxc-parser/binding-darwin-arm64@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+157 silly placeDep ROOT @oxc-parser/binding-darwin-x64@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+158 silly placeDep ROOT @oxc-parser/binding-freebsd-x64@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+159 silly placeDep ROOT @oxc-parser/binding-linux-arm-gnueabihf@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+160 silly placeDep ROOT @oxc-parser/binding-linux-arm-musleabihf@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+161 silly placeDep ROOT @oxc-parser/binding-linux-arm64-gnu@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+162 silly placeDep ROOT @oxc-parser/binding-linux-arm64-musl@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+163 silly placeDep ROOT @oxc-parser/binding-linux-ppc64-gnu@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+164 silly placeDep ROOT @oxc-parser/binding-linux-riscv64-gnu@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+165 silly placeDep ROOT @oxc-parser/binding-linux-riscv64-musl@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+166 silly placeDep ROOT @oxc-parser/binding-linux-s390x-gnu@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+167 silly placeDep ROOT @oxc-parser/binding-linux-x64-gnu@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+168 silly placeDep ROOT @oxc-parser/binding-linux-x64-musl@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+169 silly placeDep ROOT @oxc-parser/binding-openharmony-arm64@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+170 silly placeDep ROOT @oxc-parser/binding-wasm32-wasi@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+171 silly placeDep ROOT @oxc-parser/binding-win32-arm64-msvc@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+172 silly placeDep ROOT @oxc-parser/binding-win32-ia32-msvc@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+173 silly placeDep ROOT @oxc-parser/binding-win32-x64-msvc@0.114.0 OK for: oxc-parser@0.114.0 want: 0.114.0
+174 silly placeDep ROOT @oxc-project/types@0.114.0 OK for: oxc-parser@0.114.0 want: ^0.114.0
+175 silly fetch manifest @napi-rs/wasm-runtime@^1.1.1
+176 silly packumentCache full:https://registry.npmjs.org/@napi-rs%2fwasm-runtime cache-miss
+177 http fetch GET 200 https://registry.npmjs.org/@napi-rs%2fwasm-runtime 79ms (cache miss)
+178 silly packumentCache full:https://registry.npmjs.org/@napi-rs%2fwasm-runtime set size:undefined disposed:false
+179 silly placeDep ROOT @napi-rs/wasm-runtime@1.1.1 OK for: @oxc-parser/binding-wasm32-wasi@0.114.0 want: ^1.1.1
+180 silly fetch manifest @emnapi/core@^1.7.1
+181 silly packumentCache full:https://registry.npmjs.org/@emnapi%2fcore cache-miss
+182 silly fetch manifest @emnapi/runtime@^1.7.1
+183 silly packumentCache full:https://registry.npmjs.org/@emnapi%2fruntime cache-miss
+184 silly fetch manifest @tybys/wasm-util@^0.10.1
+185 silly packumentCache full:https://registry.npmjs.org/@tybys%2fwasm-util cache-miss
+186 http fetch GET 200 https://registry.npmjs.org/@tybys%2fwasm-util 81ms (cache miss)
+187 silly packumentCache full:https://registry.npmjs.org/@tybys%2fwasm-util set size:undefined disposed:false
+188 http fetch GET 200 https://registry.npmjs.org/@emnapi%2fruntime 91ms (cache miss)
+189 silly packumentCache full:https://registry.npmjs.org/@emnapi%2fruntime set size:undefined disposed:false
+190 http fetch GET 200 https://registry.npmjs.org/@emnapi%2fcore 92ms (cache miss)
+191 silly packumentCache full:https://registry.npmjs.org/@emnapi%2fcore set size:undefined disposed:false
+192 silly placeDep ROOT @emnapi/core@1.9.1 OK for: @napi-rs/wasm-runtime@1.1.1 want: ^1.7.1
+193 silly placeDep ROOT @emnapi/runtime@1.9.1 OK for: @napi-rs/wasm-runtime@1.1.1 want: ^1.7.1
+194 silly placeDep ROOT @tybys/wasm-util@0.10.1 OK for: @napi-rs/wasm-runtime@1.1.1 want: ^0.10.1
+195 silly fetch manifest @emnapi/wasi-threads@1.2.0
+196 silly packumentCache full:https://registry.npmjs.org/@emnapi%2fwasi-threads cache-miss
+197 silly fetch manifest tslib@^2.4.0
+198 silly packumentCache full:https://registry.npmjs.org/tslib cache-miss
+199 silly fetch manifest tslib@^2.4.0
+200 silly packumentCache full:https://registry.npmjs.org/tslib cache-miss
+201 silly fetch manifest tslib@^2.4.0
+202 silly packumentCache full:https://registry.npmjs.org/tslib cache-miss
+203 http fetch GET 200 https://registry.npmjs.org/tslib 75ms (cache miss)
+204 silly packumentCache full:https://registry.npmjs.org/tslib set size:undefined disposed:false
+205 http fetch GET 200 https://registry.npmjs.org/tslib 95ms (cache miss)
+206 silly packumentCache full:https://registry.npmjs.org/tslib set size:undefined disposed:false
+207 http fetch GET 200 https://registry.npmjs.org/tslib 96ms (cache miss)
+208 silly packumentCache full:https://registry.npmjs.org/tslib set size:undefined disposed:false
+209 http fetch GET 200 https://registry.npmjs.org/@emnapi%2fwasi-threads 97ms (cache miss)
+210 silly packumentCache full:https://registry.npmjs.org/@emnapi%2fwasi-threads set size:undefined disposed:false
+211 silly placeDep ROOT @emnapi/wasi-threads@1.2.0 OK for: @emnapi/core@1.9.1 want: 1.2.0
+212 silly placeDep ROOT tslib@2.8.1 OK for: @emnapi/core@1.9.1 want: ^2.4.0
+213 silly placeDep ROOT @quansync/fs@1.0.0 OK for: unconfig@7.5.0 want: ^1.0.0
+214 silly placeDep ROOT defu@6.1.4 OK for: unconfig@7.5.0 want: ^6.1.4
+215 silly placeDep ROOT jiti@2.6.1 OK for: unconfig@7.5.0 want: ^2.6.1
+216 silly placeDep ROOT quansync@1.0.0 OK for: unconfig@7.5.0 want: ^1.0.0
+217 silly placeDep ROOT unconfig-core@7.5.0 OK for: unconfig@7.5.0 want: 7.5.0
+218 silly reify moves {}
+219 silly audit bulk request {
+219 silly audit   jsrepo: [ '3.7.0' ],
+219 silly audit   commander: [ '14.0.3' ],
+219 silly audit   'oxc-parser': [ '0.114.0' ],
+219 silly audit   unconfig: [ '7.5.0' ],
+219 silly audit   '@oxc-parser/binding-android-arm-eabi': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-android-arm64': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-darwin-arm64': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-darwin-x64': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-freebsd-x64': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-linux-arm-gnueabihf': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-linux-arm-musleabihf': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-linux-arm64-gnu': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-linux-arm64-musl': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-linux-ppc64-gnu': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-linux-riscv64-gnu': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-linux-riscv64-musl': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-linux-s390x-gnu': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-linux-x64-gnu': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-linux-x64-musl': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-openharmony-arm64': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-wasm32-wasi': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-win32-arm64-msvc': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-win32-ia32-msvc': [ '0.114.0' ],
+219 silly audit   '@oxc-parser/binding-win32-x64-msvc': [ '0.114.0' ],
+219 silly audit   '@oxc-project/types': [ '0.114.0' ],
+219 silly audit   '@napi-rs/wasm-runtime': [ '1.1.1' ],
+219 silly audit   '@emnapi/core': [ '1.9.1' ],
+219 silly audit   '@emnapi/runtime': [ '1.9.1' ],
+219 silly audit   '@tybys/wasm-util': [ '0.10.1' ],
+219 silly audit   '@emnapi/wasi-threads': [ '1.2.0' ],
+219 silly audit   tslib: [ '2.8.1' ],
+219 silly audit   '@quansync/fs': [ '1.0.0' ],
+219 silly audit   defu: [ '6.1.4' ],
+219 silly audit   jiti: [ '2.6.1' ],
+219 silly audit   quansync: [ '1.0.0' ],
+219 silly audit   'unconfig-core': [ '7.5.0' ]
+219 silly audit }
+220 http cache quansync@https://registry.npmjs.org/quansync/-/quansync-1.0.0.tgz 0ms (cache hit)
+221 http cache @quansync/fs@https://registry.npmjs.org/@quansync/fs/-/fs-1.0.0.tgz 0ms (cache hit)
+222 http cache @oxc-project/types@https://registry.npmjs.org/@oxc-project/types/-/types-0.114.0.tgz 0ms (cache hit)
+223 http cache unconfig@https://registry.npmjs.org/unconfig/-/unconfig-7.5.0.tgz 0ms (cache hit)
+224 http cache defu@https://registry.npmjs.org/defu/-/defu-6.1.4.tgz 0ms (cache hit)
+225 http cache @oxc-parser/binding-darwin-arm64@https://registry.npmjs.org/@oxc-parser/binding-darwin-arm64/-/binding-darwin-arm64-0.114.0.tgz 0ms (cache hit)
+226 http cache unconfig-core@https://registry.npmjs.org/unconfig-core/-/unconfig-core-7.5.0.tgz 0ms (cache hit)
+227 http cache jiti@https://registry.npmjs.org/jiti/-/jiti-2.6.1.tgz 0ms (cache hit)
+228 silly tarball no local data for quansync@https://registry.npmjs.org/quansync/-/quansync-1.0.0.tgz. Extracting by manifest.
+229 http cache commander@https://registry.npmjs.org/commander/-/commander-14.0.3.tgz 0ms (cache hit)
+230 http cache oxc-parser@https://registry.npmjs.org/oxc-parser/-/oxc-parser-0.114.0.tgz 0ms (cache hit)
+231 silly tarball no local data for @quansync/fs@https://registry.npmjs.org/@quansync/fs/-/fs-1.0.0.tgz. Extracting by manifest.
+232 silly tarball no local data for @oxc-project/types@https://registry.npmjs.org/@oxc-project/types/-/types-0.114.0.tgz. Extracting by manifest.
+233 silly tarball no local data for unconfig@https://registry.npmjs.org/unconfig/-/unconfig-7.5.0.tgz. Extracting by manifest.
+234 http cache jsrepo@https://registry.npmjs.org/jsrepo/-/jsrepo-3.7.0.tgz 0ms (cache hit)
+235 silly tarball no local data for defu@https://registry.npmjs.org/defu/-/defu-6.1.4.tgz. Extracting by manifest.
+236 silly tarball no local data for @oxc-parser/binding-darwin-arm64@https://registry.npmjs.org/@oxc-parser/binding-darwin-arm64/-/binding-darwin-arm64-0.114.0.tgz. Extracting by manifest.
+237 silly tarball no local data for unconfig-core@https://registry.npmjs.org/unconfig-core/-/unconfig-core-7.5.0.tgz. Extracting by manifest.
+238 silly tarball no local data for jiti@https://registry.npmjs.org/jiti/-/jiti-2.6.1.tgz. Extracting by manifest.
+239 silly tarball no local data for commander@https://registry.npmjs.org/commander/-/commander-14.0.3.tgz. Extracting by manifest.
+240 silly tarball no local data for oxc-parser@https://registry.npmjs.org/oxc-parser/-/oxc-parser-0.114.0.tgz. Extracting by manifest.
+241 silly tarball no local data for jsrepo@https://registry.npmjs.org/jsrepo/-/jsrepo-3.7.0.tgz. Extracting by manifest.
+242 http fetch GET 200 https://registry.npmjs.org/unconfig-core/-/unconfig-core-7.5.0.tgz 88ms (cache miss)
+243 http fetch GET 200 https://registry.npmjs.org/@quansync/fs/-/fs-1.0.0.tgz 90ms (cache miss)
+244 http fetch GET 200 https://registry.npmjs.org/quansync/-/quansync-1.0.0.tgz 90ms (cache miss)
+245 http fetch GET 200 https://registry.npmjs.org/defu/-/defu-6.1.4.tgz 97ms (cache miss)
+246 http fetch GET 200 https://registry.npmjs.org/@oxc-project/types/-/types-0.114.0.tgz 97ms (cache miss)
+247 http fetch GET 200 https://registry.npmjs.org/unconfig/-/unconfig-7.5.0.tgz 97ms (cache miss)
+248 http fetch GET 200 https://registry.npmjs.org/commander/-/commander-14.0.3.tgz 432ms (cache miss)
+249 http fetch GET 200 https://registry.npmjs.org/jiti/-/jiti-2.6.1.tgz 532ms (cache miss)
+250 http fetch GET 200 https://registry.npmjs.org/@oxc-parser/binding-darwin-arm64/-/binding-darwin-arm64-0.114.0.tgz 539ms (cache miss)
+251 http fetch GET 200 https://registry.npmjs.org/oxc-parser/-/oxc-parser-0.114.0.tgz 595ms (cache miss)
+252 http fetch GET 200 https://registry.npmjs.org/jsrepo/-/jsrepo-3.7.0.tgz 686ms (cache miss)
+253 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 1155ms
+254 silly audit report {}
+255 verbose cwd /Users/abhiii/Documents/web_dev_draft/my-app
+256 verbose os Darwin 25.3.0
+257 verbose node v24.14.0
+258 verbose npm  v11.9.0
+259 notice
+259 notice New [33mminor[39m version of npm available! [33m11.9.0[39m -> [34m11.12.0[39m
+259 notice Changelog: [34mhttps://github.com/npm/cli/releases/tag/v11.12.0[39m
+259 notice To update run: [4mnpm install -g npm@11.12.0[24m
+259 notice  { force: true, Symbol(proc-log.meta): true }
+260 verbose exit 1
+261 verbose code 1
