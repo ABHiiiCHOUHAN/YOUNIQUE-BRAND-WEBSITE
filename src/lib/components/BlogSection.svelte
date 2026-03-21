@@ -1,143 +1,308 @@
 <script>
 	let { postsPromise } = $props();
+
+	let scrollTrack;
+	let isDragging = false;
+	let startX;
+	let scrollLeft;
+
+	const onMouseDown = (e) => {
+		isDragging = true;
+		scrollTrack.classList.add('dragging');
+		startX = e.pageX - scrollTrack.offsetLeft;
+		scrollLeft = scrollTrack.scrollLeft;
+	};
+
+	const onMouseUp = () => {
+		isDragging = false;
+		scrollTrack.classList.remove('dragging');
+	};
+
+	const onMouseMove = (e) => {
+		if (!isDragging) return;
+		e.preventDefault();
+		const x = e.pageX - scrollTrack.offsetLeft;
+		const walk = (x - startX) * 2; // Scroll speed
+		scrollTrack.scrollLeft = scrollLeft - walk;
+	};
 </script>
 
-<section class="wrap page-transition">
-	<header class="page-header">
-		<h1 class="page-title">Thoughts, rants & rules.</h1>
-	</header>
+<section class="blog-wrap">
+	<div class="yellow-bg"></div>
+	
+	<div class="content">
+		<header class="blog-header">
+			<h2 class="title" id="blog-title">THOUGHTS // RULES</h2>
+			<span class="sub">DESIGN, CHAOS & LOGIC</span>
+		</header>
 
-	<div class="grid">
-		{#await postsPromise}
-			{#each Array(3) as _}
-				<article class="post skeleton-box">
-					<div class="skeleton-line skeleton-date"></div>
-					<div class="skeleton-line skeleton-title"></div>
-					<div class="skeleton-line skeleton-excerpt"></div>
-					<div class="skeleton-line skeleton-button"></div>
-				</article>
-			{/each}
-		{:then posts}
-			{#each posts || [] as post}
-				<article class="post">
-					<time class="date">{post.date}</time>
-					<h2 class="post-title">{post.title}</h2>
-					<p class="excerpt">{post.excerpt}</p>
-					<a class="read-more" href="/blog/{post.id}" target="_blank" rel="noopener noreferrer"
-						>Read more &rarr;</a
-					>
-				</article>
-			{/each}
-		{/await}
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div 
+			class="scroll-track" 
+			bind:this={scrollTrack}
+			onmousedown={onMouseDown}
+			onmouseleave={onMouseUp}
+			onmouseup={onMouseUp}
+			onmousemove={onMouseMove}
+			aria-labelledby="blog-title"
+		>
+			{#await postsPromise}
+				{#each Array(3) as _}
+					<article class="post skeleton-box">
+						<div class="skeleton-img"></div>
+						<div class="skeleton-line skeleton-date"></div>
+						<div class="skeleton-line skeleton-title"></div>
+						<div class="skeleton-line skeleton-excerpt"></div>
+					</article>
+				{/each}
+			{:then posts}
+				{#each posts || [] as post}
+					<article class="post">
+						{#if post.image}
+							<div class="post-img-wrap">
+								<img src={post.image} alt={post.title} class="post-img" loading="lazy" />
+							</div>
+						{/if}
+						
+						<div class="post-body">
+							<div class="post-header">
+								<time class="date">{post.date}</time>
+								<div class="post-num">#{post.id.toString().slice(-2)}</div>
+							</div>
+							<h3 class="post-title">{post.title}</h3>
+							<p class="excerpt">{post.excerpt}</p>
+							<a class="read-more" href="/blog/{post.id}" target="_blank" rel="noopener noreferrer">
+								READ FULL &rarr;
+							</a>
+						</div>
+					</article>
+				{/each}
+			{/await}
+		</div>
 	</div>
 </section>
 
 <style>
-	.wrap {
-		padding: 2.25rem clamp(1rem, 4vw, 4rem) 4rem;
+	.blog-wrap {
+		padding: 10rem 0;
+		position: relative;
+		overflow: hidden;
+		background: var(--color-3);
 	}
 
-	.grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 1.5rem;
+	.yellow-bg {
+		position: absolute;
+		top: 5%;
+		left: 0;
+		width: 100%;
+		height: 90%;
+		background: var(--color-1);
+		z-index: 1;
+		transform: skewY(-1deg);
+		border-top: 4px solid var(--color-3);
+		border-bottom: 4px solid var(--color-3);
+	}
+
+	.content {
+		position: relative;
+		z-index: 10;
+		width: 100%;
+	}
+
+	.blog-header {
+		max-width: 1200px;
+		margin: 0 auto 4rem;
+		padding: 0 4rem;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.5rem;
+	}
+
+	.title {
+		font-family: 'moon-get', sans-serif;
+		font-size: clamp(2.5rem, 6vw, 4.5rem);
+		color: var(--color-3);
+		letter-spacing: -0.02em;
+		margin: 0;
+		line-height: 0.9;
+	}
+
+	.sub {
+		font-family: var(--font-secondary);
+		font-weight: 800;
+		font-size: 1.1rem;
+		color: var(--color-3);
+		letter-spacing: 0.1em;
+		opacity: 0.8;
+	}
+
+	.scroll-track {
+		display: flex;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		padding: 2rem 4rem 4rem;
+		gap: 3rem;
+		scrollbar-width: none;
+		cursor: grab;
+		user-select: none;
+		scroll-behavior: smooth;
+	}
+
+	.scroll-track::-webkit-scrollbar {
+		display: none;
+	}
+
+	.scroll-track:active {
+		cursor: grabbing;
+	}
+
+	:global(.scroll-track.dragging) {
+		scroll-snap-type: none !important;
+		scroll-behavior: auto !important;
 	}
 
 	.post {
-		border-radius: 22px;
-		border: 3px solid var(--color-3);
+		flex: 0 0 450px;
+		scroll-snap-align: start;
 		background: var(--color-5);
-		color: var(--color-3);
-		box-shadow: 8px 8px 0px var(--color-3);
-		padding: 1.5rem;
-		transition:
-			transform 0.2s,
-			box-shadow 0.2s;
+		border: 4px solid var(--color-3);
+		box-shadow: 12px 12px 0px var(--color-3);
+		display: flex;
+		flex-direction: column;
+		transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+		overflow: hidden;
 	}
 
 	.post:hover {
-		transform: translate(-4px, -4px);
-		box-shadow: 12px 12px 0px var(--color-3);
+		transform: translate(-6px, -6px);
+		box-shadow: 18px 18px 0px var(--color-3);
+	}
+
+	.post-img-wrap {
+		width: 100%;
+		height: 220px;
+		overflow: hidden;
+		border-bottom: 4px solid var(--color-3);
+		background: #000;
+	}
+
+	.post-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.5s ease;
+		filter: contrast(1.1) grayscale(0.2);
+	}
+
+	.post:hover .post-img {
+		transform: scale(1.05) rotate(1deg);
+		filter: contrast(1.2) grayscale(0);
+	}
+
+	.post-body {
+		padding: 2rem;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.post-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 1rem;
 	}
 
 	.date {
 		font-size: 0.85rem;
-		font-weight: 700;
-		opacity: 0.8;
+		font-weight: 900;
+		color: var(--color-3);
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
+	}
+
+	.post-num {
+		font-family: 'moon-get', sans-serif;
+		font-size: 1.1rem;
+		opacity: 0.2;
 	}
 
 	.post-title {
-		margin: 0.5rem 0;
-		font-size: 1.75rem;
 		font-family: var(--font-heading);
+		font-size: 1.75rem;
+		line-height: 1.1;
+		margin: 0 0 1rem 0;
+		color: var(--color-3);
 		letter-spacing: -0.02em;
 	}
 
 	.excerpt {
-		margin: 0.75rem 0 1.5rem;
+		font-family: var(--font-secondary);
+		font-size: 1rem;
 		line-height: 1.5;
-		opacity: 0.9;
+		color: var(--color-3);
+		opacity: 0.8;
+		margin-bottom: 2rem;
 	}
 
 	.read-more {
 		display: inline-flex;
+		align-items: center;
 		text-decoration: none;
 		font-weight: 900;
-		color: var(--color-1);
-		background: var(--color-3);
-		padding: 0.5rem 1rem;
+		font-size: 0.8rem;
+		background: var(--color-1);
+		color: var(--color-3);
+		padding: 0.6rem 1.2rem;
+		border: 3px solid var(--color-3);
 		border-radius: 999px;
-		border: 2px solid var(--color-3);
+		width: fit-content;
+		box-shadow: 4px 4px 0px var(--color-3);
+		transition: all 0.2s;
 	}
 
-	:global(.dark) .read-more {
-		background: var(--color-5);
-		border-color: var(--color-1);
+	.read-more:hover {
+		transform: scale(1.05);
+		background: #fff;
+	}
+
+	/* Skeleton */
+	.skeleton-box {
+		flex: 0 0 450px;
+		background: rgba(0,0,0,0.05);
+	}
+
+	.skeleton-img {
+		height: 220px;
+		background: rgba(0,0,0,0.1);
 	}
 
 	.skeleton-line {
-		background: color-mix(in srgb, var(--color-3) 15%, transparent);
+		background: rgba(0,0,0,0.1);
+		height: 1.5rem;
+		margin: 1rem 2rem;
 		border-radius: 4px;
-		animation: pulse 1.5s infinite ease-in-out;
-	}
-	.skeleton-date {
-		width: 30%;
-		height: 1rem;
-		margin-bottom: 0.5rem;
-	}
-	.skeleton-title {
-		width: 85%;
-		height: 2rem;
-		margin-bottom: 0.75rem;
-	}
-	.skeleton-excerpt {
-		width: 100%;
-		height: 4rem;
-		margin-bottom: 1.5rem;
-	}
-	.skeleton-button {
-		width: 45%;
-		height: 2.5rem;
-		border-radius: 999px;
+		animation: pulse 1.5s infinite;
 	}
 
 	@keyframes pulse {
-		0% {
-			opacity: 0.7;
-		}
-		50% {
-			opacity: 0.3;
-		}
-		100% {
-			opacity: 0.7;
-		}
+		0%, 100% { opacity: 0.6; }
+		50% { opacity: 0.3; }
 	}
 
-	@media (max-width: 640px) {
-		.wrap {
-			padding: 1.5rem 1rem 3rem;
+	@media (max-width: 900px) {
+		.blog-header { padding: 0 2rem; }
+		.scroll-track {
+			padding: 2rem 2rem 4rem;
+			gap: 1.5rem;
 		}
+		.post {
+			flex: 0 0 320px;
+		}
+		.post-img-wrap { height: 180px; }
+		.post-body { padding: 1.5rem; }
+		.post-title { font-size: 1.5rem; }
 	}
 </style>
+

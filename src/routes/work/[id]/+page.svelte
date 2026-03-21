@@ -25,6 +25,34 @@
   };
 
   let currentSet = $derived(galleryGroups[currentGroupIdx] || []);
+  let activeBrowserTab = $state(0);
+
+  // Synchronized scrolling logic
+  let desktopContainer = $state(null);
+  let mobileContainer = $state(null);
+  let activeScrollTarget = $state(null);
+
+  const handleDesktopScroll = (e) => {
+    if (!mobileContainer || activeScrollTarget === 'mobile') return;
+    const target = e.target;
+    const maxScroll = target.scrollHeight - target.clientHeight;
+    if (maxScroll <= 0) return;
+    const pct = target.scrollTop / maxScroll;
+    
+    const mobileMaxScroll = mobileContainer.scrollHeight - mobileContainer.clientHeight;
+    mobileContainer.scrollTop = pct * mobileMaxScroll;
+  };
+
+  const handleMobileScroll = (e) => {
+    if (!desktopContainer || activeScrollTarget === 'desktop') return;
+    const target = e.target;
+    const maxScroll = target.scrollHeight - target.clientHeight;
+    if (maxScroll <= 0) return;
+    const pct = target.scrollTop / maxScroll;
+    
+    const desktopMaxScroll = desktopContainer.scrollHeight - desktopContainer.clientHeight;
+    desktopContainer.scrollTop = pct * desktopMaxScroll;
+  };
 </script>
 
 <svelte:head>
@@ -134,6 +162,90 @@
               scaleOnHover={true}
               blurToFocus={true}
             />
+         </div>
+       {:else if data.project.id === 2}
+         <!-- Browser Mockup for Digital Experiences -->
+         <div class="gallery-label-header">
+            <h2 class="sub-label">DIGITAL // EXPERIENCES</h2>
+         </div>
+         <div class="browser-mockup-wrapper">
+            <!-- Desktop Browser Mockup -->
+            <div class="browser-element">
+               <!-- Browser Header with Tabs -->
+               <div class="browser-head">
+                  <div class="browser-tabs">
+                     {#each ['Concept', 'Design', 'Launch'] as tabLabel, i}
+                       <button 
+                         class="browser-tab {activeBrowserTab === i ? 'is-active' : ''}"
+                         onclick={() => activeBrowserTab = i}
+                       >
+                         <span class="tab-text">{tabLabel}</span>
+                       </button>
+                     {/each}
+                  </div>
+                  <div class="browser-controls">
+                     <span class="ctrl-min"></span>
+                     <span class="ctrl-max"></span>
+                     <span class="ctrl-close">×</span>
+                  </div>
+               </div>
+               
+               <!-- Browser Toolbar -->
+               <div class="browser-toolbar">
+                  <div class="nav-arrows">
+                     <span>←</span>
+                     <span>→</span>
+                     <span class="reload">↻</span>
+                  </div>
+                  <div class="address-bar">
+                     <div class="search-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                     </div>
+                     <div class="url-input">younique.design/{['concept', 'design', 'launch'][activeBrowserTab]}</div>
+                  </div>
+               </div>
+               
+               <!-- Browser Screen / Content Area -->
+               <div 
+                  class="browser-screen-container"
+                  bind:this={desktopContainer}
+                  onscroll={handleDesktopScroll}
+                  onmouseenter={() => activeScrollTarget = 'desktop'}
+                  ontouchstart={() => activeScrollTarget = 'desktop'}
+                  role="presentation"
+               >
+                  {#each [1, 2, 3] as _, i}
+                     <img 
+                        src="https://picsum.photos/1200/3000?random={i+10}" 
+                        alt="Desktop layout mockup" 
+                        class="browser-screen-img {activeBrowserTab === i ? 'is-visible' : ''}" 
+                     />
+                  {/each}
+               </div>
+            </div>
+
+            <!-- Mobile Browser Mockup -->
+            <div class="mobile-browser-element">
+               <div class="mobile-browser-head">
+                  <div class="mobile-address-bar">younique.design/{['concept', 'design', 'launch'][activeBrowserTab]}</div>
+               </div>
+               <div 
+                  class="mobile-screen-container"
+                  bind:this={mobileContainer}
+                  onscroll={handleMobileScroll}
+                  onmouseenter={() => activeScrollTarget = 'mobile'}
+                  ontouchstart={() => activeScrollTarget = 'mobile'}
+                  role="presentation"
+               >
+                  {#each [1, 2, 3] as _, i}
+                     <img 
+                        src="https://picsum.photos/600/2000?random={i+20}" 
+                        alt="Mobile layout mockup" 
+                        class="mobile-screen-img {activeBrowserTab === i ? 'is-visible' : ''}" 
+                     />
+                  {/each}
+               </div>
+            </div>
          </div>
        {:else}
          <div class="gallery-bento layout-{data.project.id}">
@@ -352,13 +464,6 @@
    .layout-1 .cell-0 { grid-column: span 2; grid-row: span 2; }
    .layout-1 .cell-1, .layout-1 .cell-2, .layout-1 .cell-3, .layout-1 .cell-4 { grid-column: span 1; grid-row: span 1; }
  
-   /* 2. Digital Experiences (Wide Screen Layout) */
-   .layout-2 { grid-template-rows: repeat(2, 400px); }
-   .layout-2 .cell-0 { grid-column: span 3; grid-row: span 1; }
-   .layout-2 .cell-1 { grid-column: span 1; grid-row: span 2; }
-   .layout-2 .cell-2 { grid-column: span 2; grid-row: span 1; }
-   .layout-2 .cell-3 { grid-column: span 1; grid-row: span 1; }
-   .layout-2 .cell-4 { grid-column: span 1; grid-row: span 1; visibility: hidden; } /* Only 4 items used elegantly */
  
    /* 7. Social Media (Portrait / Phone Focus) */
    .layout-7 { grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(1, 700px); }
@@ -388,6 +493,252 @@
    .layout-10 .cell-1 { grid-column: span 2; grid-row: span 1; }
    .layout-10 .cell-2, .layout-10 .cell-3 { grid-column: span 1; grid-row: span 1; }
    .layout-10 .cell-4 { grid-column: span 2; grid-row: span 1; visibility: hidden; }
+
+   /* 3. Neo-Brutalist Interactive Browser */
+   .browser-mockup-wrapper {
+      padding: 6rem 2rem 10rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end; /* Bottom-align side-by-side elements */
+      gap: 3rem; 
+      width: 100%;
+      position: relative;
+   }
+
+   .browser-element {
+      flex: 1; /* Takes available space */
+      width: 100%;
+      min-width: 0;
+      max-width: 1100px;
+      background: var(--color-5); 
+      border: 4px solid var(--color-3); 
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      /* Brutalist shadow */
+      box-shadow: 20px 20px 0px var(--color-3);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+   }
+
+   .browser-head {
+      background: var(--color-4); /* Green */
+      border-bottom: 4px solid var(--color-3);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end; 
+      padding: 1rem 1rem 0 1.5rem;
+   }
+
+   .browser-tabs {
+      display: flex;
+      gap: 0.5rem;
+   }
+
+   .browser-tab {
+      background: var(--color-5); 
+      border: 4px solid var(--color-3);
+      border-bottom: none;
+      padding: 0.7rem 2.5rem;
+      border-radius: 12px 12px 0 0;
+      font-weight: normal;
+      font-family: 'Kinetic-LLPixel', sans-serif;
+      font-size: 1.25rem;
+      color: var(--color-3);
+      cursor: pointer;
+      position: relative;
+      margin-bottom: -4px; 
+      z-index: 1;
+      transform: perspective(100px) rotateX(10deg); 
+      transform-origin: bottom;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+   }
+
+   .browser-tab .tab-text {
+      display: inline-block;
+      transform: perspective(100px) rotateX(-10deg); 
+      letter-spacing: 0.05em;
+   }
+
+   .browser-tab:hover {
+      background: color-mix(in srgb, var(--color-1) 50%, var(--color-5));
+   }
+
+   .browser-tab.is-active {
+      background: var(--color-1); /* Yellow */
+      z-index: 5;
+      padding-bottom: 0.9rem; 
+   }
+
+   .browser-controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      padding-bottom: 0.8rem;
+   }
+
+   .ctrl-min { width: 16px; height: 3px; background: var(--color-3); border-radius: 2px; }
+   .ctrl-max { width: 14px; height: 14px; border: 3px solid var(--color-3); border-radius: 2px; }
+   .ctrl-close { font-size: 2rem; line-height: 0.5; font-weight: 900; color: var(--color-3); margin-top: -2px; }
+
+   .browser-toolbar {
+      background: var(--color-1);
+      border-bottom: 4px solid var(--color-3);
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+   }
+
+   .nav-arrows {
+      display: flex;
+      gap: 1.2rem;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--color-3);
+   }
+
+   .nav-arrows .reload {
+      translate: 0 1px;
+   }
+
+   .address-bar {
+      flex: 1;
+      height: 40px;
+      display: flex;
+      border: 3px solid var(--color-3);
+      border-radius: 6px;
+      background: var(--color-5);
+      overflow: hidden;
+   }
+
+   .search-btn {
+      width: 50px;
+      background: var(--color-2); /* Blue */
+      border-right: 3px solid var(--color-3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--color-3);
+   }
+
+   .url-input {
+      padding: 0 1rem;
+      display: flex;
+      align-items: center;
+      font-weight: normal;
+      color: var(--color-3);
+      font-family: 'Kinetic-LLPixel', monospace;
+      font-size: 1.15rem;
+      letter-spacing: 0.05em;
+   }
+
+   .browser-screen-container {
+      width: 100%;
+      height: 650px;
+      background: #FFF;
+      position: relative;
+      overflow-y: auto; /* Enable native scrolling */
+      overflow-x: hidden;
+      display: block; /* Allows natural flow height from active image */
+   }
+
+   /* Native Neo-Brutalist Scrollbar Integration */
+   .browser-screen-container::-webkit-scrollbar,
+   .mobile-screen-container::-webkit-scrollbar {
+      width: 25px; /* Matches the tracker style */
+   }
+   
+   /* Mobile thinner scrollbar */
+   .mobile-screen-container::-webkit-scrollbar {
+      width: 18px;
+   }
+
+   .browser-screen-container::-webkit-scrollbar-track,
+   .mobile-screen-container::-webkit-scrollbar-track {
+      background: var(--color-5);
+      border-left: 4px solid var(--color-3);
+   }
+
+   .browser-screen-container::-webkit-scrollbar-thumb,
+   .mobile-screen-container::-webkit-scrollbar-thumb {
+      background: var(--color-4); /* Green scrollbar */
+      border: 4px solid var(--color-3);
+      border-radius: 12px;
+   }
+
+   .browser-screen-img,
+   .mobile-screen-img {
+      position: absolute; /* Default hidden ones stack absolutely */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px) scale(0.98);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1;
+   }
+
+   .browser-screen-img.is-visible,
+   .mobile-screen-img.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+      position: relative; /* Active image drives container height natively */
+      z-index: 5;
+   }
+
+   /* --- MOBILE BROWSER MOCKUP --- */
+   .mobile-browser-element {
+      width: 280px;
+      height: 550px;
+      flex-shrink: 0; /* Prevents squishing */
+      background: var(--color-5);
+      border: 4px solid var(--color-3);
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 16px 16px 0px var(--color-3);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+   }
+
+   .mobile-browser-head {
+      background: var(--color-1);
+      border-bottom: 4px solid var(--color-3);
+      padding: 1.2rem 1rem 0.8rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+   }
+
+   .mobile-address-bar {
+      width: 100%;
+      background: var(--color-5);
+      border: 3px solid var(--color-3);
+      border-radius: 12px;
+      padding: 0.4rem 0.8rem;
+      font-family: 'Kinetic-LLPixel', monospace;
+      font-size: 0.9rem;
+      color: var(--color-3);
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.05em;
+   }
+
+   .mobile-screen-container {
+      flex: 1;
+      position: relative;
+      background: #FFF;
+      overflow-y: auto; /* Enable native scrolling */
+      overflow-x: hidden;
+   }
 
   .placeholder-bg {
     width: 100%;
@@ -525,5 +876,24 @@
   @media (max-width: 900px) {
     .line { width: 40px; }
     .label { font-size: 1.1rem; }
+    .stat-card { padding: 2rem; min-height: 200px; }
+    .val { font-size: 2.5rem; }
+    
+    /* Browser Mobile Scaling */
+    .browser-mockup-wrapper { 
+        padding: 4rem 1rem 8rem; 
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+    .browser-head { padding: 0.5rem 0.5rem 0 0.5rem; }
+    .browser-tab { padding: 0.4rem 1.2rem; font-size: 0.8rem; margin-bottom: -4px;}
+    .browser-controls { display: none; }
+    .browser-toolbar { padding: 0.5rem 1rem; gap: 0.8rem; }
+    .nav-arrows { font-size: 1.2rem; gap: 0.6rem; }
+    .url-input { font-size: 0.8rem; }
+    .browser-screen-container { height: 400px; }
+    .mobile-browser-element { width: 100%; max-width: 320px; height: 500px; }
+    .mobile-screen-container { height: auto; }
   }
 </style>

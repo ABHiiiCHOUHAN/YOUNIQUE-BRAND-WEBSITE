@@ -1,7 +1,9 @@
 <script>
 	import KineticDecor from '$lib/components/KineticDecor.svelte';
 	import WorkSection from '$lib/components/WorkSection.svelte';
+	import SkillsSection from '$lib/components/SkillsSection.svelte';
 	import AboutSection from '$lib/components/AboutSection.svelte';
+	import ReviewsSection from '$lib/components/ReviewsSection.svelte';
 	import BlogSection from '$lib/components/BlogSection.svelte';
 	import ContactSection from '$lib/components/ContactSection.svelte';
 	import { inView } from '$lib/actions/inView.js';
@@ -145,8 +147,16 @@
 		<WorkSection projects={data?.projects} />
 	</div>
 
+	<div id="skills" class="animate-section" use:inView={{ threshold: 0.05 }}>
+		<SkillsSection />
+	</div>
+
 	<div id="about" class="animate-section" use:inView={{ threshold: 0.05 }}>
 		<AboutSection aboutBoxes={data?.about} />
+	</div>
+
+	<div id="reviews" class="animate-section" use:inView={{ threshold: 0.05 }}>
+		<ReviewsSection />
 	</div>
 
 	<div id="blog" class="animate-section" use:inView={{ threshold: 0.05 }}>

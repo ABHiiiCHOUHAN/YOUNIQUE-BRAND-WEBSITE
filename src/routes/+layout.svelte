@@ -119,15 +119,39 @@
 
 	<footer class="site-footer">
 		<div class="footer-inner">
-			<img src="/assets/3_footer_logo.png" alt="Younique Logo" class="footer-logo" />
-			<ul class="footer-socials">
-				<li><a href="#twitter">Twitter / X</a></li>
-				<li><a href="#linkedin">LinkedIn</a></li>
-				<li><a href="#instagram">Instagram</a></li>
-				<li><a href="#dribbble">Dribbble</a></li>
-			</ul>
-			<div class="footer-copy">
-				&copy; {new Date().getFullYear()} Younique Design Studio. All rights reserved.
+			<div class="footer-grid">
+				<div class="footer-brand">
+					<img src="/assets/3_footer_logo.png" alt="Younique Logo" class="footer-logo" />
+					<p class="footer-tagline">Defying the default since 2024.</p>
+				</div>
+				
+				<div class="footer-nav">
+					<div class="footer-col">
+						<h4 class="footer-title">Services</h4>
+						<ul class="footer-links">
+							<li>Brand Identity</li>
+							<li>Digital Experiences</li>
+							<li>Video Editing</li>
+							<li>Social Strategy</li>
+							<li>3D Models</li>
+						</ul>
+					</div>
+					<div class="footer-col">
+						<h4 class="footer-title">Connect</h4>
+						<ul class="footer-links">
+							<li><a href="#twitter">Twitter / X</a></li>
+							<li><a href="#linkedin">LinkedIn</a></li>
+							<li><a href="#instagram">Instagram</a></li>
+							<li><a href="#dribbble">Dribbble</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="footer-bottom">
+				<div class="footer-copy">
+					&copy; {new Date().getFullYear()} Younique Design Studio. All rights reserved.
+				</div>
 			</div>
 		</div>
 	</footer>
