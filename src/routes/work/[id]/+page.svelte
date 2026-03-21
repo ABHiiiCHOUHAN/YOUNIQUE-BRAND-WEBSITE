@@ -1,5 +1,6 @@
 <script>
   import CircularGallery from '$lib/components/CircularGallery.svelte';
+  import Masonry from '$lib/components/Masonry.svelte';
   let { data } = $props();
   let currentGroupIdx = $state(0);
 
@@ -37,11 +38,13 @@
   </div>
 {:else}
   <article class="deck-page">
+    {#if data.project.id !== 8 && data.project.id !== 7}
     <!-- Top Bar -->
     <nav class="deck-nav">
        <span class="left">{data.project.tag}</span>
        <span class="right">{data.project.year || '2024'}</span>
     </nav>
+    {/if}
 
     <!-- Section 1: Minimal Intro -->
     <section class="slide slide--intro">
@@ -86,12 +89,6 @@
              borderRadius={0.02}
            />
          </div>
-         <div class="gallery-header">
-            <div class="nav-btns">
-               <button class="nav-btn" onclick={prevGroup} aria-label="Previous">←</button>
-               <button class="nav-btn" onclick={nextGroup} aria-label="Next">→</button>
-            </div>
-         </div>
        {:else if data.project.id === 1}
          <!-- Special Split Content for Branding -->
          <div id="logofolio" class="gallery-label-header">
@@ -124,6 +121,20 @@
                <button class="nav-btn" onclick={nextGroup} aria-label="Next">→</button>
             </div>
          </div>
+       {:else if data.project.id === 8}
+         <!-- Masonry Layout for Video Editing -->
+         <div class="gallery-label-header">
+            <h2 class="sub-label">DYNAMIC EDITS // CUTS</h2>
+         </div>
+         <div class="masonry-wrap">
+            <Masonry 
+              items={data.project.gallery} 
+              animateFrom="bottom" 
+              stagger={0.08}
+              scaleOnHover={true}
+              blurToFocus={true}
+            />
+         </div>
        {:else}
          <div class="gallery-bento layout-{data.project.id}">
             {#each currentSet as item, i}
@@ -133,12 +144,14 @@
               </div>
             {/each}
          </div>
+         {#if data.project.id !== 8 && data.project.id !== 7}
          <div class="gallery-header">
             <div class="nav-btns">
                <button class="nav-btn" onclick={prevGroup} aria-label="Previous">←</button>
                <button class="nav-btn" onclick={nextGroup} aria-label="Next">→</button>
             </div>
          </div>
+         {/if}
        {/if}
      </section>
  
@@ -258,7 +271,8 @@
     height: 80vh;
     margin-left: calc(-50vw + 50%);
     position: relative;
-    overflow: hidden;
+    overflow: hidden; 
+     margin-top: -12rem;
   }
 
   .nav-btns {
@@ -497,6 +511,15 @@
      font-weight: 900;
      letter-spacing: 0.2em;
      opacity: 0.8;
+  }
+
+  .masonry-wrap {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+    min-height: 80vh;
   }
 
   @media (max-width: 900px) {

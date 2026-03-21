@@ -280,16 +280,18 @@
 		/* Theme-aware Hero Box Variables */
 		--hero-box-bg: rgba(0, 0, 0, 0.4); /* Dark transparent in white mode */
 		--hero-char-color: #f4f4f4;
-		/* Light mode: sun = yellow, explosion = pink */
-		--color-sun: #FFD670;
-		--color-explosion: #FF70A6;
+		/* Light mode: the text = yellow, sun rect = dark charcoal, explosion = teal */
+		--color-the: #FACC15;
+		--color-sun: #063C53; /* Dark teal from user reference */
+		--color-explosion: #7ED9CC;
 	}
 
 	:global(.dark) .hero-title-group {
 		--base-text: #3d3d3d;
 		--hero-box-bg: rgba(255, 255, 255, 0.4); /* Transparent in dark mode */
 		--hero-char-color: #3d3d3d;
-		/* Dark mode: sun = off-white/cream, explosion = yellow */
+		/* Dark mode Defaults */
+		--color-the: #FAF7F5;
 		--color-sun: #FAF7F5;
 		--color-explosion: #FFD670;
 	}
@@ -316,7 +318,7 @@
 	.the-group {
 		position: relative;
 		margin: -0.5rem 0 -0.5rem 60%; /* Positioned further right */
-		z-index: 5;
+		z-index: 3; /* Lower than DEFY (5) and DEFAULT (5) to stay behind */
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -325,10 +327,12 @@
 	.text-the {
 		font-family: var(--font-nauryz);
 		font-size: clamp(3.5rem, 9vw, 7rem);
-		color: var(--base-text);
+		color: var(--color-the);
 		line-height: 1;
 		position: relative;
 		z-index: 2;
+		-webkit-text-stroke: 1.5px #000;
+		text-shadow: 5px 5px 0 #000;
 	}
 
 	.default-group {
@@ -421,8 +425,8 @@
 	}
 
 	@keyframes rotateSunOffset {
-		from { transform: translate(-30%, -50%) rotate(0deg); }
-		to { transform: translate(-30%, -50%) rotate(360deg); }
+		from { transform: var(--sun-translate, translate(-30%, -50%)) rotate(0deg); }
+		to { transform: var(--sun-translate, translate(-30%, -50%)) rotate(360deg); }
 	}
 
 	.deco-big-explosion {
@@ -430,7 +434,7 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		z-index: -1; /* Behind THE text */
+		z-index: -1; /* Behind THE text locally */
 		pointer-events: none;
 	}
 
@@ -479,6 +483,8 @@
 		justify-content: center;
 		transform-origin: center;
 		pointer-events: none;
+		-webkit-text-stroke: 1.5px #000;
+		text-shadow: 5px 5px 0 #000;
 	}
 
 	.kinetic-char:hover::before {
@@ -640,6 +646,7 @@
 	:global(.dark) .btn {
 		border-color: var(--color-5);
 		box-shadow: 4px 4px 0px var(--color-5);
+		color: #3d3d3d;
 	}
 	:global(.dark) .btn:active {
 		box-shadow: 0px 0px 0px var(--color-5) !important;
@@ -647,7 +654,7 @@
 	
 	:global(.dark) .btn--solid {
 		background: var(--color-1); 
-		color: var(--color-3); /* keep dark text for readability on bright color */
+		color: #3d3d3d; /* keep dark text for readability on bright color */
 	}
 	:global(.dark) .btn--solid:hover,
 	:global(.dark) .btn--solid:focus-visible {
@@ -666,7 +673,7 @@
 	/* Media queries */
 	@media (max-width: 768px) {
 		.hero-void {
-			padding: calc(9rem + 80px) 1.5rem 8rem; /* Space for header on mobile */
+			padding: calc(14rem + 80px) 1.5rem 8rem; /* Pushed whole block down more */
 			min-height: 100vh; /* Set to full viewport height to prevent gaps */
 			overflow: hidden; 
 		}
@@ -682,13 +689,15 @@
 		}
 		.hero-title-group {
 			align-items: center;
-			margin-bottom: 2rem;
+			margin-bottom: 2rem; /* Reverted to smaller gap to keep items grouped */
 		}
 		.the-group {
 			margin: -0.5rem 0 -0.5rem 35%; /* Slightly adjusted shift */
 		}
 		.the-group .text-the {
 			font-size: clamp(2.5rem, 7vw, 5rem); /* Smaller "THE" on mobile */
+			text-shadow: 3px 3px 0 #000;
+			-webkit-text-stroke: 1px #000;
 		}
 		.box-defy {
 			margin-left: -5%; /* Pull DEFY slightly to the left on mobile */
@@ -697,11 +706,28 @@
 		.default-group {
 			margin-left: 5%; /* Shift DEFAULT slightly to the right on mobile */
 		}
+		.kinetic-char::before {
+			text-shadow: 3px 3px 0 #000;
+			-webkit-text-stroke: 1px #000;
+		}
 		.hero-subtext {
-			font-size: 1.1rem;
+			font-size: 0.95rem; /* Smaller subtext on mobile */
+			margin-top: 5rem; /* Pushes subtext down specifically */
 			margin-bottom: 2.5rem;
 			color: #3d3d3d;
 			font-weight: 600;
+			line-height: 1.4;
+		}
+		.hero-cta {
+			flex-direction: column;
+			gap: 1.25rem;
+			width: 100%;
+			max-width: 280px;
+			margin: 0 auto;
+		}
+		.hero-cta .btn {
+			width: 100%;
+			text-align: center;
 		}
 		.sticker--1 {
 			width: 80px;
@@ -713,7 +739,8 @@
 		/* Show sun on mobile but smaller */
 		.box-defy .deco-big-sun.pc-d-sun {
 			--deco-size: 100px !important;
-			transform: translate(-20%, -50%) !important;
+			--sun-translate: translate(-20%, -50%); /* Specific offset for mobile */
+			transform-origin: center center !important;
 			animation: rotateSunOffset 25s linear infinite !important;
 		}
 		/* Keep explosion at original mobile size */

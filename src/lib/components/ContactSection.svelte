@@ -1,4 +1,6 @@
 <script>
+  import { PUBLIC_CONTACT_EMAIL } from '$env/static/public';
+
   let name = $state('');
   let email = $state('');
   let message = $state('');
@@ -7,7 +9,7 @@
   function mailtoHref() {
     const subject = `Project inquiry — ${name || 'Younique'}`;
     const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-    const to = 'hello@younique.studio';
+    const to = PUBLIC_CONTACT_EMAIL || 'hello@younique.studio';
     return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
@@ -275,7 +277,7 @@
   }
   :global(.dark) .btn:not(.btn--ghost) {
     background: var(--color-1);
-    color: var(--color-3);
+    color: #3d3d3d;
   }
 </style>
 
