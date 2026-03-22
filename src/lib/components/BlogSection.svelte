@@ -84,29 +84,27 @@
 
 <style>
 	.blog-wrap {
-		padding: 10rem 0;
+		padding: 0;
 		position: relative;
 		overflow: hidden;
-		background: var(--color-3);
+		background: var(--color-1); /* Use the yellow directly or via the bg div */
 	}
 
 	.yellow-bg {
 		position: absolute;
-		top: 5%;
+		top: 0;
 		left: 0;
 		width: 100%;
-		height: 90%;
+		height: 100%;
 		background: var(--color-1);
 		z-index: 1;
-		transform: skewY(-1deg);
-		border-top: 4px solid var(--color-3);
-		border-bottom: 4px solid var(--color-3);
 	}
 
 	.content {
 		position: relative;
 		z-index: 10;
 		width: 100%;
+		padding: 8rem 0; /* Add padding to content instead of wrap */
 	}
 
 	.blog-header {
@@ -120,10 +118,10 @@
 	}
 
 	.title {
-		font-family: 'moon-get', sans-serif;
+		font-family: 'Rubik Mono One', sans-serif;
 		font-size: clamp(2.5rem, 6vw, 4.5rem);
 		color: var(--color-3);
-		letter-spacing: -0.02em;
+		letter-spacing: -0.05em;
 		margin: 0;
 		line-height: 0.9;
 	}
@@ -135,6 +133,18 @@
 		color: var(--color-3);
 		letter-spacing: 0.1em;
 		opacity: 0.8;
+	}
+
+	:global(.dark) .title,
+	:global(.dark) .sub {
+		color: #3d3d3d;
+		opacity: 1;
+		font-family: 'Space Mono', monospace;
+	}
+
+	.sub {
+		font-family: 'Space Mono', monospace;
+		font-weight: 700;
 	}
 
 	.scroll-track {
@@ -179,12 +189,23 @@
 		box-shadow: 18px 18px 0px var(--color-3);
 	}
 
+	:global(.dark) .post {
+		box-shadow: 12px 12px 0px #000;
+		border-color: #3d3d3d;
+	}
+	:global(.dark) .post:hover {
+		box-shadow: 18px 18px 0px #000;
+	}
+
 	.post-img-wrap {
 		width: 100%;
 		height: 220px;
 		overflow: hidden;
 		border-bottom: 4px solid var(--color-3);
 		background: #000;
+	}
+	:global(.dark) .post-img-wrap {
+		border-bottom-color: #3d3d3d;
 	}
 
 	.post-img {
@@ -217,9 +238,10 @@
 
 	.date {
 		font-size: 0.85rem;
-		font-weight: 900;
+		font-weight: 700;
 		color: var(--color-3);
 		text-transform: uppercase;
+		font-family: 'Space Mono', monospace;
 	}
 
 	.post-num {
@@ -238,8 +260,8 @@
 	}
 
 	.excerpt {
-		font-family: var(--font-secondary);
-		font-size: 1rem;
+		font-family: 'Space Mono', monospace;
+		font-size: 0.9rem;
 		line-height: 1.5;
 		color: var(--color-3);
 		opacity: 0.8;
@@ -250,7 +272,7 @@
 		display: inline-flex;
 		align-items: center;
 		text-decoration: none;
-		font-weight: 900;
+		font-weight: 700;
 		font-size: 0.8rem;
 		background: var(--color-1);
 		color: var(--color-3);
@@ -260,11 +282,18 @@
 		width: fit-content;
 		box-shadow: 4px 4px 0px var(--color-3);
 		transition: all 0.2s;
+		font-family: 'Space Mono', monospace;
 	}
 
 	.read-more:hover {
 		transform: scale(1.05);
 		background: #fff;
+	}
+
+	:global(.dark) .read-more {
+		color: #000;
+		border-color: #000;
+		box-shadow: 4px 4px 0px #000;
 	}
 
 	/* Skeleton */

@@ -85,7 +85,7 @@
   }
 
   .back-btn {
-    background: var(--color-5);
+    background: var(--color-4);
     border: 3px solid #000;
     padding: 0.8rem 1.5rem;
     font-weight: 900;
@@ -139,6 +139,7 @@
     font-weight: 700;
     font-size: 0.9rem;
     opacity: 0.6;
+    font-family: 'Space Mono', monospace;
   }
 
   .title {
@@ -181,12 +182,12 @@
   }
 
   .content {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-size: clamp(1rem, 2vw, 1.2rem);
     line-height: 1.6;
     white-space: pre-wrap;
     color: var(--color-3);
-    font-family: var(--font-secondary);
-    font-weight: 500;
+    font-family: 'Space Mono', monospace;
+    font-weight: 400;
     column-count: 1;
     margin-bottom: 6rem;
   }
@@ -229,7 +230,7 @@
         box-shadow: none;
     }
     .title { font-size: 3rem; }
-    .blog-nav { top: 1rem; left: 1rem; }
-    .back-btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
+    .blog-nav { top: 12rem; left: 1.5rem; }
+    .back-btn { padding: 0.7rem 1.2rem; font-size: 0.8rem; }
   }
 </style>

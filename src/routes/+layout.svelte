@@ -118,39 +118,49 @@
 	</main>
 
 	<footer class="site-footer">
+		<div class="footer-massive">
+			<div class="marquee-track">
+				<span class="massive-text">DEFY THE DEFAULT ● YOUNIQUE DESIGN STUDIO ● &nbsp;</span>
+				<span class="massive-text">DEFY THE DEFAULT ● YOUNIQUE DESIGN STUDIO ● &nbsp;</span>
+				<span class="massive-text">DEFY THE DEFAULT ● YOUNIQUE DESIGN STUDIO ● &nbsp;</span>
+				<span class="massive-text">DEFY THE DEFAULT ● YOUNIQUE DESIGN STUDIO ● &nbsp;</span>
+			</div>
+		</div>
+		
 		<div class="footer-inner">
-			<div class="footer-grid">
-				<div class="footer-brand">
+			<div class="footer-main-grid">
+				<div class="footer-brand-box">
 					<img src="/assets/3_footer_logo.png" alt="Younique Logo" class="footer-logo" />
-					<p class="footer-tagline">Defying the default since 2024.</p>
+					<p class="footer-tagline">Pushing limits and breaking patterns since 2024.</p>
 				</div>
 				
-				<div class="footer-nav">
-					<div class="footer-col">
-						<h4 class="footer-title">Services</h4>
-						<ul class="footer-links">
-							<li>Brand Identity</li>
-							<li>Digital Experiences</li>
-							<li>Video Editing</li>
-							<li>Social Strategy</li>
-							<li>3D Models</li>
+				<div class="footer-links-container">
+					<div class="footer-nav-block">
+						<h4 class="nav-block-title">NAVIGATION</h4>
+						<ul class="nav-list">
+							<li><a href="/">Home</a></li>
+							<li><a href="/#work">Work</a></li>
+							<li><a href="/#about">About</a></li>
+							<li><a href="/#skills">Skills</a></li>
 						</ul>
 					</div>
-					<div class="footer-col">
-						<h4 class="footer-title">Connect</h4>
-						<ul class="footer-links">
-							<li><a href="#twitter">Twitter / X</a></li>
-							<li><a href="#linkedin">LinkedIn</a></li>
-							<li><a href="#instagram">Instagram</a></li>
-							<li><a href="#dribbble">Dribbble</a></li>
+					<div class="footer-nav-block">
+						<h4 class="nav-block-title">DISCOVER</h4>
+						<ul class="nav-list">
+							<li><a href="/#reviews">Reviews</a></li>
+							<li><a href="/#blog">Blog</a></li>
+							<li><a href="/#contact">Contact</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 
-			<div class="footer-bottom">
-				<div class="footer-copy">
-					&copy; {new Date().getFullYear()} Younique Design Studio. All rights reserved.
+			<div class="footer-bottom-bar">
+				<div class="copy-text">
+					&copy; {new Date().getFullYear()} YOUNIQUE STUDIO // ALL RIGHTS RESERVED
+				</div>
+				<div class="footer-status">
+					<span class="status-dot"></span> SYSTEM ONLINE
 				</div>
 			</div>
 		</div>

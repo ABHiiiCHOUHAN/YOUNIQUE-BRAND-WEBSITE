@@ -132,8 +132,7 @@
 				</div>
 			</div>
 			<p class="hero-subtext">
-				WE DON’T DO THE SAME. WE CRAFT <em>VISUAL IDENTITIES</em>, DIGITAL SPACES, AND 
-				<mark>STRUCTURED CHAOS</mark> THAT ACTUALLY MAKES PEOPLE STOP SCROLLING.
+				We do things differently—crafting visual identities and digital spaces that actually stop the scroll.
 			</p>
 
 			<div class="hero-cta">
@@ -151,16 +150,16 @@
 		<SkillsSection />
 	</div>
 
-	<div id="about" class="animate-section" use:inView={{ threshold: 0.05 }}>
-		<AboutSection aboutBoxes={data?.about} />
-	</div>
-
 	<div id="reviews" class="animate-section" use:inView={{ threshold: 0.05 }}>
 		<ReviewsSection />
 	</div>
 
 	<div id="blog" class="animate-section" use:inView={{ threshold: 0.05 }}>
 		<BlogSection postsPromise={Promise.resolve(data?.posts || [])} />
+	</div>
+
+	<div id="about" class="animate-section" use:inView={{ threshold: 0.05 }}>
+		<AboutSection aboutBoxes={data?.about} />
 	</div>
 
 	<div id="contact" class="animate-section" use:inView={{ threshold: 0.05 }}>
@@ -192,7 +191,7 @@
 		position: absolute;
 		inset: 0;
 		background-color: var(--color-3);
-		background-image: url('/assets/1_hero_bg.png');
+		background-image: url('/assets/BG 2.avif');
 		background-size: cover;
 		background-position: center;
 		z-index: -1;
@@ -292,7 +291,7 @@
 		--hero-char-color: #f4f4f4;
 		/* Light mode: the text = yellow, sun rect = dark charcoal, explosion = teal */
 		--color-the: #FACC15;
-		--color-sun: #063C53; /* Dark teal from user reference */
+		--color-sun: #3d3d3d; /* Dark charcoal */
 		--color-explosion: #7ED9CC;
 	}
 
@@ -541,39 +540,19 @@
 
 	.hero-subtext {
 		font-family: var(--font-secondary);
-		font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+		font-size: clamp(0.9rem, 1.8vw, 1rem);
 		line-height: 1.4;
 		max-width: 650px;
-		opacity: 0.9;
+		opacity: 0.95;
 		margin: 0 auto 2.5rem;
-		color: #3d3d3d;
+		color: #2d2d2d;
 		font-weight: 500;
 		text-align: center;
-		text-transform: uppercase;
 		letter-spacing: 0.05em;
 	}
 
-	.hero-subtext em {
-		font-style: italic;
-		font-weight: 800;
-		color: var(--color-3);
-	}
-
-	.hero-subtext mark {
-		background: var(--color-1); /* Using existing theme vibrant yellow */
-		color: #000;
-		padding: 0 0.3rem;
-		font-weight: 800;
-	}
-
 	:global(.dark) .hero-subtext {
-		color: #f4f4f4;
-	}
-	:global(.dark) .hero-subtext em {
-		color: #f4f4f4;
-	}
-	:global(.dark) .hero-subtext mark {
-		color: #000; /* Keep it dark on bright color */
+		color: #444; /* Dark grey for dark mode as requested */
 	}
 
 	.blinking-cursor {
@@ -590,12 +569,6 @@
 	@keyframes blink {
 		0%, 100% { opacity: 1; }
 		50% { opacity: 0; }
-	}
-
-
-
-	:global(.dark) .hero-subtext {
-		color: #f4f4f4;
 	}
 
 	/* --- 4. COMPONENTS: BUTTONS --- */
@@ -695,34 +668,34 @@
 			background-position: center center; /* Reset to center to ensure no edges are visible */
 		}
 		.hero-void__content {
-			transform: translateX(-4%); /* Brought closer to horizontal center */
+			transform: none;
+			padding: 0 1rem;
 		}
 		.hero-title-group {
 			align-items: center;
 			margin-bottom: 2rem; /* Reverted to smaller gap to keep items grouped */
 		}
 		.the-group {
-			margin: -0.5rem 0 -0.5rem 35%; /* Slightly adjusted shift */
+			margin: -0.5rem auto; /* Reset margins to center on mobile */
 		}
 		.the-group .text-the {
-			font-size: clamp(2.5rem, 7vw, 5rem); /* Smaller "THE" on mobile */
-			text-shadow: 3px 3px 0 #000;
-			-webkit-text-stroke: 1px #000;
+			font-size: clamp(2.5rem, 7vw, 5rem);
 		}
 		.box-defy {
-			margin-left: -5%; /* Pull DEFY slightly to the left on mobile */
-			transform: rotate(-10deg) translateY(5px);
+			margin-left: 0; 
+			transform: rotate(-5deg) translateY(0); /* Simpler rotation for mobile */
 		}
 		.default-group {
-			margin-left: 5%; /* Shift DEFAULT slightly to the right on mobile */
+			margin-left: 0;
+			justify-content: center;
 		}
 		.kinetic-char::before {
 			text-shadow: 3px 3px 0 #000;
 			-webkit-text-stroke: 1px #000;
 		}
 		.hero-subtext {
-			font-size: 0.95rem; /* Smaller subtext on mobile */
-			margin-top: 5rem; /* Pushes subtext down specifically */
+			font-size: 0.85rem; 
+			margin-top: 3.5rem; /* Reduced gap slightly too */
 			margin-bottom: 2.5rem;
 			color: #3d3d3d;
 			font-weight: 600;

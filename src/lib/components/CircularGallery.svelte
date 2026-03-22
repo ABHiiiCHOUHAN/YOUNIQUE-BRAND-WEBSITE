@@ -2,7 +2,7 @@
   import { onMount, onDestroy } from 'svelte';
   import { Renderer, Camera, Transform, Plane, Mesh, Program, Texture } from 'ogl';
 
-  let { items = [], bend = 3, textColor = '#ffffff', borderRadius = 0.05, font = 'bold 30px Figtree', scrollSpeed = 2, scrollEase = 0.05 } = $props();
+  let { items = [], bend = 3, textColor = '#ffffff', borderRadius = 0.05, font = 'bold 30px Unbounded', scrollSpeed = 2, scrollEase = 0.05 } = $props();
 
   let container;
   let gallery;

@@ -2,12 +2,18 @@
   import { onMount } from 'svelte';
   
   const reviews = [
-    { text: "Younique didn't just design our brand; they gave us a pulse. Loud, effective, and perfectly chaotic.", author: "Marcus Thorne", role: "CEO, TechVibe", img: "https://i.pravatar.cc/150?u=marcus", shape: "hexagon", color: "#FFD4E9" },
-    { text: "The video edits are next level. They understand rhythm better than most musicians.", author: "Sarah Jenkins", role: "Creative Director", img: "https://i.pravatar.cc/150?u=sarah", shape: "circle", color: "#D1E8FF" },
-    { text: "Finally, a studio that doesn't follow the safe path. The DEFY mantra is real.", author: "Leo Ricci", role: "Founder, Ricci & Co", img: "https://i.pravatar.cc/150?u=leo", shape: "star", color: "#E2FFD1" },
-    { text: "Dynamic, fast, and visually stunning. Our conversion rates are up by 40%.", author: "Amina K.", role: "Marketing Lead", img: "https://i.pravatar.cc/150?u=amina", shape: "hexagon", color: "#FFFAFF" },
-    { text: "The energy they bring to every project is infectious. They truly care about the outcome.", author: "James Wilson", role: "Product Manager", img: "https://i.pravatar.cc/150?u=james", shape: "circle", color: "#FFF8D1" },
-    { text: "They pushed us to think bigger and bolder. The results speak for themselves.", author: "Elena Rossi", role: "Design Lead", img: "https://i.pravatar.cc/150?u=elena", shape: "star", color: "#D6FFFA" }
+    { text: "Younique didn't just design our brand; they gave us a pulse. Loud, effective, and perfectly chaotic.", author: "Neha Sharma", role: "Product Designer // BLR", img: "https://i.pravatar.cc/150?u=neha", shape: "hexagon", color: "#FFD4E9" },
+    { text: "The video edits are next level. They understand rhythm better than most musicians.", author: "Rahul Kapoor", role: "Tech Lead // HYD", img: "https://i.pravatar.cc/150?u=rahul", shape: "circle", color: "#D1E8FF" },
+    { text: "Strategic loops and structure-first methodology that actually works. Best in the game.", author: "Arjun Mehta", role: "Founder, Mumbai Creative // IND", img: "https://i.pravatar.cc/150?u=arjun", shape: "star", color: "#FFE499" },
+    { text: "Finally, a studio that doesn't follow the safe path. The DEFY mantra is real.", author: "Priya Das", role: "Founder, Indigo // DEL", img: "https://i.pravatar.cc/150?u=priya", shape: "hexagon", color: "#E2FFD1" },
+    { text: "They pushed our experience design into a new dimension. Pure visual magic.", author: "Ananya Iyer", role: "Brand Director // CHN", img: "https://i.pravatar.cc/150?u=ananya", shape: "circle", color: "#FFFAFF" },
+    { text: "Technical mastery combined with fearless creativity. A rare breed indeed.", author: "Thomas Müller", role: "Berlin Sys // GER", img: "https://i.pravatar.cc/150?u=thomas", shape: "star", color: "#D6FFFA" },
+    { text: "Dynamic, fast, and visually stunning. Our conversion rates are up by 40%.", author: "Amina K.", role: "Marketing Lead // UAE", img: "https://i.pravatar.cc/150?u=amina", shape: "hexagon", color: "#D1FFF8" },
+    { text: "The London fashion scene was wowed. They brought exactly the edge we needed.", author: "Claire Bennett", role: "Editor, London Luxe // UK", img: "https://i.pravatar.cc/150?u=claire", shape: "circle", color: "#E8D1FF" },
+    { text: "They turned 'impossible' into a structured checklist that looked incredible.", author: "Hitoshi Sato", role: "Artist // JPN", img: "https://i.pravatar.cc/150?u=hitoshi", shape: "star", color: "#D1D5FF" },
+    { text: "They truly care about the outcome and push us to think bigger and bolder.", author: "Amara Okafor", role: "Brand Strategist, Lagos // NGA", img: "https://i.pravatar.cc/150?u=amara", shape: "hexagon", color: "#FFD1D1" },
+    { text: "Turning raw energy into refined interfaces. The perfect creative partner.", author: "Karan Johar", role: "Product Manager // GUR", img: "https://i.pravatar.cc/150?u=karan", shape: "circle", color: "#FFF8D1" },
+    { text: "Simply the best studio I've collaborated with in over a decade.", author: "Elena Rossi", role: "Design Lead // ITA", img: "https://i.pravatar.cc/150?u=elena", shape: "star", color: "#D1FFD1" }
   ];
 
   let scrollContainer;
@@ -150,7 +156,7 @@
 <style>
   .reviews-wrap {
     padding: 10rem 0; /* No side padding to allow full-width scroll */
-    background: var(--color-3);
+    background: #3d3d3d;
     position: relative;
     overflow: hidden;
     min-height: 80vh;
@@ -168,13 +174,17 @@
   }
 
   .title {
-    font-family: 'moon-get', sans-serif;
+    font-family: 'Rubik Mono One', sans-serif;
     font-size: clamp(2.5rem, 6vw, 5rem);
     color: var(--color-5);
     line-height: 1;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.05em;
     margin: 0;
     text-transform: uppercase;
+  }
+
+  :global(.dark) .title {
+    color: var(--color-1);
   }
 
   .slideshow-container {
@@ -223,13 +233,18 @@
 
   .paper-note {
     padding: 4rem 3rem 3rem;
-    border: 3px solid #1c1c1c;
-    box-shadow: 20px 20px 0px #FDD803;
+    border: 4px solid #1c1c1c;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 2rem;
+    filter: brightness(0.96) contrast(1.02); /* Seamless tint */
+  }
+
+  :global(.dark) .paper-note {
+    border-color: #f4f4f4;
+    background: #2a2a2a !important; /* Muted bg for cards in dark */
   }
 
   .paper-clip {
@@ -249,11 +264,9 @@
     position: absolute;
     top: -40px;
     right: -40px;
-    border: 6px solid #fff;
-    box-shadow: 8px 8px 0px #1c1c1c, 0 10px 20px rgba(0,0,0,0.1);
-    background: #fff;
     z-index: 15;
     overflow: hidden;
+    filter: grayscale(1) contrast(1.1) opacity(0.9); /* Premium minimal tint */
   }
 
   .client-photo img {
@@ -264,8 +277,14 @@
 
   /* Photo Shapes */
   .client-photo.circle { border-radius: 50%; }
-  .client-photo.hexagon { clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); border-radius: 0; }
-  .client-photo.star { clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); border-radius: 0; }
+  .client-photo.hexagon { 
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%); 
+    border-radius: 20%; 
+  }
+  .client-photo.star { 
+    clip-path: polygon(50% 2%, 68% 35%, 98% 38%, 78% 62%, 88% 98%, 50% 82%, 12% 98%, 22% 62%, 2% 38%, 32% 35%);
+    border-radius: 35%;
+  }
 
   .review-text {
     font-size: clamp(1.1rem, 2.5vw, 1.8rem);
@@ -350,11 +369,16 @@
       gap: 2rem;
     }
     .review-slide {
-      flex: 0 0 calc(100vw - 3rem);
+      flex: 0 0 280px;
     }
-    .paper-note { padding: 3rem 2rem 2rem; }
+    .paper-note { 
+      padding: 3rem 2rem; 
+      aspect-ratio: 1 / 1.1;
+      justify-content: center;
+    }
     .client-photo { width: 80px; height: 80px; top: -30px; right: 10px; }
     .paper-clip { width: 60px; left: 10px; top: -20px; }
+    .review-text { font-size: 1.1rem; line-height: 1.4; margin-bottom: 1rem; }
     .nav-btn { display: none; }
   }
 </style>

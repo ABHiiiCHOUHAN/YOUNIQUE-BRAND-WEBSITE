@@ -1,159 +1,164 @@
-<section class="wrap page-transition">
-	<div class="panel">
-		<header class="page-header">
-			<h1 class="page-title">Younique is a design studio for brands that refuse to blend in.</h1>
-			<p class="page-sub">
+	<div class="about-container">
+		<header class="about-header">
+			<h1 class="about-title">
+				THE MINDS BEHIND <span class="highlight">THE CHAOS.</span>
+			</h1>
+			<p class="about-summary">
 				We build identities, interfaces, and systems with structure-first thinking and just enough
 				chaos to feel alive. If it looks bold but reads clean, we’re into it.
 			</p>
 		</header>
 
-		<div class="grid">
-			<div class="box tone-dark">
-				<div class="label">Our Approach</div>
-				<p class="text">
-					We don't do fluff. We build identities and systems with a focus on impact and clean
-					aesthetics.
+		<div class="cards-stack">
+			<div class="stacked-card card--approach" style="--rot: -2deg; --bg: var(--color-3);">
+				<div class="card-label">OUR APPROACH</div>
+				<p class="card-text">
+					We don't do fluff. We build identities and systems with a focus on impact and clean aesthetics.
 				</p>
 			</div>
 
-			<div class="box tone-blue">
-				<div class="label">Expertise</div>
-				<ul class="list">
+			<div class="stacked-card card--expertise" style="--rot: 1.5deg; --bg: var(--color-2);">
+				<div class="card-label">EXPERTISE</div>
+				<ul class="card-list">
 					<li>Visual Identity</li>
 					<li>Digital Spaces</li>
 					<li>Interactive Systems</li>
 				</ul>
 			</div>
 
-			<div class="box tone-yellow">
-				<div class="label">Join Us</div>
-				<p class="text">Ready to defy the default? Let's build something loud together.</p>
-				<a class="cta" href="/contact">Get in touch</a>
+			<div class="stacked-card card--join" style="--rot: -1deg; --bg: var(--color-1);">
+				<div class="card-label">JOIN US</div>
+				<p class="card-text">Ready to defy the default? Let's build something loud together.</p>
+				<a class="btn-primary" href="#contact">Get in touch</a>
 			</div>
 		</div>
 	</div>
-</section>
 
 <style>
-	.wrap {
-		padding: 2.25rem clamp(1rem, 4vw, 4rem) 4rem;
-	}
-
-	.panel {
-		border-radius: 28px;
-		border: 3px solid var(--color-3);
-		background: var(--color-5);
-		color: var(--color-3);
-		box-shadow: 12px 14px 0px var(--color-3);
-		padding: clamp(1.25rem, 3vw, 2rem);
-	}
-
-	.grid {
-		margin-top: 1.5rem;
+	.about-container {
+		padding: 8rem clamp(1.5rem, 5vw, 6rem);
+		max-width: 1700px;
+		margin: 0 auto;
 		display: grid;
-		grid-template-columns: repeat(12, 1fr);
-		gap: 1rem;
+		grid-template-columns: 0.8fr 1.2fr;
+		align-items: flex-start;
+		gap: 4rem;
+		position: relative;
 	}
 
-	.box {
-		grid-column: span 4;
-		border-radius: 22px;
-		border: 3px solid var(--color-3);
-		padding: 1.1rem;
-		background: var(--color-5);
-		color: var(--color-3);
+	.cards-stack {
+		display: flex;
+		flex-direction: row;
+		gap: 2rem;
+		position: relative;
+		align-items: stretch;
 	}
 
-	.tone-blue {
-		background: var(--color-2);
-		color: #1c1c1c;
+	.stacked-card {
+		flex: 1;
+		background: var(--bg);
+		border: 4px solid var(--color-3);
+		padding: 2.5rem;
+		box-shadow: 12px 12px 0px var(--color-3);
+		transform: rotate(var(--rot, 0deg));
+		transition: all 0.4s;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		min-height: 380px;
 	}
-	.tone-yellow {
-		background: var(--color-1);
-		color: #1c1c1c;
+
+	.stacked-card:hover {
+		transform: rotate(0) scale(1.05) translateY(-10px);
+		z-index: 10;
+		box-shadow: 20px 20px 0px var(--color-3);
 	}
-	.tone-dark {
+
+	.card--approach { color: var(--color-5); }
+	.card--expertise, .card--join { color: var(--color-3); }
+
+	.card-label {
+		font-family: 'Rubik Mono One', sans-serif;
+		font-size: 0.8rem;
+		opacity: 0.6;
+		letter-spacing: 0.1em;
+		margin-bottom: 0.5rem;
+	}
+
+	.card-text {
+		font-family: var(--font-secondary);
+		font-size: 1.2rem;
+		font-weight: 700;
+		line-height: 1.4;
+		margin: 0;
+	}
+
+	.card-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		font-family: var(--font-heading);
+		font-size: 2.2rem;
+		font-weight: 900;
+		text-transform: uppercase;
+		line-height: 0.9;
+		letter-spacing: -0.02em;
+	}
+
+	.card-list li {
+		margin-bottom: 1rem;
+	}
+
+	.btn-primary {
+		margin-top: auto;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
 		background: var(--color-3);
 		color: var(--color-5);
-	}
-
-	:global(.dark) .tone-dark {
-		background: #8e9294;
-		border-color: #8e9294;
-		color: var(--color-5);
-	}
-
-	:global(.dark) .tone-blue {
-		background: color-mix(in srgb, var(--color-2) 10%, var(--color-5));
-		border-color: var(--color-2);
-		color: var(--color-2);
-	}
-
-	:global(.dark) .tone-yellow {
-		background: color-mix(in srgb, var(--color-1) 10%, var(--color-5));
-		border-color: var(--color-1);
-		color: var(--color-1);
-	}
-
-	.label {
-		font-weight: 900;
-		letter-spacing: -0.02em;
-		margin-bottom: 0.6rem;
-	}
-
-	.list {
-		margin: 0;
-		padding-left: 1.1rem;
-		line-height: 1.7;
-		opacity: 0.95;
-	}
-
-	.text {
-		margin: 0;
-		line-height: 1.6;
-		opacity: 0.92;
-	}
-
-	.cta {
-		margin-top: 0.9rem;
-		display: inline-flex;
-		text-decoration: none;
+		padding: 0.85rem 1.8rem;
 		border-radius: 999px;
-		padding: 0.7rem 1.05rem;
+		text-decoration: none;
 		font-weight: 900;
-		background: var(--color-2);
+		text-transform: uppercase;
+		font-size: 0.85rem;
+		letter-spacing: 0.1em;
+		border: 3px solid var(--color-3);
+		transition: all 0.3s;
+		box-shadow: 6px 6px 0 rgba(0,0,0,0.1);
+	}
+
+	.btn-primary:hover {
+		background: var(--color-1);
 		color: var(--color-3);
-		border: 2px solid var(--color-2);
+		transform: translate(-3px, -3px);
+		box-shadow: 9px 9px 0 var(--color-3);
 	}
 
-	:global(.dark) .cta {
-		background: var(--color-5);
-		color: var(--color-2);
-		border-color: var(--color-2);
+	:global(.dark) .stacked-card {
+		border-color: #fff;
+		box-shadow: 12px 12px 0px #000;
 	}
+	
+	:global(.dark) .about-title { color: #fff; }
+	:global(.dark) .card-text, :global(.dark) .card-list { color: inherit; }
 
-	.cta:hover,
-	.cta:focus-visible {
-		transform: translateY(-1px);
-		outline: none;
-	}
-
-	@media (max-width: 980px) {
-		.box {
-			grid-column: span 6;
+	@media (max-width: 768px) {
+		.about-container { 
+			padding: 5rem 1.5rem; 
+			gap: 4rem; 
+			grid-template-columns: 1fr;
 		}
-	}
-
-	@media (max-width: 640px) {
-		.wrap {
-			padding: 1.5rem 1rem 3rem;
+		.about-title { font-size: 2.5rem; }
+		.cards-stack {
+			flex-direction: column;
 		}
-		.grid {
-			gap: 0.75rem;
+		.stacked-card {
+			transform: none !important;
+			min-height: auto;
+			padding: 2.5rem;
+			box-shadow: 8px 8px 0px var(--color-3);
 		}
-		.box {
-			grid-column: span 12;
-		}
+		.card-list { font-size: 1.8rem; }
 	}
 </style>

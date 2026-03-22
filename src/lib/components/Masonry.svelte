@@ -170,10 +170,10 @@
 
 <div bind:this={containerRef} class="masonry-container" style="height: {maxHeight}px;">
   {#each grid as item, i}
-    <button
+    <div
       data-key={item.id || `m-${i}`}
       class="masonry-item"
-      onclick={() => item.url && window.open(item.url, '_blank')}
+      role="presentation"
       onmouseenter={(e) => handleMouseEnter(e, item)}
       onmouseleave={(e) => handleMouseLeave(e, item)}
     >
@@ -185,7 +185,7 @@
           <div class="color-overlay"></div>
         {/if}
       </div>
-    </button>
+    </div>
   {/each}
 </div>
 
@@ -202,7 +202,6 @@
     background: none;
     border: none;
     padding: 8px; /* Gap logic integrated into padding */
-    cursor: pointer;
     overflow: visible;
     display: block;
     box-sizing: border-box;

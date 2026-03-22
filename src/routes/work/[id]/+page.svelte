@@ -299,7 +299,7 @@
      background: var(--bg-light);
      color: var(--text-dark);
      min-height: 100vh;
-     font-family: 'Inter', sans-serif;
+     font-family: 'Unbounded', sans-serif;
    }
  
    .deck-nav {

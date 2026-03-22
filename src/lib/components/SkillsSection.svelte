@@ -9,125 +9,152 @@
 </script>
 
 <section id="skills" class="skills-wrap animate-section">
-  <div class="header-overlay">
-    <h2 class="title">CORE // SKILLS</h2>
-  </div>
+  <div class="arsenal-damage-grid">
+    <!-- THE ARSENAL -->
+    <div class="arsenal-box">
+      <div class="box-label">THE ARSENAL</div>
+      <h2 class="box-title">CORE // SKILLS</h2>
+      <ul class="skills-list">
+        <li>Visual Identity</li>
+        <li>Digital Spaces</li>
+        <li>Creative Direction</li>
+        <li>Structured Chaos</li>
+      </ul>
+    </div>
 
-  <div class="skills-grid">
-    {#each skills as skill}
-      <div class="skill-card" style="--card-bg: {skill.color}">
-        <div class="card-inner">
-          <h3 class="skill-name">{skill.name}</h3>
-          <p class="skill-desc">{skill.desc}</p>
-        </div>
-        <div class="card-shadow"></div>
-      </div>
-    {/each}
+    <!-- THE DAMAGE -->
+    <div class="damage-box">
+      <div class="box-label">THE DAMAGE</div>
+      <h2 class="box-title">BY THE NUMBERS</h2>
+      <ul class="stats-list">
+        <li><span>45+</span> Brands Disrupted</li>
+        <li><span>100%</span> Cookie-Cutter Free</li>
+        <li><span>3+</span> Years Defying Defaults</li>
+      </ul>
+    </div>
   </div>
 </section>
 
 <style>
   .skills-wrap {
     padding: 8rem clamp(1rem, 5vw, 4rem);
-    position: relative;
     background: var(--color-5);
-    overflow: hidden;
   }
 
-  .header-overlay {
-    margin-bottom: 4rem;
-    position: relative;
-    z-index: 2;
-  }
-
-  .title {
-    font-family: 'moon-get', sans-serif;
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    color: var(--color-3);
-    line-height: 0.9;
-    letter-spacing: -0.02em;
-    margin: 0;
-    text-transform: uppercase;
-  }
-
-  .skills-grid {
+  .arsenal-damage-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2.5rem;
-    position: relative;
-    z-index: 1;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
   }
 
-  .skill-card {
-    position: relative;
-    height: 100%;
-    min-height: 200px;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  .skill-card:hover {
-    transform: translate(-8px, -8px) rotate(-1deg);
-  }
-
-  .card-inner {
-    position: relative;
-    z-index: 2;
-    background: var(--card-bg);
+  .arsenal-box, .damage-box {
+    background: var(--color-5);
     border: 4px solid var(--color-3);
-    padding: 2rem;
-    height: 100%;
+    padding: clamp(2rem, 5vw, 4rem);
+    position: relative;
+    box-shadow: 12px 12px 0px var(--color-3);
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    gap: 1.5rem;
   }
 
-  .card-shadow {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    right: -10px;
-    bottom: -10px;
-    background: var(--color-3);
-    z-index: 1;
+  .arsenal-box {
+    background: var(--color-2); /* A nice accent color for the arsenal */
   }
 
-  .skill-name {
-    font-family: 'moon-get', sans-serif;
-    font-weight: 900;
-    font-size: 1.8rem;
-    margin: 0 0 0.5rem 0;
-    text-transform: uppercase;
-    color: var(--color-3);
+  .damage-box {
+    background: var(--color-5);
+    transform: translateY(4rem); /* Asymmetric offset */
+  }
+
+  :global(.dark) .arsenal-box {
+    background: #3d3d3d;
+    border-color: #fff;
+    box-shadow: 12px 12px 0px #000;
+    color: #fff;
+  }
+
+  :global(.dark) .damage-box {
+    background: #2a2a2a;
+    border-color: #fff;
+    box-shadow: 12px 12px 0 #000;
+    color: #fff;
+  }
+
+  .box-label {
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 0.85rem;
+    opacity: 0.6;
+    letter-spacing: 0.1em;
+  }
+
+  .box-title {
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
     line-height: 1;
-  }
-
-  .skill-desc {
-    font-family: var(--font-secondary);
-    font-size: 1.05rem;
-    font-weight: 600;
     margin: 0;
-    color: var(--color-3);
-    opacity: 0.9;
-    line-height: 1.3;
+    letter-spacing: -0.05em;
   }
 
-  :global(.dark) .title {
-    color: #f4f4f4;
+  .skills-list, .stats-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .skills-list li {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+  }
+
+  .stats-list li {
+    font-family: var(--font-secondary);
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .stats-list span {
+    display: block;
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: 3rem;
+    color: var(--color-1);
+    -webkit-text-stroke: 1.5px #000;
+    text-shadow: 4px 4px 0 #000;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  @media (max-width: 1024px) {
+    .arsenal-damage-grid {
+      grid-template-columns: 1fr;
+      gap: 5rem;
+    }
+    .damage-box {
+      transform: none;
+    }
   }
 
   @media (max-width: 768px) {
     .skills-wrap {
       padding: 5rem 1.5rem;
     }
-    .skills-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
+    .box-title {
+      font-size: 2rem;
     }
-    .skill-name {
-      font-size: 1.6rem;
+    .skills-list li {
+      font-size: 1.8rem;
     }
-    .skill-desc {
-      font-size: 1rem;
+    .stats-list span {
+      font-size: 2.5rem;
     }
   }
 </style>
