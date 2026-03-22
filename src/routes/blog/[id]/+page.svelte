@@ -227,12 +227,14 @@
 
   @media (max-width: 768px) {
     .post-detail {
-        padding: 6rem 1.5rem;
+        padding: 5rem 1rem 0;
         border: none;
         box-shadow: none;
     }
-    .title { font-size: 3rem; }
-    .blog-nav { top: 12rem; left: 1.5rem; }
-    .back-btn { padding: 0.7rem 1.2rem; font-size: 0.8rem; }
+    .title { font-size: 2.5rem; }
+    .image-hero { margin-bottom: 3rem; }
+    .content { font-size: 0.95rem; line-height: 1.5; }
+    .blog-nav { top: 11rem; left: 1rem; }
+    .back-btn { padding: 0.6rem 1rem; font-size: 0.75rem; }
   }
 </style>

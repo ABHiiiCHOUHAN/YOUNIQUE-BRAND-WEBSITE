@@ -119,7 +119,10 @@
 <section class="wrap page-transition">
   <div class="panel">
     <header class="page-header">
-      <h1 class="page-title">Let’s create something unforgettable.</h1>
+      <h1 class="page-title">
+        <span class="pc-text">Let’s create something unforgettable.</span>
+        <span class="mobile-text">SAY HELLO!</span>
+      </h1>
       <p class="page-sub">Let us know what you're working on and how we can collaborate.</p>
     </header>
 
@@ -210,7 +213,7 @@
 
 <style>
   .wrap {
-    padding: 0 clamp(1rem, 5vw, 4rem) 0;
+    padding: 0 clamp(1rem, 5vw, 4rem) 8rem; /* Restored original PC spacing */
     display: flex;
     justify-content: center;
   }
@@ -224,18 +227,20 @@
     background: var(--color-5);
     color: var(--color-3);
     box-shadow: 12px 14px 0px var(--color-3);
-    padding: clamp(2rem, 5vw, 3rem);
+    padding: clamp(2rem, 6vw, 4.5rem); /* Increased internal padding for breathing room */
     position: relative;
   }
 
   .page-title {
-    font-size: clamp(2rem, 5vw, 3.8rem);
+    font-size: clamp(2rem, 5vw, 3.8rem); /* Restored original PC size */
     font-family: 'Rubik Mono One', sans-serif;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     color: var(--color-3);
     line-height: 1.1;
     letter-spacing: -0.05em;
   }
+
+  .mobile-text { display: none; }
 
   .page-sub {
     font-size: 1.15rem;
@@ -354,7 +359,7 @@
     box-shadow: 0px 0px 0 var(--color-3);
   }
 
-  .social-pill--x:hover { background: #fff; color: #000; border-color: #000; }
+  .social-pill--x:hover { background: #000; color: #fff; border-color: #000; }
   .social-pill--linkedin:hover { background: #0077b5; color: #fff; border-color: #0077b5; }
   .social-pill--instagram:hover { background: #e4405f; color: #fff; border-color: #e4405f; }
   .social-pill--whatsapp:hover { background: #128c7e; color: #fff; border-color: #128c7e; }
@@ -383,8 +388,7 @@
     letter-spacing: -0.01em;
     border: 3px solid var(--color-3);
     background: var(--color-1);
- /* Vibrant primary by default */
-    color: var(--color-3); /* Dark text */
+    color: var(--color-3);
     cursor: pointer;
     text-decoration: none;
     transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
@@ -406,53 +410,106 @@
   /* Mobile Brutalist Styles */
   @media (max-width: 768px) {
     .wrap {
-      padding: 3.5rem 1.25rem 3rem;
+      padding: 2rem 3rem 15rem; /* Large white space and margins only on mobile */
     }
 
     .panel {
-      border-radius: 24px;
-      border: 4px solid #1c1c1c;
+      border-radius: 20px;
+      border: 3px solid #1c1c1c;
       background: #FFFAF4;
-      box-shadow: 8px 8px 0px #393839;
-      padding: 2rem 1.25rem;
+      box-shadow: 6px 6px 0px #393839;
+      padding: 2rem 1.75rem; /* Increased internal padding for mobile too */
     }
 
     .page-title {
-      font-size: 2rem;
+      font-size: 1.75rem;
       font-weight: 900;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
+      line-height: 1;
     }
 
+    .pc-text { display: none; }
+    .mobile-text { display: inline; }
+
     .page-sub {
-      font-size: 1rem;
-      margin-bottom: 2rem;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.8;
     }
 
     .form {
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 1.75rem; /* More white space between rows */
     }
 
     .field {
       grid-column: span 12;
+      flex-direction: row; /* Horizontal style as requested */
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.75rem;
+      width: 100%;
+      position: relative; /* Anchor for absolute error hints */
+    }
+
+    .field-info {
+      flex: 0 0 70px; /* Fixed width for labels to align them */
+      margin-bottom: 0;
+    }
+
+    .label {
+      font-size: 0.8rem;
+    }
+
+    .error-hint {
+       position: absolute;
+       top: -15px; /* Aligned slightly above the border */
+       right: 5px; /* Tacked to the right edge */
+       bottom: auto;
+       left: auto;
+    }
+
+    input, .mobile-group {
+      flex: 1; /* Input takes remaining space */
     }
 
     input, textarea {
-      border-radius: 18px;
-      border: 3px solid #1c1c1c;
+      border-radius: 8px; /* Tighter corner */
+      border: 2px solid #1c1c1c;
       background: #fff;
-      box-shadow: 6px 6px 0px #1c1c1c;
-      padding: 1rem;
+      box-shadow: 2px 2px 0px #1c1c1c; /* Smaller shadow */
+      padding: 0.45rem 0.7rem; /* Shorter rectangles to increase white-space */
+      font-size: 0.85rem;
+    }
+
+    textarea {
+      min-height: 100px; /* Shorter message box for mobile flow */
     }
 
     .btn {
       width: 100%;
-      padding: 1rem;
-      border-width: 3px;
+      padding: 0.75rem; /* Downsized button further as requested */
+      border-width: 2.5px;
       border-color: #1c1c1c;
+      font-size: 0.9rem;
+      background: var(--color-1) !important; /* Yellow as requested */
+      color: var(--color-3) !important; /* Dark text */
     }
 
+    .social-pill {
+      width: 38px;
+      height: 38px;
+      border-width: 2.5px;
+      box-shadow: 3px 3px 0 var(--color-3);
+    }
+    .social-pill svg {
+      width: 18px;
+      height: 18px;
+    }
+    .social-tray { gap: 0.75rem; }
+    .social-label { font-size: 0.65rem; }
+    .actions { gap: 2.5rem; margin-top: 0; }
   }
 
   .btn--waiting, .btn--success {
@@ -463,10 +520,7 @@
 
   .btn--success {
     cursor: default;
-    background: var(--color-4) !important; /* Keep success green as requested in earlier steps or switch to yellow? */
-    /* The user said "keep button consistancy in all three like send inquiry button" */
-    /* This likely means they want the yellow theme for all. */
-    background: var(--color-1) !important; 
+    background: var(--color-4) !important;
     color: var(--color-3) !important;
   }
   
@@ -510,9 +564,11 @@
     box-shadow: 8px 8px 0px var(--color-5);
   }
 
-  :global(.dark) .btn:not(.btn--ghost) {
+  :global(.dark) .btn:not(.btn--ghost),
+  :global(.dark) .btn--success,
+  :global(.dark) .btn--waiting {
     background: var(--color-1);
-    color: #3d3d3d;
+    color: #3d3d3d !important;
   }
 
   .mobile-group {

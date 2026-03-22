@@ -10,14 +10,14 @@
 		</header>
 
 		<div class="cards-stack">
-			<div class="stacked-card card--approach" style="--rot: -2deg; --bg: var(--color-3);">
+			<div class="stacked-card card--approach stagger-item" style="--rot: -2deg; --bg: var(--color-3); animation-delay: 0.1s;">
 				<div class="card-label">OUR APPROACH</div>
 				<p class="card-text">
 					We don't do fluff. We build identities and systems with a focus on impact and clean aesthetics.
 				</p>
 			</div>
 
-			<div class="stacked-card card--expertise" style="--rot: 1.5deg; --bg: var(--color-2);">
+			<div class="stacked-card card--expertise stagger-item" style="--rot: 1.5deg; --bg: var(--color-2); animation-delay: 0.25s;">
 				<div class="card-label">EXPERTISE</div>
 				<ul class="card-list">
 					<li>Visual Identity</li>
@@ -26,7 +26,7 @@
 				</ul>
 			</div>
 
-			<div class="stacked-card card--join" style="--rot: -1deg; --bg: var(--color-1);">
+			<div class="stacked-card card--join stagger-item" style="--rot: -1deg; --bg: var(--color-1); animation-delay: 0.4s;">
 				<div class="card-label">JOIN US</div>
 				<p class="card-text">Ready to defy the default? Let's build something loud together.</p>
 				<a class="btn-primary" href="#contact">Get in touch</a>
@@ -61,7 +61,8 @@
 		padding: 2.5rem;
 		box-shadow: 12px 12px 0px var(--color-3);
 		transform: rotate(var(--rot, 0deg));
-		transition: all 0.4s;
+		transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+		will-change: transform, opacity;
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;

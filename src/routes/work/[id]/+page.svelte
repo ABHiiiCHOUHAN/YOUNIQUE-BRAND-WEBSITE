@@ -1,6 +1,7 @@
 <script>
   import CircularGallery from '$lib/components/CircularGallery.svelte';
   import Masonry from '$lib/components/Masonry.svelte';
+  import CardSwap from '$lib/components/CardSwap.svelte';
   let { data } = $props();
   let currentGroupIdx = $state(0);
 
@@ -143,7 +144,7 @@
             {/each}
          </div>
 
-         <div class="gallery-header" style="margin-top: 4rem;">
+          <div class="gallery-header" style="margin-top: 4rem;">
             <div class="nav-btns">
                <button class="nav-btn" onclick={prevGroup} aria-label="Previous">←</button>
                <button class="nav-btn" onclick={nextGroup} aria-label="Next">→</button>
@@ -246,6 +247,26 @@
                   {/each}
                </div>
             </div>
+         </div>
+
+         <!-- Interactive Section for Digital (CardSwap) -->
+         <div class="gallery-label-header" style="margin-top: 10rem;">
+            <h2 class="sub-label">INTERACTIVE // EXPERIENCES</h2>
+         </div>
+         <div class="interactive-wrap">
+            <CardSwap 
+              verticalDistance={90}
+              cardDistance={100}
+              skewAmount={11}
+              delay={4500}
+              cards={[
+                { title: 'Project Alpha', desc: 'AI-driven social platform architecture.', bg: '#FACC15', image: 'https://picsum.photos/seed/a/800/800' },
+                { title: 'Nexus UI', desc: 'Minimalist dashboard for crypto trading.', bg: '#3B82F6', image: 'https://picsum.photos/seed/b/800/800' },
+                { title: 'Y-OS', desc: 'Custom OS interface for futuristic devices.', bg: '#10B981', image: 'https://picsum.photos/seed/c/800/800' },
+                { title: 'Neon Core', desc: 'Interactive music streaming experiment.', bg: '#8B5CF6', image: 'https://picsum.photos/seed/d/800/800' },
+                { title: 'Prism Lab', desc: 'WebGL experiment in light refraction.', bg: '#EC4899', image: 'https://picsum.photos/seed/e/800/800' }
+              ]}
+            />
          </div>
        {:else}
          <div class="gallery-bento layout-{data.project.id}">
@@ -495,6 +516,13 @@
    .layout-10 .cell-4 { grid-column: span 2; grid-row: span 1; visibility: hidden; }
 
    /* 3. Neo-Brutalist Interactive Browser */
+   .interactive-wrap {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto 10rem;
+      padding: 0 2rem;
+   }
+
    .browser-mockup-wrapper {
       padding: 6rem 2rem 10rem;
       display: flex;

@@ -11,7 +11,7 @@
 <section id="skills" class="skills-wrap">
   <div class="arsenal-damage-grid">
     <!-- THE ARSENAL -->
-    <div class="arsenal-box">
+    <div class="arsenal-box stagger-item" style="animation-delay: 0.1s;">
       <div class="box-label">THE ARSENAL</div>
       <h2 class="box-title">CORE // SKILLS</h2>
       <ul class="skills-list">
@@ -23,7 +23,7 @@
     </div>
 
     <!-- THE DAMAGE -->
-    <div class="damage-box">
+    <div class="damage-box stagger-item" style="animation-delay: 0.25s;">
       <div class="box-label">THE DAMAGE</div>
       <h2 class="box-title">BY THE NUMBERS</h2>
       <ul class="stats-list">

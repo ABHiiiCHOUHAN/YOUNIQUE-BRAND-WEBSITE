@@ -56,23 +56,23 @@
 		</div>
 	</section>
 
-	<div id="work" class="animate-section" use:inView={{ threshold: 0.05 }}>
+	<div id="work" use:inView={{ threshold: 0.05 }}>
 		<WorkSection projects={data?.projects} />
 	</div>
 
-	<div id="skills" class="animate-section" use:inView={{ threshold: 0.05 }}>
+	<div id="skills" use:inView={{ threshold: 0.05 }}>
 		<SkillsSection />
 	</div>
 
-	<div id="reviews" class="animate-section" use:inView={{ threshold: 0.05 }}>
+	<div id="reviews" use:inView={{ threshold: 0.05 }}>
 		<ReviewsSection />
 	</div>
 
-	<div id="blog" class="animate-section" use:inView={{ threshold: 0.05 }}>
+	<div id="blog" use:inView={{ threshold: 0.05 }}>
 		<BlogSection postsPromise={Promise.resolve(data?.posts || [])} />
 	</div>
 
-	<div id="about" class="animate-section" use:inView={{ threshold: 0.05 }}>
+	<div id="about" use:inView={{ threshold: 0.05 }}>
 		<AboutSection aboutBoxes={data?.about} />
 	</div>
 </main>
@@ -571,29 +571,8 @@
 		}
 	}
 
-	/* --- 5. SCROLL ANIMATIONS --- */
-	.animate-section {
-		scroll-margin-top: 120px; /* Fix Sticky header offset overlap */
-		opacity: 0;
-		transform: translateY(40px);
-		transition:
-			opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-			transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-		will-change: opacity, transform;
-	}
-
-	#work {
-		scroll-margin-top: 80px;
-	}
-
-	:global(.animate-section.is-visible) {
-		opacity: 1;
-		transform: translateY(0);
-	}
-
-	@media (max-width: 768px) {
-		.animate-section {
-			scroll-margin-top: 100px;
-		}
+	/* --- 5. SECTION ANCHORS --- */
+	#work, #skills, #reviews, #blog, #about {
+		scroll-margin-top: 100px;
 	}
 </style>

@@ -131,7 +131,7 @@
 			</div>
 		{/if}
 
-		<footer class="site-footer">
+		<footer class="site-footer" class:article-view={$page.url.pathname.startsWith('/blog/')}>
 			<div class="footer-massive footer-massive--nauryz">
 				<div class="marquee-track">
 					<span class="massive-text">DEFY THE DEFAULT ● YOUNIQUE DESIGN STUDIO ● &nbsp;</span>
@@ -248,7 +248,7 @@
 		text-decoration: none;
 		position: relative;
 		z-index: 100;
-		margin-left: -2.5rem;
+		margin-left: -1rem; /* Nudged right as requested */
 	}
 
 	.brand-logo {
@@ -341,6 +341,12 @@
 		filter: brightness(1.1);
 	}
 
+	.btn-contact:active {
+		transform: translate(4px, 4px);
+		box-shadow: 0px 0px 0 #1c1c1c;
+		transition: all 0.1s ease; /* Snappier response for active state */
+	}
+
 	.theme-toggle {
 		background: var(--color-2);
 		border: 3px solid #1c1c1c;
@@ -431,7 +437,7 @@
 		height: 125px; /* Scaled up for more impact */
 		width: auto;
 		object-fit: contain;
-		margin-bottom: 2.5rem;
+		margin-bottom: 0.75rem; /* Nudged nearer to the tagline as requested */
 		margin-left: -3.5rem; /* Pushed further left for extra style */
 		transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 		
@@ -514,5 +520,31 @@
 			justify-content: flex-start;
 			gap: 3.5rem;
 		}
+		.article-view .footer-logo {
+			display: none;
+		}
+
+		/* Mobile Header Downsizing */
+		.nav-links {
+			gap: 0.85rem;
+		}
+		.nav-link {
+			font-size: 0.7rem;
+		}
+		.btn-contact {
+			padding: 0.5rem 1.2rem;
+			font-size: 0.75rem;
+			box-shadow: 4px 4px 0 #1c1c1c;
+		}
+		.theme-toggle {
+			width: 34px;
+			height: 34px;
+			box-shadow: 3px 3px 0 #1c1c1c;
+		}
+		.theme-toggle svg {
+			width: 16px;
+			height: 16px;
+		}
 	}
+
 </style>

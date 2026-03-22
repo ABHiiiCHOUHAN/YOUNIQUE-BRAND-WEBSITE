@@ -48,34 +48,39 @@
 		>
 			{#await postsPromise}
 				{#each Array(3) as _}
-					<article class="post skeleton-box">
-						<div class="skeleton-img"></div>
-						<div class="skeleton-line skeleton-date"></div>
-						<div class="skeleton-line skeleton-title"></div>
-						<div class="skeleton-line skeleton-excerpt"></div>
-					</article>
+					<div class="post-wrapper skeleton-box">
+						<article class="post">
+							<div class="skeleton-img"></div>
+							<div class="skeleton-line skeleton-date"></div>
+							<div class="skeleton-line skeleton-title"></div>
+							<div class="skeleton-line skeleton-excerpt"></div>
+						</article>
+					</div>
 				{/each}
 			{:then posts}
-				{#each posts || [] as post}
-					<article class="post">
-						{#if post.image}
-							<div class="post-img-wrap" style="user-select: none;">
-								<img src={post.image} alt={post.title} class="post-img" loading="lazy" draggable="false" />
+				{#each posts || [] as post, i}
+					<div class="post-wrapper stagger-item" style:animation-delay="{i * 0.15}s">
+						<article class="post">
+							{#if i < 2}
+								<div class="new-badge">NEW</div>
+							{/if}
+							{#if post.image}
+								<div class="post-img-wrap" style:user-select="none">
+									<img src={post.image} alt={post.title} class="post-img" loading="lazy" draggable="false" />
+								</div>
+							{/if}
+							
+							<div class="post-body">
+								<div class="post-header">
+									<time class="date">{post.date}</time>
+									<div class="post-num">#{post.id.toString().slice(-2)}</div>
+								</div>
+								<h3 class="post-title">{post.title}</h3>
+								<p class="excerpt">{post.excerpt}</p>
+								<a href="/blog/{post.id}" class="read-btn">READ FULL &rarr;</a>
 							</div>
-						{/if}
-						
-						<div class="post-body">
-							<div class="post-header">
-								<time class="date">{post.date}</time>
-								<div class="post-num">#{post.id.toString().slice(-2)}</div>
-							</div>
-							<h3 class="post-title">{post.title}</h3>
-							<p class="excerpt">{post.excerpt}</p>
-							<a class="read-more" href="/blog/{post.id}" target="_blank" rel="noopener noreferrer">
-								READ FULL &rarr;
-							</a>
-						</div>
-					</article>
+						</article>
+					</div>
 				{/each}
 			{/await}
 		</div>
@@ -108,12 +113,12 @@
 	}
 
 	.blog-header {
-		max-width: 1200px;
-		margin: 0 auto 4rem;
-		padding: 0 4rem;
+		margin-bottom: 4rem;
+		padding: 0 6vw;
 		display: flex;
 		flex-direction: column;
-		align-items: flex-start;
+		align-items: center;
+		text-align: center;
 		gap: 0.5rem;
 	}
 
@@ -150,12 +155,14 @@
 		display: flex;
 		overflow-x: auto;
 		scroll-snap-type: x mandatory;
-		padding: 2rem 4rem 0;
+		scroll-padding-inline: 6vw; /* Mirror of padding for snapping */
+		padding: 8rem 6vw 8rem; /* Absolute maximum padding to prevent clipping */
 		gap: 3rem;
 		scrollbar-width: none;
 		cursor: grab;
 		user-select: none;
 		scroll-behavior: smooth;
+		transform: translateZ(0); /* Enforce safe hardware layer to prevent clipping */
 	}
 
 	.scroll-track::-webkit-scrollbar {
@@ -171,28 +178,75 @@
 		scroll-behavior: auto !important;
 	}
 
-	.post {
+	.post-wrapper {
 		flex: 0 0 450px;
 		scroll-snap-align: start;
+		transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+		z-index: 1;
+		position: relative;
+	}
+
+	.post-wrapper:hover {
+		transform: scale(1.02) translateY(-25px);
+		z-index: 100;
+	}
+
+	.post {
+		width: 100%;
+		height: 100%;
 		background: var(--color-5);
 		border: 4px solid var(--color-3);
 		box-shadow: 12px 12px 0px var(--color-3);
 		display: flex;
 		flex-direction: column;
-		transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-		overflow: hidden;
+		/* transition handles the shadow on hover, and transform back to 0 on un-hover */
+		transition: box-shadow 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s ease;
+		overflow: visible; 
+		position: relative;
 	}
 
-	.post:hover {
-		transform: translate(-6px, -6px);
-		box-shadow: 18px 18px 0px var(--color-3);
+	.post-wrapper:hover .post {
+		box-shadow: 30px 30px 0px var(--color-3);
+		animation: floatingWobble 4s ease-in-out infinite alternate;
+		/* Delays the wobble slightly so the initial lift happens clean */
+		animation-delay: 0.1s;
+	}
+
+	@keyframes floatingWobble {
+		0% { transform: rotate(0deg); }
+		100% { transform: rotate(2deg); }
+	}
+
+	/* NEW HIGHLIGHT */
+	.new-badge {
+		position: absolute;
+		top: -14px;
+		left: 50%;
+		transform: translateX(-50%);
+		background: var(--color-3); /* Dark */
+		color: #fff;
+		padding: 0.15rem 0.5rem;
+		font-family: inherit;
+		font-size: 0.7rem;
+		font-weight: 800;
+		letter-spacing: 0.15em;
+		border: 2px solid #fff;
+		z-index: 100;
+		pointer-events: none;
+		box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+	}
+
+	.post-wrapper:hover .post::after {
+		width: 70px;
+		height: 70px;
+		background: #F0F0F0;
 	}
 
 	:global(.dark) .post {
 		box-shadow: 12px 12px 0px #000;
 		border-color: #3d3d3d;
 	}
-	:global(.dark) .post:hover {
+	:global(.dark) .post-wrapper:hover .post {
 		box-shadow: 18px 18px 0px #000;
 	}
 
@@ -267,7 +321,7 @@
 		margin-bottom: 2rem;
 	}
 
-	.read-more {
+	.read-btn {
 		display: inline-flex;
 		align-items: center;
 		text-decoration: none;
@@ -279,20 +333,21 @@
 		border: 3px solid var(--color-3);
 		border-radius: 999px;
 		width: fit-content;
-		box-shadow: 4px 4px 0px var(--color-3);
-		transition: all 0.2s;
+		box-shadow: 4px 4px 0 var(--color-3);
+		transition: transform 0.2s, box-shadow 0.2s;
 		font-family: 'Space Mono', monospace;
 	}
 
-	.read-more:hover {
-		transform: scale(1.05);
-		background: #fff;
+	.read-btn:hover {
+		transform: translate(-2px, -2px);
+		box-shadow: 6px 6px 0 var(--color-3);
 	}
 
-	:global(.dark) .read-more {
+	:global(.dark) .read-btn {
+		background: #FACC15;
 		color: #000;
 		border-color: #000;
-		box-shadow: 4px 4px 0px #000;
+		box-shadow: 4px 4px 0 #000;
 	}
 
 	/* Skeleton */
@@ -319,18 +374,24 @@
 		50% { opacity: 0.3; }
 	}
 
-	@media (max-width: 900px) {
-		.blog-header { padding: 0 2rem; }
-		.scroll-track {
-			padding: 2rem 2rem 0;
-			gap: 1.5rem;
+	@media (max-width: 768px) {
+		.title { font-size: 2.2rem; }
+		.post-wrapper, .skeleton-box { 
+			flex: 0 0 260px; 
 		}
 		.post {
-			flex: 0 0 320px;
+			min-height: 380px;
 		}
-		.post-img-wrap { height: 180px; }
-		.post-body { padding: 1.5rem; }
-		.post-title { font-size: 1.5rem; }
+		.post-img-wrap { height: 140px; }
+		.post-body { padding: 1.25rem; }
+		.post-title { font-size: 1.25rem; }
+		.excerpt { 
+			font-size: 0.85rem; 
+			line-height: 1.4;
+			margin-bottom: 1.5rem;
+		}
+		.blog-header { padding: 0 6vw; margin-bottom: 1.5rem; }
+		.scroll-track { padding: 4rem 6vw 4rem; }
 	}
 </style>
 

@@ -2,18 +2,16 @@
   import { onMount } from 'svelte';
   
   const reviews = [
-    { text: "Younique didn't just design our brand; they gave us a pulse. Loud, effective, and perfectly chaotic.", author: "Neha Sharma", role: "Product Designer // BLR", img: "https://i.pravatar.cc/150?u=neha", shape: "hexagon", color: "#FFD4E9" },
-    { text: "The video edits are next level. They understand rhythm better than most musicians.", author: "Rahul Kapoor", role: "Tech Lead // HYD", img: "https://i.pravatar.cc/150?u=rahul", shape: "circle", color: "#D1E8FF" },
-    { text: "Strategic loops and structure-first methodology that actually works. Best in the game.", author: "Arjun Mehta", role: "Founder, Mumbai Creative // IND", img: "https://i.pravatar.cc/150?u=arjun", shape: "star", color: "#FFE499" },
-    { text: "Finally, a studio that doesn't follow the safe path. The DEFY mantra is real.", author: "Priya Das", role: "Founder, Indigo // DEL", img: "https://i.pravatar.cc/150?u=priya", shape: "hexagon", color: "#E2FFD1" },
-    { text: "They pushed our experience design into a new dimension. Pure visual magic.", author: "Ananya Iyer", role: "Brand Director // CHN", img: "https://i.pravatar.cc/150?u=ananya", shape: "circle", color: "#FFFAFF" },
-    { text: "Technical mastery combined with fearless creativity. A rare breed indeed.", author: "Thomas Müller", role: "Berlin Sys // GER", img: "https://i.pravatar.cc/150?u=thomas", shape: "star", color: "#D6FFFA" },
-    { text: "Dynamic, fast, and visually stunning. Our conversion rates are up by 40%.", author: "Amina K.", role: "Marketing Lead // UAE", img: "https://i.pravatar.cc/150?u=amina", shape: "hexagon", color: "#D1FFF8" },
-    { text: "The London fashion scene was wowed. They brought exactly the edge we needed.", author: "Claire Bennett", role: "Editor, London Luxe // UK", img: "https://i.pravatar.cc/150?u=claire", shape: "circle", color: "#E8D1FF" },
-    { text: "They turned 'impossible' into a structured checklist that looked incredible.", author: "Hitoshi Sato", role: "Artist // JPN", img: "https://i.pravatar.cc/150?u=hitoshi", shape: "star", color: "#D1D5FF" },
-    { text: "They truly care about the outcome and push us to think bigger and bolder.", author: "Amara Okafor", role: "Brand Strategist, Lagos // NGA", img: "https://i.pravatar.cc/150?u=amara", shape: "hexagon", color: "#FFD1D1" },
-    { text: "Turning raw energy into refined interfaces. The perfect creative partner.", author: "Karan Johar", role: "Product Manager // GUR", img: "https://i.pravatar.cc/150?u=karan", shape: "circle", color: "#FFF8D1" },
-    { text: "Simply the best studio I've collaborated with in over a decade.", author: "Elena Rossi", role: "Design Lead // ITA", img: "https://i.pravatar.cc/150?u=elena", shape: "star", color: "#D1FFD1" }
+    { text: "Spent six weeks debating a single bezier curve and I've never been happier. The Fintech Identity they built for us didn't just 'look cool'—it tripled our sign-up rate in a month.", author: "Neha Sharma", role: "Founder // BLR", img: "https://i.pravatar.cc/150?u=neha", shape: "hexagon", color: "#FFD4E9" },
+    { text: "Most studios take the safe route. These guys basically forced us to be bolder. The Video Campaign they cut for our launch had people literally stopping their scroll. Zero fluff.", author: "Rahul Kapoor", role: "Creative Lead // HYD", img: "https://i.pravatar.cc/150?u=rahul", shape: "circle", color: "#D1E8FF" },
+    { text: "The website they architected actually handles our massive traffic spikes without flinching. It's fast, it's weird, and it's perfect. Easily the best investment we made this year.", author: "Arjun Mehta", role: "Tech Founder // IND", img: "https://i.pravatar.cc/150?u=arjun", shape: "star", color: "#FFE499" },
+    { text: "I thought our branding was fine. Then I saw what they did with our Logofolio and realized we were just invisible. They gave us an edge that genuinely scares our competitors.", author: "Priya Das", role: "CEO, Indigo // DEL", img: "https://i.pravatar.cc/150?u=priya", shape: "hexagon", color: "#E2FFD1" },
+    { text: "Strategic ROI is rarely this visible. We stopped being 'just another app' and started being a destination. No marketing bullshit, just pure visual results.", author: "Ananya Iyer", role: "Marketing Director // CHN", img: "https://i.pravatar.cc/150?u=ananya", shape: "circle", color: "#FFFAFF" },
+    { text: "Technical mastery combined with fearless creativity. They didn't just give us a logo; they gave us a pulse. A rare breed in a template-driven world.", author: "Thomas Müller", role: "Sys Architect // GER", img: "https://i.pravatar.cc/150?u=thomas", shape: "star", color: "#D6FFFA" },
+    { text: "Dynamic, fast, and visually stunning. Our conversion rates are up by 40% after the re-brand. They understand the psychology of the scroll better than anyone.", author: "Amina K.", role: "Growth Lead // UAE", img: "https://i.pravatar.cc/150?u=amina", shape: "hexagon", color: "#D1FFF8" },
+    { text: "The London scene was wowed. They brought exactly the edge we needed for our Fashion Launch. It's rare to find a team this obsessed with the details.", author: "Claire Bennett", role: "Editor, Luxe // UK", img: "https://i.pravatar.cc/150?u=claire", shape: "circle", color: "#E8D1FF" },
+    { text: "They turned 'impossible' into a structured checklist that looked incredible. The result is an interface that feels alive.", author: "Hitoshi Sato", role: "Digital Artist // JPN", img: "https://i.pravatar.cc/150?u=hitoshi", shape: "star", color: "#D1D5FF" },
+    { text: "Simple, direct, and incredibly effective. They truly care about the outcome and push us to think bigger and bolder every single day.", author: "Amara Okafor", role: "Brand Strategist // NGA", img: "https://i.pravatar.cc/150?u=amara", shape: "hexagon", color: "#FFD1D1" }
   ];
 
   let scrollContainer;
@@ -124,7 +122,7 @@
       onmouseleave={onMouseLeave}
     >
       {#each reviews as review, i}
-        <div class="review-slide" class:active={i === activeIndex}>
+        <div class="review-slide stagger-item" style:animation-delay="{i * 0.1}s" class:active={i === activeIndex}>
           <div class="paper-note" style="background: {review.color};">
             <img src="/assets/paperclip.jpg" alt="clip" class="paper-clip" />
             
@@ -158,6 +156,14 @@
 </section>
 
 <style>
+  @font-face {
+    font-family: 'ShadowsIntoLight';
+    src: url('/fonts/ShadowsIntoLight-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
   .reviews-wrap {
     padding: 10rem 0; /* No side padding to allow full-width scroll */
     background: #3d3d3d;
@@ -205,7 +211,7 @@
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     gap: 4rem;
-    padding: 4rem calc(50% - 350px); /* Center the first/last items */
+    padding: 4rem calc(50% - 275px); /* Center based on 550px width */
     -ms-overflow-style: none; /* Hide scrollbar IE/Edge */
     scrollbar-width: none; /* Hide scrollbar Firefox */
     cursor: grab;
@@ -227,7 +233,7 @@
   }
 
   .review-slide {
-    flex: 0 0 700px;
+    flex: 0 0 550px; /* Reduced from 700px */
     scroll-snap-align: center;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
     opacity: 0.4;
@@ -240,13 +246,13 @@
   }
 
   .paper-note {
-    padding: 4rem 3rem 3rem;
+    padding: 3rem 2.5rem 2.5rem; /* Reduced padding */
     border: 4px solid #1c1c1c;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 2rem;
+    gap: 1.5rem;
     filter: brightness(0.96) contrast(1.02); /* Seamless tint */
   }
 
@@ -294,13 +300,12 @@
   }
 
   .review-text {
-    font-size: clamp(1.1rem, 2.5vw, 1.8rem);
-    font-weight: 800;
-    line-height: 1.3;
+    font-family: 'ShadowsIntoLight', cursive;
+    font-size: clamp(1.4rem, 2.8vw, 2.2rem); /* Significantly smaller as requested */
+    font-weight: 400;
+    line-height: 1.2;
     color: #1c1c1c;
-    margin: 0 0 2.5rem 0;
-    font-style: italic;
-    font-family: 'Nauryz', sans-serif;
+    margin: 0 0 1.5rem 0;
   }
 
   .review-meta {

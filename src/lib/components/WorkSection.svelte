@@ -80,7 +80,8 @@
 		{#each categories as cat, i}
 			<a
 				href="/work/{cat.id}"
-				class="folder-card-wrap"
+				class="folder-card-wrap stagger-item"
+				style:animation-delay="{i * 0.15}s"
 				onmouseenter={() => (hoveredId = cat.id)}
 				onmouseleave={() => (hoveredId = null)}
 				data-id={cat.id}
