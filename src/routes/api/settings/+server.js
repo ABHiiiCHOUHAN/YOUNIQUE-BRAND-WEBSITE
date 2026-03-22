@@ -10,7 +10,7 @@ async function getSettings() {
     return JSON.parse(file);
   } catch (err) {
     if (err.code === 'ENOENT') {
-      const defaultSettings = { showStickers: true };
+      const defaultSettings = { contactEmail: 'theyouniquedesign@gmail.com' };
       await fs.mkdir(path.dirname(dataPath), { recursive: true });
       await fs.writeFile(dataPath, JSON.stringify(defaultSettings, null, 2));
       return defaultSettings;

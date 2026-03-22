@@ -46,7 +46,7 @@
     </div>
 
     <div class="content">
-      {post.content || post.excerpt}
+      {@html post.content || post.excerpt}
     </div>
 
     <footer class="post-footer">
@@ -106,9 +106,9 @@
   .post-detail {
     max-width: 900px;
     margin: 0 auto;
-    padding: 8rem 2rem;
+    padding: 8rem 2rem 0;
     background: var(--color-5);
-    min-height: 100vh;
+    min-height: auto;
     border-left: 4px solid #000;
     border-right: 4px solid #000;
     box-shadow: 30px 0 0 rgba(0,0,0,0.05), -30px 0 0 rgba(0,0,0,0.05);
@@ -189,7 +189,7 @@
     font-family: 'Space Mono', monospace;
     font-weight: 400;
     column-count: 1;
-    margin-bottom: 6rem;
+    margin-bottom: 2rem;
   }
 
   .content::first-letter {
@@ -206,7 +206,7 @@
   }
 
   .post-footer {
-    padding-top: 4rem;
+    padding-top: 2rem;
     text-align: center;
   }
 
@@ -221,6 +221,8 @@
       font-size: 0.8rem;
       letter-spacing: 0.2em;
       opacity: 0.4;
+      margin: 0;
+      padding-bottom: 1.5rem; /* Interior breathing room, borders will follow the container */
   }
 
   @media (max-width: 768px) {

@@ -442,6 +442,27 @@
     animation: pageFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
+  .animate-section {
+    scroll-margin-top: 120px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+      opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+
+  :global(.animate-section.is-visible) {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
+  @media (max-width: 768px) {
+    .animate-section {
+      scroll-margin-top: 100px;
+    }
+  }
+
   /* --- MOBILE FIXES --- */
   @media (max-width: 768px) {
     /* Hide some stickers on very small screens so it doesn't get cluttered */

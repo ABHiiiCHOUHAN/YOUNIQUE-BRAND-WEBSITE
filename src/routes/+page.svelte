@@ -5,14 +5,11 @@
 	import AboutSection from '$lib/components/AboutSection.svelte';
 	import ReviewsSection from '$lib/components/ReviewsSection.svelte';
 	import BlogSection from '$lib/components/BlogSection.svelte';
-	import ContactSection from '$lib/components/ContactSection.svelte';
 	import { inView } from '$lib/actions/inView.js';
 
 	let { data } = $props();
 
 	let scrollY = $state(0);
-	let scatter = $derived(Math.min(1, scrollY / 400));
-	let activeSticker = $state(null);
 	let isTripping = $state(false);
 </script>
 
@@ -23,89 +20,6 @@
 		<div class="hero-bg"></div>
 		<KineticDecor />
 		
-		{#if data.settings?.showStickers}
-			<div class="stickers-container">
-				<!-- svelte-ignore a11y_click_events_have_key_events -->
-				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-				<img
-					class="sticker-flat sticker--1 {activeSticker === 1
-						? 'is-active'
-						: activeSticker !== null
-							? 'is-inactive'
-							: ''}"
-					src="/assets/4_sticker_visual.png"
-					alt="Visual Language Acquired"
-					aria-hidden="true"
-					onclick={() => (activeSticker = activeSticker === 1 ? null : 1)}
-					style="--blur: calc({scatter} * 8px); transform: translate(calc({scatter} * -120px), calc({scatter} * -100px)) rotate(calc(12deg + {scrollY *
-						0.05}deg)) scale(calc((1 + {scatter} * 0.5) * var(--active-scale, 1)));"
-				/>
-
-				<!-- svelte-ignore a11y_click_events_have_key_events -->
-				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-				<img
-					class="sticker-flat sticker--2 {activeSticker === 2
-						? 'is-active'
-						: activeSticker !== null
-							? 'is-inactive'
-							: ''}"
-					src="/assets/5_sticker_globe.png"
-					alt="Digital Presence Established"
-					aria-hidden="true"
-					onclick={() => (activeSticker = activeSticker === 2 ? null : 2)}
-					style="--blur: calc({scatter} * 12px); transform: translate(calc({scatter} * 150px), calc({scatter} * -80px)) rotate(calc(-8deg + {scrollY *
-						-0.08}deg)) scale(calc((1 + {scatter} * 0.4) * var(--active-scale, 1)));"
-				/>
-
-				<!-- svelte-ignore a11y_click_events_have_key_events -->
-				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-				<img
-					class="sticker-flat sticker--3 {activeSticker === 3
-						? 'is-active'
-						: activeSticker !== null
-							? 'is-inactive'
-							: ''}"
-					src="/assets/6_sticker_branding.png"
-					alt="Branding Completed"
-					aria-hidden="true"
-					onclick={() => (activeSticker = activeSticker === 3 ? null : 3)}
-					style="--blur: calc({scatter} * 10px); transform: translate(calc({scatter} * -60px), calc({scatter} * 150px)) rotate(calc(-5deg + {scrollY *
-						0.06}deg)) scale(calc((1 + {scatter} * 0.8) * var(--active-scale, 1)));"
-				/>
-
-				<!-- svelte-ignore a11y_click_events_have_key_events -->
-				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-				<img
-					class="sticker-flat sticker--4 {activeSticker === 4
-						? 'is-active'
-						: activeSticker !== null
-							? 'is-inactive'
-							: ''}"
-					src="/assets/7_sticker_framework.png"
-					alt="Content Framework"
-					aria-hidden="true"
-					onclick={() => (activeSticker = activeSticker === 4 ? null : 4)}
-					style="--blur: calc({scatter} * 5px); transform: translate(calc({scatter} * -180px), calc({scatter} * 60px)) rotate(calc(-12deg + {scrollY *
-						-0.09}deg)) scale(calc((1 + {scatter} * 0.6) * var(--active-scale, 1)));"
-				/>
-
-				<!-- svelte-ignore a11y_click_events_have_key_events -->
-				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-				<img
-					class="sticker-flat sticker--5 {activeSticker === 5
-						? 'is-active'
-						: activeSticker !== null
-							? 'is-inactive'
-							: ''}"
-					src="/assets/8_sticker_creator.png"
-					alt="Original Content Creator"
-					aria-hidden="true"
-					onclick={() => (activeSticker = activeSticker === 5 ? null : 5)}
-					style="--blur: calc({scatter} * 15px); transform: translate(calc({scatter} * 180px), calc({scatter} * 160px)) rotate(calc(18deg + {scrollY *
-						0.1}deg)) scale(calc((1 + {scatter} * 0.3) * var(--active-scale, 1)));"
-				/>
-			</div>
-		{/if}
 
 		<div class="hero-void__content">
 			<div class="hero-title-group">
@@ -161,10 +75,6 @@
 	<div id="about" class="animate-section" use:inView={{ threshold: 0.05 }}>
 		<AboutSection aboutBoxes={data?.about} />
 	</div>
-
-	<div id="contact" class="animate-section" use:inView={{ threshold: 0.05 }}>
-		<ContactSection />
-	</div>
 </main>
 
 <style>
@@ -206,67 +116,6 @@
 		z-index: 10;
 	}
 
-	/* --- STICKERS --- */
-	.stickers-container {
-		position: absolute;
-		inset: 0; /* Removed top gap */
-		pointer-events: none;
-		z-index: 2;
-		overflow: hidden;
-	}
-
-	.sticker-flat {
-		position: absolute;
-		/* Basic drop shadow + dynamic blur */
-		filter: drop-shadow(2px 2px 0px var(--color-3)) blur(var(--blur, 0px));
-		will-change: transform, filter;
-		cursor: pointer;
-		transition:
-			transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-			z-index 0s;
-	}
-
-	.sticker-flat.is-active {
-		--active-scale: 1.35;
-		z-index: 50 !important;
-	}
-
-	.sticker-flat.is-inactive {
-		--active-scale: 0.8;
-		opacity: 0.8;
-	}
-
-	/* Base Pile Positions (Spread out on the right side) */
-	.sticker--1 {
-		top: 15%;
-		right: 28%;
-		z-index: 1;
-		width: 120px;
-	}
-	.sticker--2 {
-		top: 20%;
-		right: 10%;
-		z-index: 2;
-		width: 140px;
-	}
-	.sticker--3 {
-		top: 35%;
-		right: 18%;
-		z-index: 3;
-		width: 160px;
-	}
-	.sticker--4 {
-		top: 48%;
-		right: 28%;
-		z-index: 4;
-		width: 130px;
-	}
-	.sticker--5 {
-		top: 55%;
-		right: 12%;
-		z-index: 5;
-		width: 100px;
-	}
 
 	/* --- 3. TYPOGRAPHY --- */
 	.hero-title-group,
@@ -660,9 +509,6 @@
 			min-height: 100vh; /* Set to full viewport height to prevent gaps */
 			overflow: hidden; 
 		}
-		.stickers-container {
-			inset: 0;
-		}
 		.hero-bg {
 			background-size: cover;
 			background-position: center center; /* Reset to center to ensure no edges are visible */
@@ -712,13 +558,6 @@
 			width: 100%;
 			text-align: center;
 		}
-		.sticker--1 {
-			width: 80px;
-			top: 15%;
-			right: 12%;
-			transform: rotate(-12deg);
-			z-index: 5;
-		}
 		/* Show sun on mobile but smaller */
 		.box-defy .deco-big-sun.pc-d-sun {
 			--deco-size: 100px !important;
@@ -729,36 +568,6 @@
 		/* Keep explosion at original mobile size */
 		.the-group .deco-big-explosion {
 			--deco-size: clamp(120px, 18vw, 180px) !important;
-		}
-		.sticker--2 {
-			width: 90px;
-			top: 12%;
-			right: 2%;
-			transform: rotate(15deg);
-			z-index: 4;
-		}
-		.sticker--3 {
-			display: block;
-			width: 95px;
-			top: 18%;
-			right: 5%;
-			transform: rotate(-5deg);
-			z-index: 3;
-		}
-		.sticker--4 {
-			display: block;
-			width: 85px;
-			top: 23%;
-			right: 10%;
-			transform: rotate(10deg);
-			z-index: 2;
-		}
-		.sticker--5 {
-			width: 75px;
-			top: 16%;
-			right: -1%;
-			transform: rotate(-20deg);
-			z-index: 1;
 		}
 	}
 

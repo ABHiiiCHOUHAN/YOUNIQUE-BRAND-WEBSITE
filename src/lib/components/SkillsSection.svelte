@@ -8,7 +8,7 @@
   ];
 </script>
 
-<section id="skills" class="skills-wrap animate-section">
+<section id="skills" class="skills-wrap">
   <div class="arsenal-damage-grid">
     <!-- THE ARSENAL -->
     <div class="arsenal-box">

@@ -59,8 +59,8 @@
 				{#each posts || [] as post}
 					<article class="post">
 						{#if post.image}
-							<div class="post-img-wrap">
-								<img src={post.image} alt={post.title} class="post-img" loading="lazy" />
+							<div class="post-img-wrap" style="user-select: none;">
+								<img src={post.image} alt={post.title} class="post-img" loading="lazy" draggable="false" />
 							</div>
 						{/if}
 						
@@ -137,9 +137,8 @@
 
 	:global(.dark) .title,
 	:global(.dark) .sub {
-		color: #3d3d3d;
+		color: #393839;
 		opacity: 1;
-		font-family: 'Space Mono', monospace;
 	}
 
 	.sub {
@@ -151,7 +150,7 @@
 		display: flex;
 		overflow-x: auto;
 		scroll-snap-type: x mandatory;
-		padding: 2rem 4rem 4rem;
+		padding: 2rem 4rem 0;
 		gap: 3rem;
 		scrollbar-width: none;
 		cursor: grab;
@@ -323,7 +322,7 @@
 	@media (max-width: 900px) {
 		.blog-header { padding: 0 2rem; }
 		.scroll-track {
-			padding: 2rem 2rem 4rem;
+			padding: 2rem 2rem 0;
 			gap: 1.5rem;
 		}
 		.post {

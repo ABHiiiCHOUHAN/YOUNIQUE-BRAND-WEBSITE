@@ -24,14 +24,40 @@
   let projStatus = $state('');
 
   // Settings State
-  let settings = $state({ showStickers: true });
+  let settings = $state({ 
+    contactEmail: '', 
+    xLink: '', 
+    linkedinLink: '', 
+    instagramLink: '', 
+    whatsappLink: '' 
+  });
   let settingsStatus = $state('');
+
+  // Messages State
+  let messages = $state([]);
 
   $effect(() => {
     posts = data.posts || [];
     projects = data.projects || [];
-    settings = data.settings || { showStickers: true };
+    messages = data.messages || [];
+    settings = data.settings || { 
+      contactEmail: 'theyouniquedesign@gmail.com',
+      xLink: '#twitter',
+      linkedinLink: '#linkedin',
+      instagramLink: '#instagram',
+      whatsappLink: '#whatsapp'
+    };
   });
+
+  async function deleteMessage(id) {
+    if (!confirm('Are you sure you want to delete this message?')) return;
+    try {
+      const res = await fetch(`/api/messages?id=${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        messages = messages.filter(m => m.id !== id);
+      } else alert('Failed to delete message.');
+    } catch (err) { alert('Network error.'); }
+  }
   
   // Blog Functions
   function editPost(post) {
@@ -199,6 +225,12 @@
   <div class="tabs">
     <button class="tab-btn {activeTab === 'blog' ? 'active' : ''}" onclick={() => activeTab = 'blog'}>Manage Blog</button>
     <button class="tab-btn {activeTab === 'work' ? 'active' : ''}" onclick={() => activeTab = 'work'}>Manage Work</button>
+    <button class="tab-btn {activeTab === 'messages' ? 'active' : ''}" onclick={() => activeTab = 'messages'}>
+      Messages 
+      {#if messages.length > 0}
+        <span class="badge">{messages.length}</span>
+      {/if}
+    </button>
     <button class="tab-btn {activeTab === 'settings' ? 'active' : ''}" onclick={() => activeTab = 'settings'}>Site Settings</button>
   </div>
 
@@ -340,6 +372,39 @@
         {/each}
       </div>
     </div>
+  {:else if activeTab === 'messages'}
+    <div class="panel panel--messages">
+      <header class="page-header">
+        <h1 class="page-title">Client Inquiries</h1>
+      </header>
+      
+      <div class="messages-list">
+        {#if messages.length === 0}
+          <div class="empty-state">No messages logged yet. Any new contact form submissions will appear here.</div>
+        {/if}
+        
+        <div class="grid">
+          {#each messages as msg}
+            <div class="item-card message-card">
+              <div class="message-meta">
+                <span class="item-meta">{new Date(msg.date).toLocaleDateString()} // {new Date(msg.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                <span class="id-tag">ID: {msg.id.slice(-6)}</span>
+              </div>
+              <div class="message-body">
+                <h3 class="item-heading">{msg.name} // <a href="mailto:{msg.email}">{msg.email}</a></h3>
+                {#if msg.mobile}<p class="mobile-text">PH: {msg.mobile}</p>{/if}
+                <div class="msg-content">
+                  <p>{msg.message}</p>
+                </div>
+              </div>
+              <div class="item-actions">
+                <button class="btn-small btn-delete" onclick={() => deleteMessage(msg.id)}>Dismiss</button>
+              </div>
+            </div>
+          {/each}
+        </div>
+      </div>
+    </div>
   {:else if activeTab === 'settings'}
     <div class="panel">
       <header class="page-header">
@@ -347,12 +412,32 @@
       </header>
       <form class="form" onsubmit={saveSettings}>
         <div class="field field--full">
-          <label class="toggle-container">
-            <input type="checkbox" bind:checked={settings.showStickers} />
-            <span class="label">Show 3D Stickers in Hero</span>
+          <label class="field">
+            <span class="label">Primary Contact Email</span>
+            <input type="email" bind:value={settings.contactEmail} placeholder="hello@younique.studio" />
           </label>
-          <p class="help-text">Toggle visibility of the floating decorative stickers behind the hero title.</p>
+          <p class="help-text">All contact form submissions will be directed to this address.</p>
         </div>
+
+        <div class="separator-dash"></div>
+        <h3 class="field--full">Social Media Links</h3>
+
+        <label class="field">
+          <span class="label">X (Twitter) URL</span>
+          <input bind:value={settings.xLink} placeholder="#twitter" />
+        </label>
+        <label class="field">
+          <span class="label">LinkedIn URL</span>
+          <input bind:value={settings.linkedinLink} placeholder="#linkedin" />
+        </label>
+        <label class="field">
+          <span class="label">Instagram URL</span>
+          <input bind:value={settings.instagramLink} placeholder="#instagram" />
+        </label>
+        <label class="field">
+          <span class="label">WhatsApp URL</span>
+          <input bind:value={settings.whatsappLink} placeholder="#whatsapp" />
+        </label>
 
         <div class="actions">
           <button class="btn" type="submit">Save Settings</button>
@@ -402,6 +487,56 @@
     color: var(--color-3);
     box-shadow: 12px 14px 0px var(--color-3);
     padding: clamp(1.25rem, 3vw, 2rem);
+    margin-bottom: 2rem;
+  }
+
+  .badge {
+    background: var(--color-1);
+    color: var(--color-3);
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 6px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+
+  .message-card {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 1.5rem;
+  }
+
+  .message-meta {
+    display: flex;
+    justify-content: space-between;
+    opacity: 0.6;
+    font-weight: 800;
+  }
+
+  .msg-content {
+    background: rgba(0,0,0,0.03);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px dashed var(--color-3);
+    margin-top: 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--color-3);
+    white-space: pre-wrap;
+  }
+
+  .mobile-text {
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+    opacity: 0.8;
+  }
+
+  .empty-state {
+    padding: 3rem 0;
+    text-align: center;
+    opacity: 0.6;
+    font-weight: 700;
   }
 
   .form {
@@ -589,22 +724,16 @@
     font-weight: bold;
   }
 
-  /* Settings Extras */
-  .toggle-container {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    cursor: pointer;
-  }
-  .toggle-container input[type="checkbox"] {
-    width: 24px;
-    height: 24px;
-    box-shadow: none;
-    cursor: pointer;
-  }
   .help-text {
     font-size: 0.9rem;
     opacity: 0.7;
     margin-top: 0.25rem;
+  }
+  .separator-dash {
+    grid-column: span 12;
+    height: 1px;
+    border-top: 2px dashed var(--color-3);
+    margin: 1.5rem 0;
+    opacity: 0.3;
   }
 </style>

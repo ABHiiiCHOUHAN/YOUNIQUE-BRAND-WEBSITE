@@ -85,6 +85,10 @@
     startAutoPlay();
   };
 
+  const onMouseLeave = () => {
+    if (isDragging) onMouseUp();
+  };
+
   const onMouseMove = (e) => {
     if (!isDragging) return;
     e.preventDefault();
@@ -115,9 +119,9 @@
       bind:this={scrollContainer} 
       onscroll={handleScroll}
       onmousedown={onMouseDown}
-      onmouseleave={onMouseUp}
       onmouseup={onMouseUp}
       onmousemove={onMouseMove}
+      onmouseleave={onMouseLeave}
     >
       {#each reviews as review, i}
         <div class="review-slide" class:active={i === activeIndex}>
@@ -210,7 +214,12 @@
 
   .slides-inner:active {
     cursor: grabbing;
-    scroll-snap-type: none; /* Disable snap while dragging */
+  }
+
+  /* Force instant scrolling during drag for smoothness */
+  .slides-inner.dragging {
+    scroll-behavior: auto !important;
+    scroll-snap-type: none !important;
   }
 
   .slides-inner::-webkit-scrollbar {
@@ -223,7 +232,6 @@
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
     opacity: 0.4;
     transform: scale(0.9);
-    pointer-events: none;
   }
 
   .review-slide.active {
@@ -242,10 +250,6 @@
     filter: brightness(0.96) contrast(1.02); /* Seamless tint */
   }
 
-  :global(.dark) .paper-note {
-    border-color: #f4f4f4;
-    background: #2a2a2a !important; /* Muted bg for cards in dark */
-  }
 
   .paper-clip {
     position: absolute;
@@ -273,6 +277,9 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    pointer-events: none; /* Let drag events pass to container */
+    user-select: none;
+    -webkit-user-drag: none;
   }
 
   /* Photo Shapes */

@@ -82,11 +82,11 @@
              
              {#if data.project.id === 1}
                <div class="brand-options-nav">
-                  <button class="option-row" onclick={() => document.getElementById('logofolio')?.scrollIntoView({ behavior: 'smooth' })}>
+                  <a href="/logofolio" class="option-row">
                      <div class="circle">1</div>
                      <div class="line"></div>
                      <div class="label">LOGOFOLIO</div>
-                  </button>
+                  </a>
                   <button class="option-row" onclick={() => document.getElementById('rebrands')?.scrollIntoView({ behavior: 'smooth' })}>
                      <div class="circle">2</div>
                      <div class="line"></div>
