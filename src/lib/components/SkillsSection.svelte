@@ -65,8 +65,15 @@
   }
 
   .damage-box {
-    background: var(--color-5);
-    transform: translateY(4rem); /* Asymmetric offset */
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 2rem 0;
+    transform: translateX(-1.5rem); /* The requested slight left bias */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: flex-start;
   }
 
   :global(.dark) .arsenal-box {

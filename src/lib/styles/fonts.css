@@ -103,6 +103,37 @@
   font-display: swap;
 }
 
+/* --- ADDITIONAL LOCAL FONTS --- */
+@font-face {
+  font-family: 'Kalamayka';
+  src: url('/fonts/Kalamayka.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Marquis';
+  src: url('/fonts/Marquis-Regular.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BananaSplit';
+  src: url('/fonts/pt-banana-split.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ShineBright';
+  src: url('/fonts/shine-bright.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ShadowsIntoLight';
+  src: url('/fonts/ShadowsIntoLight-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
 /* --- KINETIC THEME VARIABLES --- */
 :root {
   --kinetic-font-1: 'Kinetic-Balium', 'serif';
@@ -111,4 +142,8 @@
   --kinetic-font-4: 'Kinetic-TikiTropic', 'cursive';
   --kinetic-font-5: 'Kinetic-Ballantiness', 'cursive';
   --kinetic-font-6: 'Kinetic-Travel', 'sans-serif';
+  --kinetic-font-7: 'Kalamayka', 'cursive';
+  --kinetic-font-8: 'Marquis', 'serif';
+  --kinetic-font-9: 'BananaSplit', 'cursive';
+  --kinetic-font-10: 'ShineBright', 'serif';
 }

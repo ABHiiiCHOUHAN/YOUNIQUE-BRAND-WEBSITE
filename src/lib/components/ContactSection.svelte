@@ -226,7 +226,7 @@
     border: 3px solid var(--color-3);
     background: var(--color-5);
     color: var(--color-3);
-    box-shadow: 12px 14px 0px var(--color-3);
+    box-shadow: 20px 20px 0px var(--color-3);
     padding: clamp(2rem, 6vw, 4.5rem); /* Increased internal padding for breathing room */
     position: relative;
   }

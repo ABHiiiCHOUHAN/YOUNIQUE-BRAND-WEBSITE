@@ -74,6 +74,7 @@
 </script>
 
 <section class="wrap page-transition">
+	<div class="bg-brand-text">W O R K</div>
 	<header class="page-header"></header>
 
 	<div class="folder-grid">
@@ -115,6 +116,23 @@
 <style>
 	.wrap {
 		padding: 2.25rem clamp(1rem, 4vw, 4rem) 4rem;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.bg-brand-text {
+		position: absolute;
+		top: 45%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: clamp(5rem, 22vw, 30rem);
+		font-family: 'Rubik Mono One', sans-serif;
+		color: var(--color-3);
+		opacity: 0.05;
+		z-index: 1;
+		pointer-events: none;
+		white-space: nowrap;
+		letter-spacing: 0.1em;
 	}
 
 	.page-header {

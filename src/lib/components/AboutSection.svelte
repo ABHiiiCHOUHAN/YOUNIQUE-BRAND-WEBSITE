@@ -1,7 +1,11 @@
 	<div class="about-container">
 		<header class="about-header">
 			<h1 class="about-title">
-				THE MINDS BEHIND <span class="highlight">THE CHAOS.</span>
+				<span class="font-switch" style="--f: var(--kinetic-font-7); --s: 0.8em; --r: -3deg;">THE</span> 
+				<span class="font-switch" style="--f: var(--kinetic-font-1); --s: 0.95em; --r: 2deg;">MINDS</span> 
+				<span class="font-switch" style="--f: var(--kinetic-font-9); --s: 1.15em; --r: -5deg;">BEHIND</span> 
+				<span class="font-switch" style="--f: var(--kinetic-font-10); --s: 1.1em; --r: 4deg;">THE</span> 
+				<span class="font-switch highlight" style="--f: 'Rubik Mono One'; --s: 1.4em; --r: -2deg;">CHAOS.</span>
 			</h1>
 			<p class="about-summary">
 				We build identities, interfaces, and systems with structure-first thinking and just enough
@@ -44,6 +48,46 @@
 		align-items: flex-start;
 		gap: 4rem;
 		position: relative;
+	}
+
+	.about-title {
+		font-size: clamp(2.5rem, 6vw, 4.5rem);
+		color: var(--color-3);
+		line-height: 0.95;
+		margin-bottom: 2rem;
+		display: flex;
+		flex-wrap: wrap;
+		column-gap: 0.35em;
+		row-gap: 0.15em;
+	}
+
+	.font-switch {
+		display: inline-block;
+		font-family: var(--f, inherit);
+		font-size: var(--s, 1em);
+		transform: rotate(var(--r, 0deg));
+		transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+		animation: fontGlitch 8s infinite alternate;
+	}
+
+	.font-switch:hover {
+		transform: translateY(-8px) scale(1.1) rotate(calc(var(--r) * 1.5deg));
+		color: var(--color-1);
+		text-shadow: 4px 4px 0 var(--color-3);
+	}
+
+	@keyframes fontGlitch {
+		0%, 80% { font-family: var(--f); transform: rotate(var(--r, 0deg)); }
+		82% { font-family: var(--kinetic-font-3); transform: rotate(calc(var(--r, 0deg) + 4deg)) scale(1.05); color: var(--color-2); }
+		86% { font-family: var(--kinetic-font-4); transform: rotate(calc(var(--r, 0deg) - 6deg)) scale(0.95); color: var(--color-4); }
+		90% { font-family: var(--kinetic-font-6); transform: scale(1.1); color: var(--color-1); }
+		100% { font-family: var(--f); transform: rotate(var(--r, 0deg)); }
+	}
+
+	.highlight {
+		color: var(--color-1);
+		-webkit-text-stroke: 1.5px var(--color-3);
+		text-shadow: 5px 5px 0 var(--color-3);
 	}
 
 	.cards-stack {
