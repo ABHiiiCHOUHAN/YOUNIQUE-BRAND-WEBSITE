@@ -54,6 +54,24 @@
     const desktopMaxScroll = desktopContainer.scrollHeight - desktopContainer.clientHeight;
     desktopContainer.scrollTop = pct * desktopMaxScroll;
   };
+
+  let activeBrandSection = $state('intro');
+  onMount(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          activeBrandSection = entry.target.id || 'intro';
+        }
+      });
+    }, { threshold: 0.5 });
+
+    const logofolio = document.getElementById('logofolio');
+    const rebrands = document.getElementById('rebrands');
+    if (logofolio) observer.observe(logofolio);
+    if (rebrands) observer.observe(rebrands);
+
+    return () => observer.disconnect();
+  });
 </script>
 
 <svelte:head>
@@ -83,12 +101,12 @@
              
              {#if data.project.id === 1}
                <div class="brand-options-nav">
-                  <a href="/logofolio" class="option-row">
+                  <a href="/logofolio" class="option-row" class:is-active={activeBrandSection === 'logofolio'}>
                      <div class="circle">1</div>
                      <div class="line"></div>
                      <div class="label">LOGOFOLIO</div>
                   </a>
-                  <button class="option-row" onclick={() => document.getElementById('rebrands')?.scrollIntoView({ behavior: 'smooth' })}>
+                  <button class="option-row" class:is-active={activeBrandSection === 'rebrands'} onclick={() => document.getElementById('rebrands')?.scrollIntoView({ behavior: 'smooth' })}>
                      <div class="circle">2</div>
                      <div class="line"></div>
                      <div class="label">REBRANDING</div>
@@ -870,11 +888,31 @@
   }
 
   .label {
-    font-family: var(--font-nauryz); /* Stylized font */
-    font-size: 1.4rem;
+    font-family: 'Kalamayka', cursive;
+    font-size: 1.8rem;
     color: #3d3d3d;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
     font-weight: 500;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .option-row.is-active .label::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: var(--color-1);
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 10px var(--color-1);
+    animation: bulletPulse 1.2s infinite ease-in-out;
+  }
+
+  @keyframes bulletPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.6); opacity: 0.6; }
   }
 
   .gallery-label-header {

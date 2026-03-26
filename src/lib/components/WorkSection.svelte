@@ -74,7 +74,7 @@
 </script>
 
 <section class="wrap page-transition">
-	<div class="bg-brand-text">W O R K</div>
+	<div class="bg-watermark">WORK</div>
 	<header class="page-header"></header>
 
 	<div class="folder-grid">
@@ -116,30 +116,40 @@
 <style>
 	.wrap {
 		padding: 2.25rem clamp(1rem, 4vw, 4rem) 4rem;
-		position: relative;
+		position: relative; /* Relative for absolute background text */
 		overflow: hidden;
 	}
 
-	.bg-brand-text {
+	.bg-watermark {
 		position: absolute;
-		top: 45%;
+		top: 50%; 
 		left: 50%;
-		transform: translate(-50%, -50%);
-		font-size: clamp(5rem, 22vw, 30rem);
-		font-family: 'Rubik Mono One', sans-serif;
-		color: var(--color-3);
-		opacity: 0.05;
-		z-index: 1;
+		transform: translate(-50%, -50%) scale(1.8, 1.25); /* Refined scale for perfect border touch */
+		font-family: 'Space Mono', monospace;
+		font-weight: 700;
+		font-size: clamp(8rem, 24vw, 55rem);
+		color: rgba(28, 28, 28, 0.06); /* Darker for visibility in light mode */
+		line-height: 0.7;
+		user-select: none;
 		pointer-events: none;
+		z-index: 1;
 		white-space: nowrap;
-		letter-spacing: 0.1em;
+		letter-spacing: -0.05em; 
+		width: 100%;
+		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
-	.page-header {
-		margin-bottom: 1.5rem;
+	:global(.dark) .bg-watermark {
+		color: rgba(255, 255, 255, 0.03); /* Much more subtle for dark mode */
 	}
-	/* ── SEPARATE FOLDER GRID ── */
+
+	/* Ensure grid sits on top */
 	.folder-grid {
+		position: relative;
+		z-index: 2;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;

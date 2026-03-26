@@ -1,42 +1,43 @@
-	<div class="about-container">
-		<header class="about-header">
-			<h1 class="about-title">
-				<span class="font-switch" style="--f: var(--kinetic-font-7); --s: 0.8em; --r: -3deg;">THE</span> 
-				<span class="font-switch" style="--f: var(--kinetic-font-1); --s: 0.95em; --r: 2deg;">MINDS</span> 
-				<span class="font-switch" style="--f: var(--kinetic-font-9); --s: 1.15em; --r: -5deg;">BEHIND</span> 
-				<span class="font-switch" style="--f: var(--kinetic-font-10); --s: 1.1em; --r: 4deg;">THE</span> 
-				<span class="font-switch highlight" style="--f: 'Rubik Mono One'; --s: 1.4em; --r: -2deg;">CHAOS.</span>
-			</h1>
-			<p class="about-summary">
-				We build identities, interfaces, and systems with structure-first thinking and just enough
-				chaos to feel alive. If it looks bold but reads clean, we’re into it.
+	<script>
+	const words = ["THE", "MINDS", "BEHIND", "THE", "CHAOS"];
+</script>
+
+<div class="about-container">
+	<header class="about-header">
+		<h1 class="about-title">
+			{#each words as word, i}
+				<span class="kinetic-word loop-{(i % 4) + 1}" data-word={word}>{word}</span>{' '}
+			{/each}
+		</h1>
+		<p class="about-summary">
+			We build identities, interfaces, and systems with structure-first thinking and just enough
+			chaos to feel alive. If it looks bold but reads clean, we’re into it.
+		</p>
+	</header>
+
+	<div class="cards-stack">
+		<div class="stacked-card card--approach stagger-item" style="--rot: -2deg; --bg: #393839; animation-delay: 0.1s;">
+			<div class="card-label">OUR APPROACH</div>
+			<p class="card-text">
+				We don't do fluff. We build identities and systems with a focus on impact and clean aesthetics.
 			</p>
-		</header>
+		</div>
 
-		<div class="cards-stack">
-			<div class="stacked-card card--approach stagger-item" style="--rot: -2deg; --bg: var(--color-3); animation-delay: 0.1s;">
-				<div class="card-label">OUR APPROACH</div>
-				<p class="card-text">
-					We don't do fluff. We build identities and systems with a focus on impact and clean aesthetics.
-				</p>
-			</div>
+		<div class="stacked-card card--expertise stagger-item" style="--rot: 1.5deg; --bg: #6EB0CA; animation-delay: 0.25s;">
+			<div class="card-label">EXPERTISE</div>
+			<ul class="card-list">
+				<li>Visual Identity</li>
+				<li>Digital Spaces</li>
+				<li>Interactive Systems</li>
+			</ul>
+		</div>
 
-			<div class="stacked-card card--expertise stagger-item" style="--rot: 1.5deg; --bg: var(--color-2); animation-delay: 0.25s;">
-				<div class="card-label">EXPERTISE</div>
-				<ul class="card-list">
-					<li>Visual Identity</li>
-					<li>Digital Spaces</li>
-					<li>Interactive Systems</li>
-				</ul>
-			</div>
-
-			<div class="stacked-card card--join stagger-item" style="--rot: -1deg; --bg: var(--color-1); animation-delay: 0.4s;">
-				<div class="card-label">JOIN US</div>
-				<p class="card-text">Ready to defy the default? Let's build something loud together.</p>
-				<a class="btn-primary" href="#contact">Get in touch</a>
-			</div>
+		<div class="stacked-card card--join stagger-item" style="--rot: -1deg; --bg: #FDD803; animation-delay: 0.4s;">
+			<div class="card-label">JOIN US</div>
+			<p class="card-text">Ready to defy the default? Let's build something loud together.</p>
 		</div>
 	</div>
+</div>
 
 <style>
 	.about-container {
@@ -49,46 +50,80 @@
 		gap: 4rem;
 		position: relative;
 	}
-
 	.about-title {
-		font-size: clamp(2.5rem, 6vw, 4.5rem);
-		color: var(--color-3);
-		line-height: 0.95;
+		font-size: clamp(4rem, 11vw, 7.5rem);
+		font-family: 'Space Mono', monospace;
+		font-weight: 700;
+		line-height: 0.85; /* Tightened line-height */
 		margin-bottom: 2rem;
+		color: #3d3d3d;
+		text-transform: uppercase;
 		display: flex;
 		flex-wrap: wrap;
-		column-gap: 0.35em;
-		row-gap: 0.15em;
+		column-gap: 1.5rem; /* Slightly tighter column gap */
+		row-gap: 0; /* Minimal row gap */
 	}
 
-	.font-switch {
-		display: inline-block;
-		font-family: var(--f, inherit);
-		font-size: var(--s, 1em);
-		transform: rotate(var(--r, 0deg));
-		transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-		animation: fontGlitch 8s infinite alternate;
+	.kinetic-word {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		color: transparent !important;
+		user-select: none;
+		letter-spacing: -0.01em; /* Tightened as requested */
+		min-width: fit-content;
+		white-space: pre; /* Ensure width is calculated accurately including trailing spaces if any */
 	}
 
-	.font-switch:hover {
-		transform: translateY(-8px) scale(1.1) rotate(calc(var(--r) * 1.5deg));
-		color: var(--color-1);
-		text-shadow: 4px 4px 0 var(--color-3);
+	.kinetic-word::before {
+		content: attr(data-word);
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		/* Absolute centering to prevent side-to-side jitter */
+		transform: translate(-50%, -50%);
+		color: #3d3d3d !important;
+		font-family: inherit;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		white-space: nowrap;
+		transition: font-family 0.1s ease;
+		pointer-events: none;
 	}
 
-	@keyframes fontGlitch {
-		0%, 80% { font-family: var(--f); transform: rotate(var(--r, 0deg)); }
-		82% { font-family: var(--kinetic-font-3); transform: rotate(calc(var(--r, 0deg) + 4deg)) scale(1.05); color: var(--color-2); }
-		86% { font-family: var(--kinetic-font-4); transform: rotate(calc(var(--r, 0deg) - 6deg)) scale(0.95); color: var(--color-4); }
-		90% { font-family: var(--kinetic-font-6); transform: scale(1.1); color: var(--color-1); }
-		100% { font-family: var(--f); transform: rotate(var(--r, 0deg)); }
+	/* Adjusted keyframes to include a subtle 'scale down' effect for alternate fonts */
+	@keyframes wordKinetic1 {
+		0%, 70% { font-family: inherit; transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+		72% { font-family: 'Kinetic-LLPixel'; transform: translate(-50%, -50%) rotate(1deg) scale(0.92); }
+		75% { font-family: 'Rubik Mono One'; transform: translate(-50%, -50%) rotate(-1.5deg) scale(0.88); }
+		100% { font-family: inherit; transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+	}
+	@keyframes wordKinetic2 {
+		0%, 73% { font-family: inherit; transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+		76% { font-family: 'Nauryz'; transform: translate(-50%, -50%) rotate(1.2deg) scale(0.95); }
+		80% { font-family: 'Kalamayka'; transform: translate(-50%, -50%) rotate(-1deg) scale(0.92); }
+		100% { font-family: inherit; transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+	}
+	@keyframes wordKinetic3 {
+		0%, 65% { font-family: inherit; transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+		70% { font-family: 'Rubik Mono One'; transform: translate(-50%, -50%) rotate(1.5deg) scale(0.88); }
+		74% { font-family: 'Kinetic-LLPixel'; transform: translate(-50%, -50%) rotate(-2deg) scale(0.92); }
+		100% { font-family: inherit; transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+	}
+	@keyframes wordKinetic4 {
+		0%, 78% { font-family: inherit; transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+		82% { font-family: 'Kalamayka'; transform: translate(-50%, -50%) rotate(1.5deg) scale(0.92); }
+		86% { font-family: 'Nauryz'; transform: translate(-50%, -50%) rotate(-1deg) scale(0.95); }
+		100% { font-family: inherit; transform: translate(-50%, -50%) rotate(0deg) scale(1); }
 	}
 
-	.highlight {
-		color: var(--color-1);
-		-webkit-text-stroke: 1.5px var(--color-3);
-		text-shadow: 5px 5px 0 var(--color-3);
-	}
+	.loop-1::before { animation: wordKinetic1 9.5s infinite 0.2s; }
+	.loop-2::before { animation: wordKinetic2 12s infinite 3s; }
+	.loop-3::before { animation: wordKinetic3 14.5s infinite 1.5s; }
+	.loop-4::before { animation: wordKinetic4 17s infinite 0.9s; }
+
 
 	.cards-stack {
 		display: flex;
@@ -101,9 +136,9 @@
 	.stacked-card {
 		flex: 1;
 		background: var(--bg);
-		border: 4px solid var(--color-3);
+		border: 4px solid #393839;
 		padding: 2.5rem;
-		box-shadow: 12px 12px 0px var(--color-3);
+		box-shadow: 12px 12px 0px #393839;
 		transform: rotate(var(--rot, 0deg));
 		transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 		will-change: transform, opacity;
@@ -116,11 +151,11 @@
 	.stacked-card:hover {
 		transform: rotate(0) scale(1.05) translateY(-10px);
 		z-index: 10;
-		box-shadow: 20px 20px 0px var(--color-3);
+		box-shadow: 20px 20px 0px #393839;
 	}
 
-	.card--approach { color: var(--color-5); }
-	.card--expertise, .card--join { color: var(--color-3); }
+	.card--approach { color: #FFFAF4; }
+	.card--expertise, .card--join { color: #393839; }
 
 	.card-label {
 		font-family: 'Rubik Mono One', sans-serif;
@@ -180,21 +215,30 @@
 		box-shadow: 9px 9px 0 var(--color-3);
 	}
 
-	:global(.dark) .stacked-card {
-		border-color: #fff;
-		box-shadow: 12px 12px 0px #000;
-	}
-	
 	:global(.dark) .about-title { color: #fff; }
-	:global(.dark) .card-text, :global(.dark) .card-list { color: inherit; }
+	:global(.dark) .kinetic-word::before { color: #fff !important; }
+	/* Removed stacked-card overrides to keep light mode colors */
 
 	@media (max-width: 768px) {
 		.about-container { 
 			padding: 5rem 1.5rem; 
 			gap: 4rem; 
 			grid-template-columns: 1fr;
+			text-align: center;
 		}
-		.about-title { font-size: 2.5rem; }
+		.about-header {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.about-title { 
+			font-size: 2.5rem; 
+			justify-content: center;
+		}
+		.about-summary {
+			text-align: center;
+			margin: 0 auto;
+		}
 		.cards-stack {
 			flex-direction: column;
 		}

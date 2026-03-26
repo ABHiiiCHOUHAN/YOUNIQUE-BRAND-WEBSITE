@@ -127,52 +127,54 @@
     </header>
 
     <form class="form" onsubmit={onSubmit} novalidate>
-      <label class="field">
-        <div class="field-info">
+      <div class="form-left">
+        <label class="field">
           <span class="label">Name</span>
-          {#if showValidation && validationErrors.name}<span class="error-hint">{validationErrors.name}</span>{/if}
-        </div>
-        <input bind:value={name} name="name" placeholder="Your name" autocomplete="name" />
-      </label>
-
-      <label class="field">
-        <div class="field-info">
-          <span class="label">Email</span>
-          {#if showValidation && validationErrors.email}<span class="error-hint">{validationErrors.email}</span>{/if}
-        </div>
-        <input type="email" bind:value={email} placeholder="you@example.com" />
-      </label>
-
-      <div class="field">
-        <div class="field-info">
-          <span class="label">Mobile</span>
-          {#if showValidation && validationErrors.mobile}<span class="error-hint">{validationErrors.mobile}</span>{/if}
-        </div>
-        <div class="mobile-group">
-          <div class="country-input-wrap">
-            <span class="plus-token">+</span>
-            <input type="tel" bind:value={countryCode} class="country-input" maxlength="2" />
+          <div class="input-wrap">
+            <input bind:value={name} name="name" placeholder="Your name" autocomplete="name" />
+            {#if showValidation && validationErrors.name}<span class="error-hint">{validationErrors.name}</span>{/if}
           </div>
-          <input 
-            type="tel" 
-            value={mobile} 
-            oninput={(e) => mobile = formatMobile(e.target.value)}
-            placeholder="123 4567 890" 
-            maxlength="12" 
-          />
+        </label>
+
+        <div class="field">
+          <span class="label">Mobile</span>
+          <div class="mobile-row">
+            <div class="country-box" class:focused={countryCode.length > 0}>
+              <span class="plus-token">+</span>
+              <input type="tel" bind:value={countryCode} class="country-input" placeholder="91" maxlength="3" />
+            </div>
+            <div class="mobile-input-wrap">
+              <input 
+                type="tel" 
+                value={mobile} 
+                oninput={(e) => mobile = formatMobile(e.target.value)}
+                placeholder="123 4567 890" 
+                maxlength="12" 
+              />
+              {#if showValidation && validationErrors.mobile}<span class="error-hint">{validationErrors.mobile}</span>{/if}
+            </div>
+          </div>
         </div>
+
+        <label class="field">
+          <span class="label">Email</span>
+          <div class="input-wrap">
+            <input type="email" bind:value={email} placeholder="you@example.com" />
+            {#if showValidation && validationErrors.email}<span class="error-hint">{validationErrors.email}</span>{/if}
+          </div>
+        </label>
       </div>
 
-      <label class="field field--full">
-        <div class="field-info">
+      <div class="form-right">
+        <label class="field field--full">
           <span class="label">Message</span>
-          {#if showValidation && validationErrors.message}<span class="error-hint">{validationErrors.message}</span>{/if}
-        </div>
-        <textarea bind:value={message} placeholder="Talk to us about your vision..." rows="4"></textarea>
-      </label>
+          <div class="input-wrap">
+            <textarea bind:value={message} placeholder="Talk to us about your vision..." rows="6"></textarea>
+            {#if showValidation && validationErrors.message}<span class="error-hint">{validationErrors.message}</span>{/if}
+          </div>
+        </label>
 
-      <div class="actions">
-        <button class="btn" type="submit" class:btn--waiting={status === 'waiting'} class:btn--success={status === 'success'} disabled={status !== ''}>
+        <button class="btn btn--submit" type="submit" class:btn--waiting={status === 'waiting'} class:btn--success={status === 'success'} disabled={status !== ''}>
           {#if status === 'waiting'}
             <div class="btn-content">
               <span>wait a sec..</span>
@@ -188,450 +190,326 @@
             Send inquiry
           {/if}
         </button>
-        
-        <div class="social-contact">
-          <span class="social-label">OR CONTACT VIA</span>
-          <div class="social-tray">
-            <a href={socialLinks.xLink} class="social-pill social-pill--x" aria-label="X (Twitter)">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.045 4.126H5.078z"/></svg>
-            </a>
-            <a href={socialLinks.linkedinLink} class="social-pill social-pill--linkedin" aria-label="LinkedIn">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.238 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-            </a>
-            <a href={socialLinks.instagramLink} class="social-pill social-pill--instagram" aria-label="Instagram">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            </a>
-            <a href={socialLinks.whatsappLink} class="social-pill social-pill--whatsapp" aria-label="WhatsApp">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.81 9.81 0 017.001 2.895 9.81 9.81 0 012.887 7.001c-.001 5.451-4.436 9.884-9.886 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            </a>
-          </div>
-        </div>
       </div>
     </form>
+  </div>
+
+  <div class="social-outer">
+    <span class="social-label">OR CONTACT VIA</span>
+    <div class="social-tray">
+      <a href={socialLinks.xLink} class="social-pill social-pill--x" aria-label="X (Twitter)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.045 4.126H5.078z"/></svg>
+      </a>
+      <a href={socialLinks.linkedinLink} class="social-pill social-pill--linkedin" aria-label="LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.238 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+      </a>
+      <a href={socialLinks.instagramLink} class="social-pill social-pill--instagram" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      </a>
+      <a href={socialLinks.whatsappLink} class="social-pill social-pill--whatsapp" aria-label="WhatsApp">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.81 9.81 0 017.001 2.895 9.81 9.81 0 012.887 7.001c-.001 5.451-4.436 9.884-9.886 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
+    </div>
   </div>
 </section>
 
 <style>
   .wrap {
-    padding: 0 clamp(1rem, 5vw, 4rem) 8rem; /* Restored original PC spacing */
+    padding: 2rem clamp(2rem, 10vw, 8rem) 8rem;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
   }
 
-  /* Desktop Standard Styles */
   .panel {
-    max-width: 900px;
+    max-width: 950px;
     width: 100%;
     border-radius: 28px;
-    border: 3px solid var(--color-3);
-    background: var(--color-5);
-    color: var(--color-3);
-    box-shadow: 20px 20px 0px var(--color-3);
-    padding: clamp(2rem, 6vw, 4.5rem); /* Increased internal padding for breathing room */
+    border: 3px solid #1c1c1c;
+    background: #FFFAF4;
+    padding: clamp(2rem, 6vw, 4.5rem);
     position: relative;
+    box-shadow: 10px 12px 0px #1c1c1c;
+  }
+
+  .page-header {
+    margin-bottom: 2.5rem;
   }
 
   .page-title {
-    font-size: clamp(2rem, 5vw, 3.8rem); /* Restored original PC size */
+    font-size: clamp(2rem, 5.5vw, 4rem);
     font-family: 'Rubik Mono One', sans-serif;
-    margin-bottom: 1.5rem;
-    color: var(--color-3);
+    font-weight: 900;
+    margin-bottom: 1rem;
+    color: #1c1c1c;
     line-height: 1.1;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
   }
 
+  .pc-text { display: block; }
   .mobile-text { display: none; }
+
+  @media (max-width: 768px) {
+    .pc-text { display: none; }
+    .mobile-text { display: block; }
+  }
 
   .page-sub {
     font-size: 1.15rem;
     opacity: 0.9;
-    margin-bottom: 2rem;
     max-width: 60ch;
+    color: #1c1c1c;
+    font-weight: 500;
   }
 
   .form {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+    width: 100%;
+  }
+
+  @media (max-width: 850px) {
+    .form {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  .form-left, .form-right {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   }
 
   .field {
-    grid-column: span 6;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .field--full {
-    grid-column: span 12;
+    gap: 0.8rem;
   }
 
   .label {
+    font-family: 'Unbounded', sans-serif;
     font-weight: 800;
-    font-size: 0.95rem;
+    font-size: 1.15rem;
+    color: #3d3d3d;
+  }
+
+  .input-wrap {
+    position: relative;
+    width: 100%;
   }
 
   input,
   textarea {
     width: 100%;
-    border-radius: 12px;
-    border: 2px solid var(--color-3);
-    background: var(--color-5);
-    color: var(--color-3);
-    padding: 0.85rem 1rem;
-    font: inherit;
+    border-radius: 18px;
+    border: 3px solid #1c1c1c;
+    background: #fff;
+    color: #1c1c1c;
+    padding: 1.1rem 1.4rem;
+    font-family: inherit;
+    font-size: 1.1rem;
     outline: none;
-    box-shadow: 4px 4px 0px var(--color-3);
-    transition: transform 0.1s;
+    box-shadow: 6px 7px 0px #1c1c1c;
+    transition: all 0.2s;
+  }
+
+  input:focus, textarea:focus {
+    transform: translate(2px, 2px);
+    box-shadow: 4px 5px 0px #1c1c1c;
   }
 
   textarea {
-    min-height: 150px;
-    resize: vertical;
+    min-height: 220px;
+    resize: none;
   }
 
-  .actions {
-    grid-column: span 12;
+  .mobile-row {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+
+  .country-box {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Space out items */
-    gap: 3rem;
-    margin-top: 1.5rem;
-    flex-wrap: wrap; /* On mobile they will Stack */
+    justify-content: center;
+    background: #fff;
+    border: 3px solid #1c1c1c;
+    border-radius: 18px;
+    padding: 0 0.75rem;
+    box-shadow: 6px 7px 0px #1c1c1c;
+    gap: 2px;
+    min-width: 95px;
+    height: 62px; /* Fixed height to match main inputs */
+    transition: all 0.2s;
   }
 
-  @media (max-width: 1024px) {
-    .actions {
-      justify-content: center;
-      text-align: center;
-      flex-direction: column;
-      gap: 2rem;
-    }
+  .country-box:focus-within {
+     transform: translate(2px, 2px);
+     box-shadow: 4px 5px 0px #1c1c1c;
   }
 
-  .social-contact {
+  .plus-token {
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: #1c1c1c;
+    transition: color 0.2s;
+  }
+
+  :global(.dark) .plus-token {
+    color: #fff;
+  }
+
+  .country-input {
+    width: 45px !important;
+    border: none !important;
+    padding: 0 !important;
+    background: transparent !important;
+    text-align: left !important;
+    font-weight: 800 !important;
+    box-shadow: none !important;
+    font-size: 1.15rem !important;
+    font-family: 'Unbounded', sans-serif !important;
+    transform: none !important;
+    outline: none !important;
+  }
+
+  .mobile-input-wrap {
+    flex: 1;
+    position: relative;
+  }
+
+  .btn--submit {
+    width: 100%;
+    border-radius: 40px;
+    padding: 1.1rem; /* Adjusted to match label height roughly */
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 800; /* Match label weight */
+    font-size: 1.15rem; /* Match label size */
+    border: 3px solid #1c1c1c;
+    background: #FFD600; 
+    color: #1c1c1c;
+    cursor: pointer;
+    box-shadow: 7px 8px 0px #1c1c1c;
+    transition: all 0.2s;
+    margin-top: auto;
+    text-transform: capitalize;
+  }
+
+  .btn--submit:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 9px 10px 0px #1c1c1c;
+  }
+
+  .social-outer {
+    width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-  }
-
-  :global(.dark) .social-contact {
-    border-top-color: rgba(255,255,255,0.1);
+    margin-top: 5rem; /* Increased whitespace as requested */
   }
 
   .social-label {
-    font-size: 0.75rem;
-    font-weight: 900;
-    letter-spacing: 0.1em;
-    opacity: 0.6;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #1c1c1c;
+    text-transform: uppercase;
+    opacity: 0.9;
   }
 
   .social-tray {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
   .social-pill {
-    background: var(--color-5);
-    color: #3d3d3d;
-    width: 48px;
-    height: 48px;
+    background: #fff;
+    color: #1c1c1c;
+    width: 62px;
+    height: 62px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     text-decoration: none;
-    border: 3px solid var(--color-3);
-    box-shadow: 4px 4px 0 var(--color-3);
-    transition: all 0.2s;
+    border: 3px solid #1c1c1c;
+    box-shadow: 5px 6px 0 #1c1c1c;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .social-pill:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: 7px 7px 0 var(--color-3);
-    background: var(--color-1);
-    color: var(--color-3);
+    transform: translate(-3px, -4px);
+    box-shadow: 8px 10px 0 #1c1c1c;
+    color: #fff !important;
   }
 
-  .social-pill:active {
-    transform: translate(2px, 2px);
-    box-shadow: 0px 0px 0 var(--color-3);
+  /* Brand color fills only on hover */
+  .social-pill--x:hover { background: #000 !important; }
+  .social-pill--linkedin:hover { background: #0077B5 !important; }
+  .social-pill--instagram:hover { background: #E1306C !important; }
+  .social-pill--whatsapp:hover { background: #128C7E !important; }
+
+  .error-hint {
+    position: absolute;
+    top: -1.35rem; 
+    right: 0.25rem;
+    font-size: 0.75rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 900;
+    color: #ff4d4d;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    pointer-events: none; 
+    z-index: 10;
   }
 
-  .social-pill--x:hover { background: #000; color: #fff; border-color: #000; }
-  .social-pill--linkedin:hover { background: #0077b5; color: #fff; border-color: #0077b5; }
-  .social-pill--instagram:hover { background: #e4405f; color: #fff; border-color: #e4405f; }
-  .social-pill--whatsapp:hover { background: #128c7e; color: #fff; border-color: #128c7e; }
+  :global(.dark) .panel {
+    background: #2a2a2a;
+    border-color: #fff;
+    box-shadow: 12px 14px 0px #000;
+  }
 
-  .social-pill svg {
-    width: 22px;
-    height: 22px;
+  :global(.dark) .page-title, :global(.dark) .page-sub, :global(.dark) .label, :global(.dark) .social-label {
+    color: #fff;
+  }
+
+  :global(.dark) input, :global(.dark) textarea, :global(.dark) .country-box { 
+    background: #3d3d3d; 
+    color: #fff;
+    border-color: #fff;
+    /* User: shadow for country code should be same in both dark/lioght mode */
+    box-shadow: 6px 7px 0px #1c1c1c; 
+  }
+  
+  :global(.dark) .btn--submit {
+    border-color: #fff;
+    box-shadow: 7px 8px 0px #000;
   }
 
   :global(.dark) .social-pill {
     background: #3d3d3d;
     color: #fff;
     border-color: #fff;
-    box-shadow: 4px 4px 0 #000;
-  }
-
-  :global(.dark) .social-pill:hover {
-    box-shadow: 7px 7px 0 #000;
-  }
-
-  .btn {
-    border-radius: 999px;
-    padding: 1.1rem 3rem;
-    font-weight: 800;
-    font-size: 1.1rem;
-    letter-spacing: -0.01em;
-    border: 3px solid var(--color-3);
-    background: var(--color-1);
-    color: var(--color-3);
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
-    box-shadow: 4px 4px 0px var(--color-3);
-  }
-
-  .btn:hover, .btn:focus-visible {
-    transform: translate(-4px, -4px);
-    box-shadow: 8px 8px 0px var(--color-3);
-    outline: none;
-  }
-
-  .btn:active {
-    transform: translate(4px, 4px) !important;
-    box-shadow: 0px 0px 0px var(--color-3) !important;
-  }
-
-
-  /* Mobile Brutalist Styles */
-  @media (max-width: 768px) {
-    .wrap {
-      padding: 2rem 3rem 15rem; /* Large white space and margins only on mobile */
-    }
-
-    .panel {
-      border-radius: 20px;
-      border: 3px solid #1c1c1c;
-      background: #FFFAF4;
-      box-shadow: 6px 6px 0px #393839;
-      padding: 2rem 1.75rem; /* Increased internal padding for mobile too */
-    }
-
-    .page-title {
-      font-size: 1.75rem;
-      font-weight: 900;
-      margin-bottom: 0.75rem;
-      line-height: 1;
-    }
-
-    .pc-text { display: none; }
-    .mobile-text { display: inline; }
-
-    .page-sub {
-      font-size: 0.9rem;
-      margin-bottom: 1.5rem;
-      opacity: 0.8;
-    }
-
-    .form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.75rem; /* More white space between rows */
-    }
-
-    .field {
-      grid-column: span 12;
-      flex-direction: row; /* Horizontal style as requested */
-      align-items: center;
-      justify-content: flex-start;
-      gap: 0.75rem;
-      width: 100%;
-      position: relative; /* Anchor for absolute error hints */
-    }
-
-    .field-info {
-      flex: 0 0 70px; /* Fixed width for labels to align them */
-      margin-bottom: 0;
-    }
-
-    .label {
-      font-size: 0.8rem;
-    }
-
-    .error-hint {
-       position: absolute;
-       top: -15px; /* Aligned slightly above the border */
-       right: 5px; /* Tacked to the right edge */
-       bottom: auto;
-       left: auto;
-    }
-
-    input, .mobile-group {
-      flex: 1; /* Input takes remaining space */
-    }
-
-    input, textarea {
-      border-radius: 8px; /* Tighter corner */
-      border: 2px solid #1c1c1c;
-      background: #fff;
-      box-shadow: 2px 2px 0px #1c1c1c; /* Smaller shadow */
-      padding: 0.45rem 0.7rem; /* Shorter rectangles to increase white-space */
-      font-size: 0.85rem;
-    }
-
-    textarea {
-      min-height: 100px; /* Shorter message box for mobile flow */
-    }
-
-    .btn {
-      width: 100%;
-      padding: 0.75rem; /* Downsized button further as requested */
-      border-width: 2.5px;
-      border-color: #1c1c1c;
-      font-size: 0.9rem;
-      background: var(--color-1) !important; /* Yellow as requested */
-      color: var(--color-3) !important; /* Dark text */
-    }
-
-    .social-pill {
-      width: 38px;
-      height: 38px;
-      border-width: 2.5px;
-      box-shadow: 3px 3px 0 var(--color-3);
-    }
-    .social-pill svg {
-      width: 18px;
-      height: 18px;
-    }
-    .social-tray { gap: 0.75rem; }
-    .social-label { font-size: 0.65rem; }
-    .actions { gap: 2.5rem; margin-top: 0; }
-  }
-
-  .btn--waiting, .btn--success {
-    cursor: wait;
-    min-width: 160px;
-    transition: all 0.3s ease;
-  }
-
-  .btn--success {
-    cursor: default;
-    background: var(--color-4) !important;
-    color: var(--color-3) !important;
+    box-shadow: 5px 6px 0 #000;
   }
   
-  .btn--waiting {
-    background: var(--color-1) !important;
-    color: var(--color-3) !important;
+  :global(.dark) .social-pill:hover {
+    box-shadow: 8px 10px 0 #000;
   }
 
-  :global(.dark) .panel {
-    background: #2a2a2a;
-    color: #fff;
-    border-color: #fff;
-    box-shadow: 12px 14px 0px #000;
+  :global(.dark) .error-hint {
+    color: #ff6e6e;
   }
 
-  @media (max-width: 768px) {
-    :global(.dark) .panel {
-      box-shadow: 8px 8px 0px #fff;
-    }
-    :global(.dark) input,
-    :global(.dark) textarea {
-      background: #3d3d3d;
-      border-color: #fff;
-      box-shadow: 6px 6px 0px #fff;
-    }
-    :global(.dark) .btn {
-      border-color: #fff;
-    }
-  }
-
-  /* Neo-brutalist dark mode overrides */
-  :global(.dark) .btn {
-    border-color: var(--color-5);
-    box-shadow: 4px 4px 0px var(--color-5);
-  }
-  :global(.dark) .btn:active {
-    box-shadow: 0px 0px 0px var(--color-5) !important;
-  }
-  :global(.dark) .btn:hover,
-  :global(.dark) .btn:focus-visible {
-    box-shadow: 8px 8px 0px var(--color-5);
-  }
-
-  :global(.dark) .btn:not(.btn--ghost),
-  :global(.dark) .btn--success,
-  :global(.dark) .btn--waiting {
-    background: var(--color-1);
-    color: #3d3d3d !important;
-  }
-
-  .mobile-group {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .country-input-wrap {
-    display: flex;
-    align-items: center;
-    background: var(--color-5);
-    border: 2px solid var(--color-3);
-    border-radius: 12px;
-    padding: 0.85rem 0.25rem; /* Ultra tight padding */
-    box-shadow: 4px 4px 0 var(--color-3);
-    width: 55px; /* Fixed small width */
-    overflow: hidden;
-    transition: transform 0.1s;
-  }
-
-  .plus-token {
-    font-weight: 800;
-    font-size: 1.1rem;
-    color: var(--color-3);
-    margin-right: -4px;
-    user-select: none;
-  }
-
-  .country-input {
-    width: 100% !important;
-    border: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-    text-align: left !important;
-    padding: 0 0.25rem !important;
-    font-weight: 800 !important;
-  }
-
-  :global(.dark) .country-input-wrap {
-    background: #3d3d3d;
-    border-color: #fff;
-    box-shadow: 6px 6px 0 #fff; /* Match dark mode shadow of main inputs */
-  }
-
-  .field-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 0.25rem;
-  }
-
-  .error-hint {
-    font-size: 0.65rem;
-    font-weight: 900;
-    color: #ff4d4d;
-    letter-spacing: 0.05em;
-    animation: pulseError 1s infinite;
-  }
-
-  @keyframes pulseError {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-  }
+  .btn--waiting, .btn--success { cursor: wait; }
+  .btn--success { background: #4ADE80 !important; }
 
   .btn-content {
     display: flex;
@@ -639,48 +517,6 @@
     justify-content: center;
     gap: 0.75rem;
   }
-
-  .success-pop {
-    animation: successScale 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-  }
-
-  .checkmark path {
-    stroke-dasharray: 40;
-    stroke-dashoffset: 40;
-    animation: drawCheck 0.4s ease-out 0.2s forwards;
-  }
-
-  @keyframes drawCheck {
-    to { stroke-dashoffset: 0; }
-  }
-
-  @keyframes successScale {
-    0% { transform: scale(0.8); opacity: 0; filter: brightness(1.5); }
-    50% { transform: scale(1.1); filter: brightness(1.2); }
-    100% { transform: scale(1); opacity: 1; filter: brightness(1); }
-  }
-
-  .btn--success {
-    box-shadow: 0 0 20px rgba(var(--color-4-rgb, 74, 222, 128), 0.4);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .btn--success::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
-    transform: rotate(45deg);
-    animation: lightBeam 0.8s ease-out forwards;
-  }
-
-  @keyframes lightBeam {
-    from { transform: rotate(45deg) translate(-100%, -100%); }
-    to { transform: rotate(45deg) translate(100%, 100%); }
-  }
 </style>
+
 

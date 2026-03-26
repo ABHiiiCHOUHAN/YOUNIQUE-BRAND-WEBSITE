@@ -1,10 +1,66 @@
 <script>
+	import { onMount } from 'svelte';
 	let { postsPromise } = $props();
 
 	let scrollTrack;
 	let isDragging = false;
 	let startX;
 	let scrollLeft;
+
+	// Typewriter state
+	let displayText = $state("");
+	let currentWordIdx = $state(0);
+	const words = [
+		"News", "Observations", "Insights", "Implications", "Forecasts", 
+		"Strategies", "Takeaways", "Actionables", "Trajectories", "Outcomes", 
+		"Projections", "Benchmarks", "Validations", "Perspectives", "Conclusions"
+	];
+
+	async function typeWriterLoop() {
+		const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+		while (true) {
+			let fullWord = words[currentWordIdx];
+			let hasTypo = Math.random() < 0.1; // 10% chance
+			
+			if (hasTypo) {
+				let half = Math.floor(fullWord.length / 2);
+				for (let i = 0; i <= half; i++) {
+					displayText = fullWord.slice(0, i);
+					await sleep(70 + Math.random() * 150);
+				}
+				await sleep(500); 
+				for (let i = half; i >= 0; i--) {
+					displayText = fullWord.slice(0, i);
+					await sleep(50 + Math.random() * 80);
+				}
+				currentWordIdx = (currentWordIdx + Math.floor(Math.random() * (words.length - 1)) + 1) % words.length;
+				fullWord = words[currentWordIdx];
+				await sleep(300);
+			}
+
+			// Type current word
+			for (let i = 0; i <= fullWord.length; i++) {
+				displayText = fullWord.slice(0, i);
+				await sleep(60 + Math.random() * 140);
+			}
+
+			// Stay visible
+			await sleep(2800 + Math.random() * 1500); 
+
+			// Delete word
+			for (let i = fullWord.length; i >= 0; i--) {
+				displayText = fullWord.slice(0, i);
+				await sleep(40 + Math.random() * 60);
+			}
+			
+			await sleep(600);
+			currentWordIdx = (currentWordIdx + 1) % words.length;
+		}
+	}
+
+	onMount(() => {
+		typeWriterLoop();
+	});
 
 	const onMouseDown = (e) => {
 		isDragging = true;
@@ -32,8 +88,8 @@
 	
 	<div class="content">
 		<header class="blog-header">
-			<h2 class="title" id="blog-title">THOUGHTS // RULES</h2>
-			<span class="sub">DESIGN, CHAOS & LOGIC</span>
+			<h2 class="title" id="blog-title">THOUGHTS</h2>
+			<span class="sub">.. {displayText}<span class="type-cursor"></span></span>
 		</header>
 
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -124,31 +180,53 @@
 
 	.title {
 		font-family: 'Rubik Mono One', sans-serif;
-		font-size: clamp(2.5rem, 6vw, 4.5rem);
+		font-size: clamp(3rem, 10vw, 6.5rem);
 		color: var(--color-3);
 		letter-spacing: -0.05em;
 		margin: 0;
-		line-height: 0.9;
+		line-height: 0.85;
 	}
 
 	.sub {
-		font-family: var(--font-secondary);
-		font-weight: 800;
-		font-size: 1.1rem;
+		font-family: 'Space Mono', monospace;
+		font-weight: 700;
+		font-size: clamp(1.4rem, 4vw, 3rem); /* BIG */
 		color: var(--color-3);
-		letter-spacing: 0.1em;
-		opacity: 0.8;
+		letter-spacing: -0.02em;
+		opacity: 0.9;
+		margin-top: 1rem;
+		display: flex;
+		align-items: center;
+		gap: 0.2rem;
+		text-shadow: none !important;
+	}
+
+	.type-cursor {
+		display: inline-block;
+		width: 3px;
+		height: 1.1em;
+		background: #000 !important; /* Pure black as requested */
+		margin-left: 2px;
+		animation: blink 0.8s infinite;
+		box-shadow: none !important;
+		text-shadow: none !important;
+		filter: none !important;
+		transform: none !important;
+	}
+
+	:global(.dark) .type-cursor {
+		background: #000 !important;
+	}
+
+	@keyframes blink {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0; }
 	}
 
 	:global(.dark) .title,
 	:global(.dark) .sub {
 		color: #393839;
 		opacity: 1;
-	}
-
-	.sub {
-		font-family: 'Space Mono', monospace;
-		font-weight: 700;
 	}
 
 	.scroll-track {
@@ -223,17 +301,24 @@
 		top: -14px;
 		left: 50%;
 		transform: translateX(-50%);
-		background: var(--color-3); /* Dark */
-		color: #fff;
-		padding: 0.15rem 0.5rem;
+		background: var(--color-1); /* Theme Yellow */
+		color: #1c1c1c; /* Keep it dark for visibility on yellow */
+		padding: 0.15rem 0.6rem;
 		font-family: inherit;
-		font-size: 0.7rem;
-		font-weight: 800;
-		letter-spacing: 0.15em;
-		border: 2px solid #fff;
+		font-size: 0.75rem;
+		font-weight: 900;
+		letter-spacing: 0.1em;
+		border: 3px solid #1c1c1c; /* Heavy brutalist border */
 		z-index: 100;
 		pointer-events: none;
-		box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+		box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+		text-shadow: none;
+		text-transform: uppercase;
+	}
+
+	:global(.dark) .new-badge {
+		border-color: #000;
+		box-shadow: 4px 4px 0px #000;
 	}
 
 	.post-wrapper:hover .post::after {

@@ -4,9 +4,9 @@
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "vite dev --open --browser 'Microsoft Edge'",
 		"build": "vite build",
-		"preview": "vite preview",
+		"preview": "vite preview --open --browser 'Microsoft Edge'",
 		"prepare": "svelte-kit sync || echo ''",
 		"lint": "prettier --check .",
 		"format": "prettier --write ."

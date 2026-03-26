@@ -10,6 +10,10 @@
 
 	let isDark = $state(false);
 	let scrollY = $state(0);
+	const isAtBottom = $derived.by(() => {
+		if (!browser) return false;
+		return scrollY + window.innerHeight >= document.documentElement.scrollHeight - 50;
+	});
 
 	$effect(() => {
 		if (browser) {
@@ -46,7 +50,7 @@
 
 <div class="app">
 	{#if !isStandalone}
-		<header class="header" class:scrolled={scrollY > 50}>
+		<header class="header" class:scrolled={scrollY > 50} class:header--hidden={isAtBottom}>
 			<nav class="navbar" aria-label="Primary">
 				<a class="brand" href="/" aria-label="Younique Design Studio home">
 					<div
@@ -58,9 +62,9 @@
 				</a>
 
 				<ul class="nav-links">
-					<li><a class="nav-link" href="/#work">Work</a></li>
-					<li><a class="nav-link" href="/#blog">Blog</a></li>
-					<li><a class="nav-link" href="/#about">About</a></li>
+					<li><a class="nav-link" class:active={$page.url.hash === '#work' || $page.url.pathname === '/work'} href="/#work">Work</a></li>
+					<li><a class="nav-link" class:active={$page.url.hash === '#blog' || $page.url.pathname.startsWith('/blog')} href="/#blog">Blog</a></li>
+					<li><a class="nav-link" class:active={$page.url.hash === '#about'} href="/#about">About</a></li>
 					<li><a class="btn-contact" href="/#contact">Contact</a></li>
 					<li>
 						<button
@@ -145,7 +149,7 @@
 				<div class="footer-main-grid">
 					<div class="footer-brand-box">
 						<img src="/assets/3_footer_logo.png" alt="Younique Logo" class="footer-logo" />
-						<p class="footer-tagline">Pushing limits and breaking patterns since 2024.</p>
+						<p class="footer-tagline">Pushing limits and<br />breaking patterns<br />since 2024.</p>
 					</div>
 					
 					<div class="footer-links-container">
@@ -155,7 +159,7 @@
 								<li><a href="/">Home</a></li>
 								<li><a href="/#work">Work</a></li>
 								<li><a href="/#about">About</a></li>
-								<li><a href="/#skills">Skills</a></li>
+								<li><a href="/#damage">Stats</a></li>
 							</ul>
 						</div>
 						<div class="footer-nav-block">
@@ -215,7 +219,11 @@
 		-webkit-backdrop-filter: blur(10px);
 		box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 		animation: dropHeader 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-		transition: background 0.4s ease, box-shadow 0.4s ease;
+		transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.header--hidden {
+		transform: translateY(-100%);
 	}
 
 	:global(.dark) .header {
@@ -286,12 +294,14 @@
 		color: var(--color-3);
 		font-weight: 800;
 		text-transform: uppercase;
-		font-size: 0.85rem;
-		letter-spacing: 0.1em;
+		font-size: 0.95rem;
+		font-family: var(--font-secondary);
+		letter-spacing: 0.05em;
 		transition: all 0.3s ease;
 		position: relative;
-		padding: 0.5rem 0;
+		padding: 0.5rem 1rem;
 	}
+
 
 	:global(.dark) .nav-link {
 		color: #f4f4f4;
@@ -388,7 +398,7 @@
 	.footer-massive {
 		background: #3d3d3d;
 		padding: 3rem 0; /* Broad strip feel */
-		border-top: 4px solid #000;
+		border-top: none;
 		border-bottom: 4px solid #000;
 		overflow: hidden;
 		margin-bottom: 4rem;
@@ -428,19 +438,25 @@
 
 	.footer-main-grid {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1.5fr 1fr;
 		gap: 4rem;
 		margin-bottom: 4rem;
 	}
 
+	.footer-brand-box {
+		display: flex;
+		align-items: center;
+		gap: 2.5rem;
+		margin-bottom: 0;
+	}
+
 	.footer-logo {
-		height: 125px; /* Scaled up for more impact */
+		height: 180px; /* Increased footer logo size */
 		width: auto;
 		object-fit: contain;
-		margin-bottom: 0.75rem; /* Nudged nearer to the tagline as requested */
-		margin-left: -3.5rem; /* Pushed further left for extra style */
+		margin: 0;
+		margin-left: -1rem; 
 		transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-		
 		filter: none;
 		opacity: 1;
 	}
@@ -450,10 +466,13 @@
 	}
 
 	.footer-tagline {
-		font-size: 1.2rem;
-		font-weight: 700;
-		opacity: 0.7;
-		max-width: 300px;
+		font-size: 1.35rem;
+		font-weight: 800;
+		opacity: 0.8;
+		margin: 0;
+		line-height: 1.2;
+		color: var(--color-1);
+		white-space: nowrap; /* Keep it on a single horizontal line */
 	}
 
 	.footer-links-container {
@@ -519,6 +538,21 @@
 			flex-direction: row;
 			justify-content: flex-start;
 			gap: 3.5rem;
+		}
+		.footer-brand-box {
+			flex-direction: row; /* Keep horizontal as requested */
+			align-items: center;
+			gap: 1rem;
+			width: 100%;
+			overflow: hidden;
+		}
+		.footer-logo {
+			margin-left: -0.5rem;
+			height: 60px; /* Smaller for mobile horizontal */
+		}
+		.footer-tagline {
+			font-size: 0.85rem; /* Smaller for mobile horizontal */
+			max-width: 200px;
 		}
 		.article-view .footer-logo {
 			display: none;
