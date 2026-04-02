@@ -1,4 +1,5 @@
 <script>
+	import AboutIllustration from './AboutIllustration.svelte';
 	const words = ['THE', 'MINDS', 'BEHIND', 'THE', 'CHAOS'];
 </script>
 
@@ -11,7 +12,10 @@
 		</h1>
 	</header>
 
-
+	<!-- Added the vector illustration to the right column -->
+	<div class="illustration-col">
+		<AboutIllustration />
+	</div>
 </div>
 
 <style>
@@ -25,6 +29,14 @@
 		gap: 4rem;
 		position: relative;
 	}
+	.illustration-col {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+	}
+
 	.about-title {
 		font-size: clamp(4rem, 11vw, 7.5rem);
 		font-family: 'Space Mono', monospace;

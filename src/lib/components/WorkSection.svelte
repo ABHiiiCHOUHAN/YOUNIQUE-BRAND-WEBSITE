@@ -8,42 +8,50 @@
 			title: 'Brand Identity',
 			color: '#FD5A04',
 			tabPos: '5%',
-			sticker: '/assets/service-icons/3_sticker_branding.png'
+			sticker: '/assets/service-icons/SI5.png'
 		},
 		{
 			id: 2,
 			title: 'Digital\nExperien\nces',
 			color: '#5375D1',
 			tabPos: '20%',
-			sticker: '/assets/service-icons/2_sticker_globe.png'
+			sticker: '/assets/service-icons/SI3.png'
 		},
 		{
 			id: 7,
 			title: 'Social\nMedia\nManage\nment',
 			color: '#FFF602',
 			tabPos: '35%',
-			sticker: '/assets/service-icons/5_sticker_creator.png'
+			sticker: '/assets/service-icons/SI6.png'
 		},
 		{
 			id: 8,
 			title: 'Video Editing',
 			color: '#6BDAC9',
 			tabPos: '50%',
-			sticker: '/assets/service-icons/1_sticker_visual.png'
+			sticker: '/assets/service-icons/SI1.png'
 		},
 		{
 			id: 9,
 			title: 'Graphics & Print',
 			color: '#6FC1E3',
 			tabPos: '65%',
-			sticker: '/assets/service-icons/4_sticker_framework.png'
+			sticker: '/assets/service-icons/SI4.png'
 		},
 		{
 			id: 10,
 			title: '3D Models',
 			color: '#FFFAF4',
 			tabPos: '80%',
-			sticker: '/assets/service-icons/6_sticker_3d.png'
+			sticker: '/assets/service-icons/SI2.png'
+		},
+		{
+			id: 11,
+			title: 'PACK\nAGING',
+			mobileTitle: 'PACKAGING\nDESIGN',
+			color: '#B39DDB',
+			tabPos: '95%',
+			sticker: '/assets/service-icons/SI8.png'
 		}
 	];
 
@@ -104,7 +112,10 @@
 
 					<div class="folder-main">
 						<div class="folder-content">
-							<h2 class="folder-title">{cat.title}</h2>
+							<h2 class="folder-title">
+								<span class="title-desktop">{cat.title}</span>
+								<span class="title-mobile">{cat.mobileTitle || cat.title}</span>
+							</h2>
 							<p class="folder-meta">View Project Deck</p>
 						</div>
 						{#if cat.sticker}
@@ -290,6 +301,10 @@
 		white-space: pre-line;
 	}
 
+	.title-mobile {
+		display: none;
+	}
+
 	/* Shift Graphics & Print slightly left */
 	.folder-card-wrap:nth-child(5) .folder-title {
 		margin-left: -8px;
@@ -392,6 +407,12 @@
 		}
 		.folder-title {
 			font-size: 2rem;
+		}
+		.title-desktop {
+			display: none;
+		}
+		.title-mobile {
+			display: block;
 		}
 		.folder-card-wrap:nth-child(2) .folder-visual {
 			transform: translateY(-70px);

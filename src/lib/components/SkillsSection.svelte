@@ -76,6 +76,7 @@
 		padding: 10rem clamp(1rem, 5vw, 4rem);
 		background: transparent;
 		overflow: hidden;
+		scroll-margin-top: 120px; /* Accounts for fixed header */
 	}
 
 	.content-limit {
@@ -84,6 +85,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		justify-content: center;
 		gap: 4rem;
 	}
 
@@ -133,6 +135,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		justify-content: center;
 		text-align: center;
 		flex: 1;
 		min-width: 250px;
@@ -141,6 +144,7 @@
 	.number-wrap {
 		display: flex;
 		align-items: baseline;
+		justify-content: center;
 		font-family: 'Unbounded', sans-serif;
 		font-weight: 900;
 		line-height: 1;
@@ -185,10 +189,12 @@
 	@media (max-width: 768px) {
 		.damage-wrap {
 			padding: 6rem 1.5rem;
+			scroll-margin-top: 100px; /* Accounts for fixed header on mobile */
 		}
 		.stats-grid {
 			flex-direction: column;
 			align-items: center;
+			justify-content: center;
 			gap: 4rem;
 		}
 		.number {

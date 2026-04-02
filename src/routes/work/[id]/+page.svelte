@@ -83,15 +83,13 @@
 		<a href="/">Back to home</a>
 	</div>
 {:else if showPage}
+	<a href="/#work" class="minimal-back-btn" aria-label="Back to Portfolio" in:fade={{ duration: 800, delay: 100 }} out:fade>
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+			<line x1="19" y1="12" x2="5" y2="12"></line>
+			<polyline points="12 19 5 12 12 5"></polyline>
+		</svg>
+	</a>
 	<article class="deck-page" in:fly={{ y: 50, duration: 800, delay: 100 }} out:fade>
-		{#if data.project.id !== 8 && data.project.id !== 7 && data.project.id !== 1}
-			<!-- Top Bar -->
-			<nav class="deck-nav">
-				<span class="left">{data.project.tag}</span>
-				<span class="right">{data.project.year || '2024'}</span>
-			</nav>
-		{/if}
-
 		<!-- Section 1: Minimal Intro -->
 		<section class="slide slide--intro">
 			<div class="grid">
@@ -281,51 +279,6 @@
 						</div>
 					</div>
 				</div>
-
-				<!-- Interactive Section for Digital (CardSwap) -->
-				<div class="gallery-label-header" style="margin-top: 10rem;">
-					<h2 class="sub-label">INTERACTIVE // EXPERIENCES</h2>
-				</div>
-				<div class="interactive-wrap">
-					<CardSwap
-						verticalDistance={90}
-						cardDistance={100}
-						skewAmount={11}
-						delay={4500}
-						cards={[
-							{
-								title: 'Project Alpha',
-								desc: 'AI-driven social platform architecture.',
-								bg: '#FACC15',
-								image: 'https://picsum.photos/seed/a/800/800'
-							},
-							{
-								title: 'Nexus UI',
-								desc: 'Minimalist dashboard for crypto trading.',
-								bg: '#3B82F6',
-								image: 'https://picsum.photos/seed/b/800/800'
-							},
-							{
-								title: 'Y-OS',
-								desc: 'Custom OS interface for futuristic devices.',
-								bg: '#10B981',
-								image: 'https://picsum.photos/seed/c/800/800'
-							},
-							{
-								title: 'Neon Core',
-								desc: 'Interactive music streaming experiment.',
-								bg: '#8B5CF6',
-								image: 'https://picsum.photos/seed/d/800/800'
-							},
-							{
-								title: 'Prism Lab',
-								desc: 'WebGL experiment in light refraction.',
-								bg: '#EC4899',
-								image: 'https://picsum.photos/seed/e/800/800'
-							}
-						]}
-					/>
-				</div>
 			{:else}
 				<div class="gallery-bento layout-{data.project.id}">
 					{#each currentSet as item, i}
@@ -347,21 +300,21 @@
 		</section>
 
 		<!-- Section 3: Stats -->
-		<section class="slide slide--stats">
-			<div class="stats-grid">
-				{#each data.project.stats || [] as stat}
-					<div class="stat-card">
-						<span class="small-icon">*</span>
-						<div class="val">{stat.val}</div>
-						<div class="label">{stat.label}</div>
-					</div>
-				{/each}
-			</div>
-
-			<footer class="deck-footer">
-				<a href="/#work" class="back-btn">Back to Portfolio</a>
-			</footer>
-		</section>
+		{#if (data.project.stats || []).length > 0}
+			<section class="slide slide--stats">
+				<div class="stats-grid">
+					{#each data.project.stats as stat}
+						<div class="stat-card">
+							<span class="small-icon">*</span>
+							<div class="val">{stat.val}</div>
+							<div class="label">{stat.label}</div>
+						</div>
+					{/each}
+				</div>
+			</section>
+		{:else}
+			<div class="spacer-bottom-filler" style="height: 10vh;"></div>
+		{/if}
 	</article>
 {/if}
 
@@ -378,20 +331,6 @@
 		color: var(--text-dark);
 		min-height: 100vh;
 		font-family: 'Unbounded', sans-serif;
-	}
-
-	.deck-nav {
-		display: flex;
-		justify-content: space-between;
-		padding: 1.5rem 2rem;
-		font-size: 0.9rem;
-		font-weight: 500;
-		text-transform: lowercase;
-		opacity: 0.6;
-		position: sticky;
-		top: 80px; /* Offset for the fixed header */
-		z-index: 100;
-		background: var(--bg-light);
 	}
 
 	.slide {
@@ -666,6 +605,23 @@
 		visibility: hidden;
 	}
 
+	/* 11. Packaging Design (Showcase Layout) */
+	.layout-11 {
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: repeat(2, 450px);
+	}
+	.layout-11 .cell-0 {
+		grid-column: span 2;
+		grid-row: span 2;
+	}
+	.layout-11 .cell-1,
+	.layout-11 .cell-2,
+	.layout-11 .cell-3,
+	.layout-11 .cell-4 {
+		grid-column: span 1;
+		grid-row: span 1;
+	}
+
 	/* 3. Neo-Brutalist Interactive Browser */
 	.interactive-wrap {
 		width: 100%;
@@ -702,7 +658,7 @@
 	}
 
 	.browser-head {
-		background: var(--color-4); /* Green */
+		background: var(--color-5); /* Neutral minimal background */
 		border-bottom: 4px solid var(--color-3);
 		display: flex;
 		justify-content: space-between;
@@ -745,9 +701,10 @@
 	}
 
 	.browser-tab.is-active {
-		background: var(--color-1); /* Yellow */
+		background: var(--color-5); 
 		z-index: 5;
 		padding-bottom: 0.9rem;
+		border-bottom: 4px solid var(--color-5); /* Blends with header but stands out by structure */
 	}
 
 	.browser-controls {
@@ -778,7 +735,7 @@
 	}
 
 	.browser-toolbar {
-		background: var(--color-1);
+		background: var(--color-5); /* Neutral minimal toolbar */
 		border-bottom: 4px solid var(--color-3);
 		padding: 0.8rem 1.5rem;
 		display: flex;
@@ -810,7 +767,7 @@
 
 	.search-btn {
 		width: 50px;
-		background: var(--color-2); /* Blue */
+		background: var(--color-5); /* Neutral search button */
 		border-right: 3px solid var(--color-3);
 		display: flex;
 		justify-content: center;
@@ -858,7 +815,7 @@
 
 	.browser-screen-container::-webkit-scrollbar-thumb,
 	.mobile-screen-container::-webkit-scrollbar-thumb {
-		background: var(--color-4); /* Green scrollbar */
+		background: var(--color-3); /* Dark minimal scrollbar */
 		border: 4px solid var(--color-3);
 		border-radius: 12px;
 	}
@@ -903,7 +860,7 @@
 	}
 
 	.mobile-browser-head {
-		background: var(--color-1);
+		background: var(--color-5); /* Neutral minimal mobile header */
 		border-bottom: 4px solid var(--color-3);
 		padding: 1.2rem 1rem 0.8rem;
 		display: flex;
@@ -963,77 +920,98 @@
 	}
 
 	.stats-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 1.5rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 6rem;
 		max-width: 1400px;
 		margin: 0 auto;
 		width: 100%;
+		padding: 4rem 2rem;
 	}
 
 	.stat-card {
-		background: #fff;
-		padding: 3rem;
-		border-radius: 40px;
-		min-height: 300px;
+		background: transparent;
+		padding: 0;
+		border-radius: 0;
+		min-height: auto;
 		display: flex;
 		flex-direction: column;
-		justify-content: flex-end;
-		border: 1px solid rgba(0, 0, 0, 0.05);
+		align-items: center;
+		border: none;
+		text-align: center;
 	}
+
 	.stat-card:first-child {
-		background: var(--bg-dark);
-		color: #fff;
+		background: transparent;
+		color: inherit;
 	}
 
 	.small-icon {
-		font-weight: 900;
-		font-size: 1.5rem;
+		display: none; /* Removed for hyper-minimalism */
 	}
+
 	.val {
-		font-size: 4rem;
-		font-weight: 900;
-		margin-top: 1rem;
-		line-height: 0.9;
-		letter-spacing: -0.05em;
+		font-family: 'Space Mono', monospace;
+		font-size: 2.2rem;
+		font-weight: 500;
+		margin-top: 0;
+		color: var(--text-dark);
+		letter-spacing: -0.02em;
 	}
+
+	:global(.dark) .val {
+		color: var(--text-light);
+	}
+
 	.label {
-		font-size: 1rem;
-		opacity: 0.6;
-		margin-top: 1rem;
+		font-family: 'Unbounded', sans-serif; /* Standard grotesk look */
+		font-size: 0.65rem;
+		opacity: 0.5;
+		margin-top: 0.5rem;
 		text-transform: uppercase;
-		font-weight: 600;
+		font-weight: 700;
+		letter-spacing: 0.1em;
 	}
 
-	.deck-footer {
-		max-width: 1400px;
-		margin: 6rem auto 0;
-		width: 100%;
+	.minimal-back-btn {
+		position: fixed;
+		top: 8.5rem; /* Moved further down below the main header */
+		left: 1.5rem;
+		width: 44px;
+		height: 44px;
+		background: var(--color-5); /* Always matches light mode theme or paper bg */
+		color: var(--color-3);
+		border: 3px solid var(--color-3);
+		border-radius: 50%;
 		display: flex;
+		align-items: center;
 		justify-content: center;
+		z-index: 1000;
+		box-shadow: 4px 4px 0 var(--color-3);
+		transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		text-decoration: none;
 	}
 
-	.back-btn {
-		padding: 1.25rem 4rem;
-		background: var(--color-4, #10b981);
-		color: var(--text-dark);
-		text-decoration: none;
-		border-radius: 999px;
-		font-weight: 800;
-		text-transform: uppercase;
-		border: 4px solid var(--text-dark);
-		box-shadow: 6px 6px 0 var(--text-dark);
-		transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+	:global(.dark) .minimal-back-btn {
+		background: var(--color-1); /* Pop yellow on dark mode back icon */
+		color: var(--color-3);
 	}
-	.back-btn:hover {
+
+	.minimal-back-btn:hover {
 		transform: translate(-3px, -3px);
-		box-shadow: 9px 9px 0 var(--text-dark);
-		background: var(--color-1, #ffd200);
-		color: var(--text-dark);
+		box-shadow: 7px 7px 0 var(--color-3);
+		background: var(--color-4); /* Green pop on hover */
 	}
-	.back-btn:active {
-		transform: translate(4px, 4px);
-		box-shadow: 0px 0px 0 var(--text-dark);
+
+	.minimal-back-btn:active {
+		transform: translate(2px, 2px);
+		box-shadow: 0px 0px 0 var(--color-3);
+	}
+
+	.minimal-back-btn svg {
+		width: 20px;
+		height: 20px;
 	}
 
 	/* --- QUICK NAVIGATION PILLS --- */
@@ -1137,18 +1115,20 @@
 			margin: 0;
 		}
 
-		.line {
-			width: 40px;
-		}
-		.label {
-			font-size: 1.1rem;
+		.stats-grid {
+			flex-direction: column;
+			gap: 3rem;
+			padding: 2rem;
 		}
 		.stat-card {
-			padding: 2rem;
-			min-height: 200px;
+			padding: 0;
+			min-height: auto;
 		}
 		.val {
-			font-size: 2.5rem;
+			font-size: 2rem;
+		}
+		.label {
+			font-size: 0.6rem;
 		}
 
 		/* Browser Mobile Scaling */
