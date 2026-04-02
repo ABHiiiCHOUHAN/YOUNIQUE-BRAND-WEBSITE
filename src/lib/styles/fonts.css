@@ -1,130 +1,130 @@
 @font-face {
-  font-family: 'Unbounded';
-  src: url('/fonts/Unbounded/Unbounded-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
+	font-family: 'Unbounded';
+	src: url('/fonts/Unbounded/Unbounded-VariableFont_wght.ttf') format('truetype');
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'Space Grotesk';
-  src: url('/fonts/static/SpaceGrotesk-Bold.ttf') format('truetype');
-  font-weight: 700 800;
-  font-style: normal;
-  font-display: swap;
+	font-family: 'Space Grotesk';
+	src: url('/fonts/static/SpaceGrotesk-Bold.ttf') format('truetype');
+	font-weight: 700 800;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'Space Mono';
-  src: url('/fonts/Space_Mono/SpaceMono-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+	font-family: 'Space Mono';
+	src: url('/fonts/Space_Mono/SpaceMono-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'Space Mono';
-  src: url('/fonts/Space_Mono/SpaceMono-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
+	font-family: 'Space Mono';
+	src: url('/fonts/Space_Mono/SpaceMono-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'Rubik Mono One';
-  src: url('/fonts/RubikMonoOne-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+	font-family: 'Rubik Mono One';
+	src: url('/fonts/RubikMonoOne-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 /* --- FONT DEFINITIONS --- */
 /* Simplified font filenames (removed numbers/styles) */
 
 @font-face {
-  font-family: 'Kubizmus Demo';
-  src: url('/fonts/Kubizmus.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+	font-family: 'Kubizmus Demo';
+	src: url('/fonts/Kubizmus.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'EricaOne';
-  src: url('/fonts/EricaOne.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+	font-family: 'EricaOne';
+	src: url('/fonts/EricaOne.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'Nauryz';
-  src: url('/fonts/Nauryz.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+	font-family: 'Nauryz';
+	src: url('/fonts/Nauryz.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'Kalamayka';
-  src: url('/fonts/Kalamayka.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+	font-family: 'Kalamayka';
+	src: url('/fonts/Kalamayka.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'moon-get';
-  src: url('/fonts/MoonGet.otf') format('opentype');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
+	font-family: 'moon-get';
+	src: url('/fonts/MoonGet.otf') format('opentype');
+	font-weight: 900;
+	font-style: normal;
+	font-display: swap;
 }
 
 /* --- KINETIC GLITCH FONTS --- */
 /* Cleaned filenames in the glitch folder */
 @font-face {
-  font-family: 'Kinetic-Balium';
-  src: url('/fonts/kinetic-glitch-fonts/Balium.ttf') format('truetype');
-  font-display: swap;
+	font-family: 'Kinetic-Balium';
+	src: url('/fonts/kinetic-glitch-fonts/Balium.ttf') format('truetype');
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'Kinetic-LLPixel';
-  src: url('/fonts/kinetic-glitch-fonts/LLPIXEL.ttf') format('truetype');
-  font-display: swap;
+	font-family: 'Kinetic-LLPixel';
+	src: url('/fonts/kinetic-glitch-fonts/LLPIXEL.ttf') format('truetype');
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'Kinetic-Nauryz';
-  src: url('/fonts/kinetic-glitch-fonts/Nauryz.ttf') format('truetype');
-  font-display: swap;
+	font-family: 'Kinetic-Nauryz';
+	src: url('/fonts/kinetic-glitch-fonts/Nauryz.ttf') format('truetype');
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'Kinetic-TikiTropic';
-  src: url('/fonts/kinetic-glitch-fonts/TikiTropic.ttf') format('truetype');
-  font-display: swap;
+	font-family: 'Kinetic-TikiTropic';
+	src: url('/fonts/kinetic-glitch-fonts/TikiTropic.ttf') format('truetype');
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'Kinetic-Ballantiness';
-  src: url('/fonts/kinetic-glitch-fonts/Ballantiness.otf') format('opentype');
-  font-display: swap;
+	font-family: 'Kinetic-Ballantiness';
+	src: url('/fonts/kinetic-glitch-fonts/Ballantiness.otf') format('opentype');
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'Kinetic-Travel';
-  src: url('/fonts/kinetic-glitch-fonts/Travel.ttf') format('truetype');
-  font-display: swap;
+	font-family: 'Kinetic-Travel';
+	src: url('/fonts/kinetic-glitch-fonts/Travel.ttf') format('truetype');
+	font-display: swap;
 }
 
 /* --- KINETIC THEME VARIABLES --- */
 :root {
-  --kinetic-font-1: 'Kinetic-Balium', 'serif';
-  --kinetic-font-2: 'Kinetic-LLPixel', 'monospace';
-  --kinetic-font-3: 'Kinetic-Nauryz', 'serif';
-  --kinetic-font-4: 'Kinetic-TikiTropic', 'cursive';
-  --kinetic-font-5: 'Kinetic-Ballantiness', 'cursive';
-  --kinetic-font-6: 'Kinetic-Travel', 'sans-serif';
+	--kinetic-font-1: 'Kinetic-Balium', 'serif';
+	--kinetic-font-2: 'Kinetic-LLPixel', 'monospace';
+	--kinetic-font-3: 'Kinetic-Nauryz', 'serif';
+	--kinetic-font-4: 'Kinetic-TikiTropic', 'cursive';
+	--kinetic-font-5: 'Kinetic-Ballantiness', 'cursive';
+	--kinetic-font-6: 'Kinetic-Travel', 'sans-serif';
 }

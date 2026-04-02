@@ -1,20 +1,20 @@
 [
-  {
-    "id": 1,
-    "img": "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2000&auto=format&fit=crop",
-    "chip": "Branding",
-    "caption": "Minimalist identity for a Swedish tech start-up."
-  },
-  {
-    "id": 2,
-    "img": "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2000&auto=format&fit=crop",
-    "chip": "UI/UX",
-    "caption": "Immersive e-commerce experience for high-end fashion."
-  },
-  {
-    "id": 3,
-    "img": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop",
-    "chip": "Visual",
-    "caption": "Experimental 3D assets for a digital art collective."
-  }
+	{
+		"id": 1,
+		"img": "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2000&auto=format&fit=crop",
+		"chip": "Branding",
+		"caption": "Minimalist identity for a Swedish tech start-up."
+	},
+	{
+		"id": 2,
+		"img": "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2000&auto=format&fit=crop",
+		"chip": "UI/UX",
+		"caption": "Immersive e-commerce experience for high-end fashion."
+	},
+	{
+		"id": 3,
+		"img": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop",
+		"chip": "Visual",
+		"caption": "Experimental 3D assets for a digital art collective."
+	}
 ]

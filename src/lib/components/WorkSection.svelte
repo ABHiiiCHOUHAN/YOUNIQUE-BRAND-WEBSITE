@@ -51,18 +51,21 @@
 
 	onMount(() => {
 		// Intersection Observer for Mobile "Center Trigger"
-		const observer = new IntersectionObserver((entries) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					const id = parseInt(entry.target.getAttribute('data-id'));
-					hoveredId = id;
-				}
-			});
-		}, {
-			root: null,
-			rootMargin: '-45% 0% -45% 0%',
-			threshold: 0
-		});
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						const id = parseInt(entry.target.getAttribute('data-id'));
+						hoveredId = id;
+					}
+				});
+			},
+			{
+				root: null,
+				rootMargin: '-45% 0% -45% 0%',
+				threshold: 0
+			}
+		);
 
 		const cards = document.querySelectorAll('.folder-card-wrap');
 		cards.forEach((card) => observer.observe(card));
@@ -74,7 +77,10 @@
 </script>
 
 <section class="wrap page-transition">
-	<div class="bg-watermark">WORK</div>
+	<div class="bg-watermark">
+		<span class="desktop-watermark">WORK</span>
+		<span class="mobile-watermark" aria-hidden="true">W<br/>O<br/>R<br/>K</span>
+	</div>
 	<header class="page-header"></header>
 
 	<div class="folder-grid">
@@ -115,14 +121,14 @@
 
 <style>
 	.wrap {
-		padding: 2.25rem clamp(1rem, 4vw, 4rem) 4rem;
-		position: relative; /* Relative for absolute background text */
+		padding: 1rem clamp(1rem, 4vw, 4rem) 2rem; /* Reduced padding */
+		position: relative;
 		overflow: hidden;
 	}
 
 	.bg-watermark {
 		position: absolute;
-		top: 50%; 
+		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%) scale(1.8, 1.25); /* Refined scale for perfect border touch */
 		font-family: 'Space Mono', monospace;
@@ -134,12 +140,16 @@
 		pointer-events: none;
 		z-index: 1;
 		white-space: nowrap;
-		letter-spacing: -0.05em; 
+		letter-spacing: -0.05em;
 		width: 100%;
 		text-align: center;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+
+	.mobile-watermark {
+		display: none;
 	}
 
 	:global(.dark) .bg-watermark {
@@ -153,8 +163,8 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		gap: 2rem 3rem;
-		margin: 6rem 0;
+		gap: 1.5rem 2.5rem; /* Reduced gap */
+		margin: 2rem 0; /* Reduced vertical margin */
 		padding: 0 1rem;
 	}
 
@@ -165,6 +175,8 @@
 		margin-top: 36px;
 		display: block;
 		text-decoration: none;
+		z-index: 5; /* Ensure link is above background */
+		pointer-events: auto;
 	}
 
 	/* Expand hit area to prevent hover glitch */
@@ -193,17 +205,33 @@
 	}
 
 	/* Zigzag & Rotation */
-	.folder-card-wrap:nth-child(4n + 1) { margin-top: 50px; }
-	.folder-card-wrap:nth-child(4n + 1) .folder-card-solo { transform: rotate(-3deg); }
+	.folder-card-wrap:nth-child(4n + 1) {
+		margin-top: 50px;
+	}
+	.folder-card-wrap:nth-child(4n + 1) .folder-card-solo {
+		transform: rotate(-3deg);
+	}
 
-	.folder-card-wrap:nth-child(4n + 2) { margin-top: 20px; }
-	.folder-card-wrap:nth-child(4n + 2) .folder-card-solo { transform: rotate(2deg); }
+	.folder-card-wrap:nth-child(4n + 2) {
+		margin-top: 20px;
+	}
+	.folder-card-wrap:nth-child(4n + 2) .folder-card-solo {
+		transform: rotate(2deg);
+	}
 
-	.folder-card-wrap:nth-child(4n + 3) { margin-top: 60px; }
-	.folder-card-wrap:nth-child(4n + 3) .folder-card-solo { transform: rotate(-1.5deg); }
+	.folder-card-wrap:nth-child(4n + 3) {
+		margin-top: 60px;
+	}
+	.folder-card-wrap:nth-child(4n + 3) .folder-card-solo {
+		transform: rotate(-1.5deg);
+	}
 
-	.folder-card-wrap:nth-child(4n + 4) { margin-top: 30px; }
-	.folder-card-wrap:nth-child(4n + 4) .folder-card-solo { transform: rotate(4deg); }
+	.folder-card-wrap:nth-child(4n + 4) {
+		margin-top: 30px;
+	}
+	.folder-card-wrap:nth-child(4n + 4) .folder-card-solo {
+		transform: rotate(4deg);
+	}
 
 	.folder-tab {
 		position: absolute;
@@ -308,7 +336,7 @@
 		box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.15);
 		z-index: 10;
 	}
-	
+
 	.folder-card-wrap:hover,
 	.folder-card-wrap:has(.is-active) {
 		z-index: 10;
@@ -378,6 +406,18 @@
 		.folder-card-wrap:nth-child(3):hover .folder-visual,
 		.folder-card-wrap:nth-child(3) .folder-card-solo.is-active .folder-visual {
 			transform: rotate(15deg) scale(1.15) translateY(-95px) !important;
+		}
+		
+		.desktop-watermark {
+			display: none;
+		}
+		.mobile-watermark {
+			display: block;
+			line-height: 0.8;
+		}
+		.bg-watermark {
+			transform: translate(-50%, -50%) scale(1.5, 1.2);
+			font-size: clamp(18rem, 65vw, 40rem); /* Massive size to span across the long mobile grid */
 		}
 	}
 </style>

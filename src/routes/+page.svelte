@@ -19,7 +19,6 @@
 	<section class="hero-void">
 		<div class="hero-bg"></div>
 		<KineticDecor />
-		
 
 		<div class="hero-void__content">
 			<div class="hero-title-group">
@@ -27,26 +26,81 @@
 				<!-- Big Constant Elements (Consolidated to one behind D) -->
 
 				<div class="box-defy">
-					<div class="hero-deco deco-big-sun is-constant pc-d-sun" style="--deco-url: url('/assets/hero-kinetic-elements/sun-rectangle.svg'); --deco-color: var(--color-sun); --deco-size: clamp(180px, 22vw, 260px);"></div>
+					<div
+						class="hero-deco deco-big-sun is-constant pc-d-sun"
+						style="--deco-url: url('/assets/hero-kinetic-elements/sun-rectangle.svg'); --deco-color: var(--color-sun); --deco-size: clamp(180px, 22vw, 260px);"
+					></div>
 					<svg class="trim-path-svg"><rect rx="4" class="trim-path-rect" /></svg>
-					<span class="kinetic-char loop-1" style="--rot: -8; --color: #A855F7; --f1: var(--kinetic-font-1); --f2: var(--kinetic-font-2); --f3: var(--kinetic-font-3)" data-char="D">D</span><span class="kinetic-char loop-4" style="--rot: 5; --color: #EC4899; --f1: var(--kinetic-font-4); --f2: var(--kinetic-font-5); --f3: var(--kinetic-font-6)" data-char="E">E</span><span class="kinetic-char loop-3" style="--rot: -3; --color: #FACC15; --f1: var(--kinetic-font-2); --f2: var(--kinetic-font-4); --f3: var(--kinetic-font-1)" data-char="F">F</span><span class="kinetic-char loop-2" style="--rot: 10; --color: #0EA5E9; --f1: var(--kinetic-font-6); --f2: var(--kinetic-font-3); --f3: var(--kinetic-font-5)" data-char="Y">Y</span>
+					<span
+						class="kinetic-char loop-1"
+						style="--rot: -8; --color: #A855F7; --f1: var(--kinetic-font-1); --f2: var(--kinetic-font-2); --f3: var(--kinetic-font-3)"
+						data-char="D">D</span
+					><span
+						class="kinetic-char loop-4"
+						style="--rot: 5; --color: #EC4899; --f1: var(--kinetic-font-4); --f2: var(--kinetic-font-5); --f3: var(--kinetic-font-6)"
+						data-char="E">E</span
+					><span
+						class="kinetic-char loop-3"
+						style="--rot: -3; --color: #FACC15; --f1: var(--kinetic-font-2); --f2: var(--kinetic-font-4); --f3: var(--kinetic-font-1)"
+						data-char="F">F</span
+					><span
+						class="kinetic-char loop-2"
+						style="--rot: 10; --color: #0EA5E9; --f1: var(--kinetic-font-6); --f2: var(--kinetic-font-3); --f3: var(--kinetic-font-5)"
+						data-char="Y">Y</span
+					>
 				</div>
 				<div class="the-group">
-					<div class="hero-deco deco-big-explosion is-constant-slow" style="--deco-url: url('/assets/hero-kinetic-elements/explosion.svg'); --deco-color: var(--color-explosion); --deco-size: clamp(200px, 28vw, 300px);"></div>
+					<div
+						class="hero-deco deco-big-explosion is-constant-slow"
+						style="--deco-url: url('/assets/hero-kinetic-elements/explosion.svg'); --deco-color: var(--color-explosion); --deco-size: clamp(200px, 28vw, 300px);"
+					></div>
 					<span class="text-the">THE</span>
 				</div>
 				<div class="default-group">
 					<div class="box-default" style="white-space: nowrap;">
 						<svg class="trim-path-svg"><rect rx="4" class="trim-path-rect" /></svg>
-						<span class="kinetic-char loop-3" style="--rot: -5; --color: #EC4899; --f1: var(--kinetic-font-5); --f2: var(--kinetic-font-3); --f3: var(--kinetic-font-2)" data-char="D">D</span><span class="kinetic-char loop-4" style="--rot: 8; --color: #A855F7; --f1: var(--kinetic-font-2); --f2: var(--kinetic-font-3); --f3: var(--kinetic-font-5)" data-char="E">E</span><span class="kinetic-char loop-1" style="--rot: -12; --color: #EC4899; --f1: var(--kinetic-font-4); --f2: var(--kinetic-font-6); --f3: var(--kinetic-font-1)" data-char="F">F</span><span class="kinetic-char loop-3" style="--rot: 4; --color: #FACC15; --f1: var(--kinetic-font-5); --f2: var(--kinetic-font-2); --f3: var(--kinetic-font-4)" data-char="A">A</span><span class="kinetic-char loop-4" style="--rot: -6; --color: #0EA5E9; --f1: var(--kinetic-font-3); --f2: var(--kinetic-font-1); --f3: var(--kinetic-font-2)" data-char="U">U</span><span class="kinetic-char loop-2" style="--rot: 15; --color: #2DD4BF; --f1: var(--kinetic-font-6); --f2: var(--kinetic-font-5); --f3: var(--kinetic-font-3)" data-char="L">L</span><span class="kinetic-char loop-1" style="--rot: -9; --color: #A855F7; --f1: var(--kinetic-font-1); --f2: var(--kinetic-font-3); --f3: var(--kinetic-font-6)" data-char="T">T</span>
+						<span
+							class="kinetic-char loop-3"
+							style="--rot: -5; --color: #EC4899; --f1: var(--kinetic-font-5); --f2: var(--kinetic-font-3); --f3: var(--kinetic-font-2)"
+							data-char="D">D</span
+						><span
+							class="kinetic-char loop-4"
+							style="--rot: 8; --color: #A855F7; --f1: var(--kinetic-font-2); --f2: var(--kinetic-font-3); --f3: var(--kinetic-font-5)"
+							data-char="E">E</span
+						><span
+							class="kinetic-char loop-1"
+							style="--rot: -12; --color: #EC4899; --f1: var(--kinetic-font-4); --f2: var(--kinetic-font-6); --f3: var(--kinetic-font-1)"
+							data-char="F">F</span
+						><span
+							class="kinetic-char loop-3"
+							style="--rot: 4; --color: #FACC15; --f1: var(--kinetic-font-5); --f2: var(--kinetic-font-2); --f3: var(--kinetic-font-4)"
+							data-char="A">A</span
+						><span
+							class="kinetic-char loop-4"
+							style="--rot: -6; --color: #0EA5E9; --f1: var(--kinetic-font-3); --f2: var(--kinetic-font-1); --f3: var(--kinetic-font-2)"
+							data-char="U">U</span
+						><span
+							class="kinetic-char loop-2"
+							style="--rot: 15; --color: #2DD4BF; --f1: var(--kinetic-font-6); --f2: var(--kinetic-font-5); --f3: var(--kinetic-font-3)"
+							data-char="L">L</span
+						><span
+							class="kinetic-char loop-1"
+							style="--rot: -9; --color: #A855F7; --f1: var(--kinetic-font-1); --f2: var(--kinetic-font-3); --f3: var(--kinetic-font-6)"
+							data-char="T">T</span
+						>
 					</div>
 					<div class="punctuation-group">
-						<span class="kinetic-char loop-3" style="--rot: 4; --color: #FFF602; --f1: var(--kinetic-font-1); --f2: var(--kinetic-font-3); --f3: var(--kinetic-font-5)" data-char=".">.</span><span class="blinking-cursor"></span>
+						<span
+							class="kinetic-char loop-3"
+							style="--rot: 4; --color: #FFF602; --f1: var(--kinetic-font-1); --f2: var(--kinetic-font-3); --f3: var(--kinetic-font-5)"
+							data-char=".">.</span
+						><span class="blinking-cursor"></span>
 					</div>
 				</div>
 			</div>
 			<p class="hero-subtext">
-				We do things differently—crafting visual identities and digital spaces that actually stop the scroll.
+				We do things differently—crafting visual identities and digital spaces that actually stop
+				the scroll.
 			</p>
 
 			<div class="hero-cta">
@@ -107,6 +161,10 @@
 		z-index: -1;
 	}
 
+	:global(.dark) .hero-bg {
+		filter: brightness(0.3);
+	}
+
 	.hero-void__content {
 		max-width: 800px;
 		width: 100%;
@@ -115,7 +173,6 @@
 		position: relative;
 		z-index: 10;
 	}
-
 
 	/* --- 3. TYPOGRAPHY --- */
 	.hero-title-group,
@@ -139,19 +196,19 @@
 		--hero-box-bg: rgba(0, 0, 0, 0.4); /* Dark transparent in white mode */
 		--hero-char-color: #f4f4f4;
 		/* Light mode: the text = yellow, sun rect = dark charcoal, explosion = teal */
-		--color-the: #FACC15;
+		--color-the: #facc15;
 		--color-sun: #3d3d3d; /* Dark charcoal */
-		--color-explosion: #7ED9CC;
+		--color-explosion: #7ed9cc;
 	}
 
 	:global(.dark) .hero-title-group {
-		--base-text: #3d3d3d;
-		--hero-box-bg: rgba(255, 255, 255, 0.4); /* Transparent in dark mode */
-		--hero-char-color: #3d3d3d;
+		--base-text: #faf7f5;
+		--hero-box-bg: rgba(255, 255, 255, 0.1); 
+		--hero-char-color: #faf7f5;
 		/* Dark mode Defaults */
-		--color-the: #FAF7F5;
-		--color-sun: #FAF7F5;
-		--color-explosion: #FFD670;
+		--color-the: #e2e2e2;
+		--color-sun: #faf7f5;
+		--color-explosion: #ffd670;
 	}
 
 	.box-defy {
@@ -237,8 +294,12 @@
 	}
 
 	@keyframes dashTravel {
-		from { stroke-dashoffset: 0; }
-		to { stroke-dashoffset: -85; } /* Matches total dasharray sum for loop */
+		from {
+			stroke-dashoffset: 0;
+		}
+		to {
+			stroke-dashoffset: -85;
+		} /* Matches total dasharray sum for loop */
 	}
 
 	/* --- DECORATIVE ELEMENTS --- */
@@ -257,7 +318,7 @@
 		mask-repeat: no-repeat;
 		opacity: 0;
 		/* Neo-brutal shadow */
-		filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.8));
+		filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.8));
 		transition: opacity 0.3s ease;
 	}
 
@@ -283,8 +344,12 @@
 	}
 
 	@keyframes rotateSunOffset {
-		from { transform: var(--sun-translate, translate(-30%, -50%)) rotate(0deg); }
-		to { transform: var(--sun-translate, translate(-30%, -50%)) rotate(360deg); }
+		from {
+			transform: var(--sun-translate, translate(-30%, -50%)) rotate(0deg);
+		}
+		to {
+			transform: var(--sun-translate, translate(-30%, -50%)) rotate(360deg);
+		}
 	}
 
 	.deco-big-explosion {
@@ -302,19 +367,38 @@
 	}
 
 	@keyframes popOutCycle {
-		0%, 100% { transform: scale(0); opacity: 0; }
-		10%, 80% { transform: scale(1); opacity: 0.9; }
-		90% { transform: scale(0); opacity: 0; }
+		0%,
+		100% {
+			transform: scale(0);
+			opacity: 0;
+		}
+		10%,
+		80% {
+			transform: scale(1);
+			opacity: 0.9;
+		}
+		90% {
+			transform: scale(0);
+			opacity: 0;
+		}
 	}
 
 	@keyframes rotateDeco {
-		from { rotate: 0deg; }
-		to { rotate: 360deg; }
+		from {
+			rotate: 0deg;
+		}
+		to {
+			rotate: 360deg;
+		}
 	}
 
 	@keyframes rotateDecoCCW {
-		from { transform: translate(-50%, -50%) rotate(0deg); }
-		to { transform: translate(-50%, -50%) rotate(-360deg); }
+		from {
+			transform: translate(-50%, -50%) rotate(0deg);
+		}
+		to {
+			transform: translate(-50%, -50%) rotate(-360deg);
+		}
 	}
 
 	.box-defy,
@@ -347,45 +431,130 @@
 
 	.kinetic-char:hover::before {
 		transform: translateY(-8px) scale(0.95) rotate(calc(var(--rot, 0) * 1deg)) !important;
-		color: var(--color, #FFF) !important;
+		color: var(--color, #fff) !important;
 		font-family: var(--f1, inherit) !important;
 	}
 
 	/* Random infinite glitch animations on pseudo-elements (Cycling through 3 fonts) */
 	@keyframes pulseKinetic1 {
-		0%, 78% { transform: none; font-family: inherit; color: var(--char-base-color, var(--base-text)); }
-		80% { transform: translateY(-3px) scale(0.95) rotate(calc(var(--rot) * 0.8deg)); font-family: var(--f1); color: var(--color); }
-		85% { transform: translateY(-2px) rotate(calc(var(--rot) * -0.5deg)); font-family: var(--f2); }
-		90% { transform: translateY(-4px) scale(1.05) rotate(calc(var(--rot) * 1.2deg)); font-family: var(--f3); }
-		100% { transform: none; font-family: inherit; color: var(--char-base-color, var(--base-text)); }
+		0%,
+		78% {
+			transform: none;
+			font-family: inherit;
+			color: var(--char-base-color, var(--base-text));
+		}
+		80% {
+			transform: translateY(-3px) scale(0.95) rotate(calc(var(--rot) * 0.8deg));
+			font-family: var(--f1);
+			color: var(--color);
+		}
+		85% {
+			transform: translateY(-2px) rotate(calc(var(--rot) * -0.5deg));
+			font-family: var(--f2);
+		}
+		90% {
+			transform: translateY(-4px) scale(1.05) rotate(calc(var(--rot) * 1.2deg));
+			font-family: var(--f3);
+		}
+		100% {
+			transform: none;
+			font-family: inherit;
+			color: var(--char-base-color, var(--base-text));
+		}
 	}
 	@keyframes pulseKinetic2 {
-		0%, 82% { transform: none; font-family: inherit; color: var(--char-base-color, var(--base-text)); }
-		84% { transform: translateY(4px) scale(0.9) rotate(calc(var(--rot) * -1deg)); font-family: var(--f2); color: var(--color); filter: hue-rotate(90deg); }
-		88% { transform: translateY(2px) rotate(calc(var(--rot) * 0.5deg)); font-family: var(--f3); }
-		92% { transform: translateY(5px) scale(0.95) rotate(calc(var(--rot) * -0.8deg)); font-family: var(--f1); }
-		100% { transform: none; font-family: inherit; color: var(--char-base-color, var(--base-text)); }
+		0%,
+		82% {
+			transform: none;
+			font-family: inherit;
+			color: var(--char-base-color, var(--base-text));
+		}
+		84% {
+			transform: translateY(4px) scale(0.9) rotate(calc(var(--rot) * -1deg));
+			font-family: var(--f2);
+			color: var(--color);
+			filter: hue-rotate(90deg);
+		}
+		88% {
+			transform: translateY(2px) rotate(calc(var(--rot) * 0.5deg));
+			font-family: var(--f3);
+		}
+		92% {
+			transform: translateY(5px) scale(0.95) rotate(calc(var(--rot) * -0.8deg));
+			font-family: var(--f1);
+		}
+		100% {
+			transform: none;
+			font-family: inherit;
+			color: var(--char-base-color, var(--base-text));
+		}
 	}
 	@keyframes pulseKinetic3 {
-		0%, 85% { transform: none; font-family: inherit; color: var(--char-base-color, var(--base-text)); }
-		87% { transform: translateY(-2px) scale(1.05) rotate(calc(var(--rot) * 1.5deg)); font-family: var(--f3); color: var(--color); }
-		91% { transform: translateY(-1px) rotate(calc(var(--rot) * -1deg)); font-family: var(--f1); }
-		95% { transform: translateY(-3px) scale(0.9) rotate(calc(var(--rot) * 1.2deg)); font-family: var(--f2); }
-		100% { transform: none; font-family: inherit; color: var(--char-base-color, var(--base-text)); }
+		0%,
+		85% {
+			transform: none;
+			font-family: inherit;
+			color: var(--char-base-color, var(--base-text));
+		}
+		87% {
+			transform: translateY(-2px) scale(1.05) rotate(calc(var(--rot) * 1.5deg));
+			font-family: var(--f3);
+			color: var(--color);
+		}
+		91% {
+			transform: translateY(-1px) rotate(calc(var(--rot) * -1deg));
+			font-family: var(--f1);
+		}
+		95% {
+			transform: translateY(-3px) scale(0.9) rotate(calc(var(--rot) * 1.2deg));
+			font-family: var(--f2);
+		}
+		100% {
+			transform: none;
+			font-family: inherit;
+			color: var(--char-base-color, var(--base-text));
+		}
 	}
 	@keyframes pulseKinetic4 {
-		0%, 88% { transform: none; font-family: inherit; color: var(--char-base-color, var(--base-text)); }
-		90% { transform: scale(0.85) rotate(calc(var(--rot) * -0.5deg)); font-family: var(--f1); color: var(--color); }
-		94% { transform: scale(1.1) rotate(calc(var(--rot) * 0.8deg)); font-family: var(--f2); }
-		98% { transform: scale(0.95) rotate(calc(var(--rot) * -1.2deg)); font-family: var(--f3); }
-		100% { transform: none; font-family: inherit; color: var(--char-base-color, var(--base-text)); }
+		0%,
+		88% {
+			transform: none;
+			font-family: inherit;
+			color: var(--char-base-color, var(--base-text));
+		}
+		90% {
+			transform: scale(0.85) rotate(calc(var(--rot) * -0.5deg));
+			font-family: var(--f1);
+			color: var(--color);
+		}
+		94% {
+			transform: scale(1.1) rotate(calc(var(--rot) * 0.8deg));
+			font-family: var(--f2);
+		}
+		98% {
+			transform: scale(0.95) rotate(calc(var(--rot) * -1.2deg));
+			font-family: var(--f3);
+		}
+		100% {
+			transform: none;
+			font-family: inherit;
+			color: var(--char-base-color, var(--base-text));
+		}
 	}
 
 	/* Randomly staggered, holding for ~2s */
-	.loop-1::before { animation: pulseKinetic1 9s infinite 0.1s; }
-	.loop-2::before { animation: pulseKinetic2 11s infinite 2.5s; }
-	.loop-3::before { animation: pulseKinetic3 13s infinite 1.2s; }
-	.loop-4::before { animation: pulseKinetic4 17s infinite 0.7s; }
+	.loop-1::before {
+		animation: pulseKinetic1 9s infinite 0.1s;
+	}
+	.loop-2::before {
+		animation: pulseKinetic2 11s infinite 2.5s;
+	}
+	.loop-3::before {
+		animation: pulseKinetic3 13s infinite 1.2s;
+	}
+	.loop-4::before {
+		animation: pulseKinetic4 17s infinite 0.7s;
+	}
 
 	.hero-subtext {
 		font-family: var(--font-secondary);
@@ -401,7 +570,7 @@
 	}
 
 	:global(.dark) .hero-subtext {
-		color: #444; /* Dark grey for dark mode as requested */
+		color: #faf7f5;
 	}
 
 	.blinking-cursor {
@@ -416,8 +585,13 @@
 	}
 
 	@keyframes blink {
-		0%, 100% { opacity: 1; }
-		50% { opacity: 0; }
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0;
+		}
 	}
 
 	/* --- 4. COMPONENTS: BUTTONS --- */
@@ -483,9 +657,9 @@
 	:global(.dark) .btn:active {
 		box-shadow: 0px 0px 0px var(--color-5) !important;
 	}
-	
+
 	:global(.dark) .btn--solid {
-		background: var(--color-1); 
+		background: var(--color-1);
 		color: #3d3d3d; /* keep dark text for readability on bright color */
 	}
 	:global(.dark) .btn--solid:hover,
@@ -507,7 +681,7 @@
 		.hero-void {
 			padding: calc(14rem + 80px) 1.5rem 8rem; /* Pushed whole block down more */
 			min-height: 100vh; /* Set to full viewport height to prevent gaps */
-			overflow: hidden; 
+			overflow: hidden;
 		}
 		.hero-bg {
 			background-size: cover;
@@ -523,13 +697,15 @@
 		}
 		.the-group {
 			margin: -0.5rem auto; /* Reset margins to center on mobile */
+			transform: translateX(45%); /* Pushed further to the right, even larger offset */
 		}
 		.the-group .text-the {
-			font-size: clamp(2.5rem, 7vw, 5rem);
+			font-size: clamp(3.5rem, 10vw, 6rem);
+			text-shadow: 3px 3px 0 #000;
 		}
 		.box-defy {
-			margin-left: 0; 
-			transform: rotate(-5deg) translateY(0); /* Simpler rotation for mobile */
+			margin-left: -12%;
+			transform: rotate(-10deg) translateY(0); /* Increased tilt for mobile */
 		}
 		.default-group {
 			margin-left: 0;
@@ -540,7 +716,7 @@
 			-webkit-text-stroke: 1px #000;
 		}
 		.hero-subtext {
-			font-size: 0.85rem; 
+			font-size: 0.85rem;
 			margin-top: 3.5rem; /* Reduced gap slightly too */
 			margin-bottom: 2.5rem;
 			color: #3d3d3d;
@@ -565,14 +741,18 @@
 			transform-origin: center center !important;
 			animation: rotateSunOffset 25s linear infinite !important;
 		}
-		/* Keep explosion at original mobile size */
 		.the-group .deco-big-explosion {
-			--deco-size: clamp(120px, 18vw, 180px) !important;
+			--deco-size: clamp(140px, 20vw, 200px) !important;
+			top: 40% !important; /* Shift slight upwards from center 50% */
 		}
 	}
 
 	/* --- 5. SECTION ANCHORS --- */
-	#work, #skills, #reviews, #blog, #about {
+	#work,
+	#skills,
+	#reviews,
+	#blog,
+	#about {
 		scroll-margin-top: 100px;
 	}
 </style>

@@ -62,9 +62,23 @@
 				</a>
 
 				<ul class="nav-links">
-					<li><a class="nav-link" class:active={$page.url.hash === '#work' || $page.url.pathname === '/work'} href="/#work">Work</a></li>
-					<li><a class="nav-link" class:active={$page.url.hash === '#blog' || $page.url.pathname.startsWith('/blog')} href="/#blog">Blog</a></li>
-					<li><a class="nav-link" class:active={$page.url.hash === '#about'} href="/#about">About</a></li>
+					<li>
+						<a
+							class="nav-link"
+							class:active={$page.url.hash === '#work' || $page.url.pathname === '/work'}
+							href="/#work">Work</a
+						>
+					</li>
+					<li>
+						<a
+							class="nav-link"
+							class:active={$page.url.hash === '#blog' || $page.url.pathname.startsWith('/blog')}
+							href="/#blog">Blog</a
+						>
+					</li>
+					<li>
+						<a class="nav-link" class:active={$page.url.hash === '#about'} href="/#about">About</a>
+					</li>
 					<li><a class="btn-contact" href="/#contact">Contact</a></li>
 					<li>
 						<button
@@ -129,7 +143,7 @@
 	</main>
 
 	{#if !isStandalone}
-		{#if !['/contact', '/admin', '/logofolio'].includes($page.url.pathname) && !$page.url.pathname.startsWith('/blog')}
+		{#if !['/contact', '/admin', '/logofolio'].includes($page.url.pathname) && !$page.url.pathname.startsWith('/blog') && !$page.url.pathname.startsWith('/work')}
 			<div id="contact" class="animate-section" use:inView={{ threshold: 0.05 }}>
 				<ContactSection />
 			</div>
@@ -144,14 +158,14 @@
 					<span class="massive-text">DEFY THE DEFAULT ● YOUNIQUE DESIGN STUDIO ● &nbsp;</span>
 				</div>
 			</div>
-			
+
 			<div class="footer-inner">
 				<div class="footer-main-grid">
 					<div class="footer-brand-box">
 						<img src="/assets/3_footer_logo.png" alt="Younique Logo" class="footer-logo" />
 						<p class="footer-tagline">Pushing limits and<br />breaking patterns<br />since 2024.</p>
 					</div>
-					
+
 					<div class="footer-links-container">
 						<div class="footer-nav-block">
 							<h4 class="nav-block-title">NAVIGATION</h4>
@@ -219,7 +233,10 @@
 		-webkit-backdrop-filter: blur(10px);
 		box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 		animation: dropHeader 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-		transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+		transition:
+			background 0.4s ease,
+			box-shadow 0.4s ease,
+			transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	.header--hidden {
@@ -264,7 +281,9 @@
 		aspect-ratio: 5 / 1;
 		max-width: 100%;
 		display: block;
-		transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s ease;
+		transition:
+			height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+			transform 0.3s ease;
 		position: relative;
 		-webkit-mask-image: url('/assets/2_site_logo.svg');
 		mask-image: url('/assets/2_site_logo.svg');
@@ -301,7 +320,6 @@
 		position: relative;
 		padding: 0.5rem 1rem;
 	}
-
 
 	:global(.dark) .nav-link {
 		color: #f4f4f4;
@@ -426,8 +444,12 @@
 	}
 
 	@keyframes footerMarquee {
-		from { transform: translateX(0); }
-		to { transform: translateX(-50%); }
+		from {
+			transform: translateX(0);
+		}
+		to {
+			transform: translateX(-50%);
+		}
 	}
 
 	.footer-inner {
@@ -455,7 +477,7 @@
 		width: auto;
 		object-fit: contain;
 		margin: 0;
-		margin-left: -1rem; 
+		margin-left: -1rem;
 		transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 		filter: none;
 		opacity: 1;
@@ -466,13 +488,12 @@
 	}
 
 	.footer-tagline {
+		font-family: 'Space Mono', monospace;
 		font-size: 1.35rem;
-		font-weight: 800;
-		opacity: 0.8;
+		font-weight: 700;
 		margin: 0;
 		line-height: 1.2;
-		color: var(--color-1);
-		white-space: nowrap; /* Keep it on a single horizontal line */
+		color: #f4f4f4;
 	}
 
 	.footer-links-container {
@@ -510,17 +531,18 @@
 	}
 
 	.footer-bottom-bar {
-		border-top: 1px solid rgba(255,255,255,0.1);
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
 		padding-top: 2rem;
 		display: flex;
-		justify-content: space-between;
+		justify-content: center;
 		align-items: center;
 	}
-
+ 
 	.copy-text {
-		font-size: 0.85rem;
+		font-size: 0.7rem;
 		font-weight: 700;
 		opacity: 0.5;
+		text-align: center;
 	}
 
 	@media (max-width: 768px) {
@@ -533,26 +555,29 @@
 		}
 		.footer-main-grid {
 			grid-template-columns: 1fr;
+			gap: 3rem;
 		}
 		.footer-links-container {
 			flex-direction: row;
-			justify-content: flex-start;
+			justify-content: center;
 			gap: 3.5rem;
 		}
 		.footer-brand-box {
-			flex-direction: row; /* Keep horizontal as requested */
+			flex-direction: column;
 			align-items: center;
-			gap: 1rem;
+			text-align: center;
+			gap: 1.5rem;
 			width: 100%;
-			overflow: hidden;
 		}
 		.footer-logo {
-			margin-left: -0.5rem;
-			height: 60px; /* Smaller for mobile horizontal */
+			margin-left: 0;
+			height: 120px;
 		}
 		.footer-tagline {
-			font-size: 0.85rem; /* Smaller for mobile horizontal */
-			max-width: 200px;
+			font-size: 1.1rem;
+			max-width: 100%;
+			white-space: normal;
+			text-align: center;
 		}
 		.article-view .footer-logo {
 			display: none;
@@ -580,5 +605,4 @@
 			height: 16px;
 		}
 	}
-
 </style>

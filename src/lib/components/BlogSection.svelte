@@ -8,32 +8,45 @@
 	let scrollLeft;
 
 	// Typewriter state
-	let displayText = $state("");
+	let displayText = $state('');
 	let currentWordIdx = $state(0);
 	const words = [
-		"News", "Observations", "Insights", "Implications", "Forecasts", 
-		"Strategies", "Takeaways", "Actionables", "Trajectories", "Outcomes", 
-		"Projections", "Benchmarks", "Validations", "Perspectives", "Conclusions"
+		'News',
+		'Observations',
+		'Insights',
+		'Implications',
+		'Forecasts',
+		'Strategies',
+		'Takeaways',
+		'Actionables',
+		'Trajectories',
+		'Outcomes',
+		'Projections',
+		'Benchmarks',
+		'Validations',
+		'Perspectives',
+		'Conclusions'
 	];
 
 	async function typeWriterLoop() {
-		const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+		const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 		while (true) {
 			let fullWord = words[currentWordIdx];
 			let hasTypo = Math.random() < 0.1; // 10% chance
-			
+
 			if (hasTypo) {
 				let half = Math.floor(fullWord.length / 2);
 				for (let i = 0; i <= half; i++) {
 					displayText = fullWord.slice(0, i);
 					await sleep(70 + Math.random() * 150);
 				}
-				await sleep(500); 
+				await sleep(500);
 				for (let i = half; i >= 0; i--) {
 					displayText = fullWord.slice(0, i);
 					await sleep(50 + Math.random() * 80);
 				}
-				currentWordIdx = (currentWordIdx + Math.floor(Math.random() * (words.length - 1)) + 1) % words.length;
+				currentWordIdx =
+					(currentWordIdx + Math.floor(Math.random() * (words.length - 1)) + 1) % words.length;
 				fullWord = words[currentWordIdx];
 				await sleep(300);
 			}
@@ -45,14 +58,14 @@
 			}
 
 			// Stay visible
-			await sleep(2800 + Math.random() * 1500); 
+			await sleep(2800 + Math.random() * 1500);
 
 			// Delete word
 			for (let i = fullWord.length; i >= 0; i--) {
 				displayText = fullWord.slice(0, i);
 				await sleep(40 + Math.random() * 60);
 			}
-			
+
 			await sleep(600);
 			currentWordIdx = (currentWordIdx + 1) % words.length;
 		}
@@ -85,7 +98,7 @@
 
 <section class="blog-wrap">
 	<div class="yellow-bg"></div>
-	
+
 	<div class="content">
 		<header class="blog-header">
 			<h2 class="title" id="blog-title">THOUGHTS</h2>
@@ -93,8 +106,8 @@
 		</header>
 
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
-		<div 
-			class="scroll-track" 
+		<div
+			class="scroll-track"
 			bind:this={scrollTrack}
 			onmousedown={onMouseDown}
 			onmouseleave={onMouseUp}
@@ -122,10 +135,16 @@
 							{/if}
 							{#if post.image}
 								<div class="post-img-wrap" style:user-select="none">
-									<img src={post.image} alt={post.title} class="post-img" loading="lazy" draggable="false" />
+									<img
+										src={post.image}
+										alt={post.title}
+										class="post-img"
+										loading="lazy"
+										draggable="false"
+									/>
 								</div>
 							{/if}
-							
+
 							<div class="post-body">
 								<div class="post-header">
 									<time class="date">{post.date}</time>
@@ -219,8 +238,13 @@
 	}
 
 	@keyframes blink {
-		0%, 100% { opacity: 1; }
-		50% { opacity: 0; }
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0;
+		}
 	}
 
 	:global(.dark) .title,
@@ -274,25 +298,20 @@
 		height: 100%;
 		background: var(--color-5);
 		border: 4px solid var(--color-3);
+		border-radius: 20px;
 		box-shadow: 12px 12px 0px var(--color-3);
 		display: flex;
 		flex-direction: column;
 		/* transition handles the shadow on hover, and transform back to 0 on un-hover */
-		transition: box-shadow 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s ease;
-		overflow: visible; 
+		transition:
+			box-shadow 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+			transform 0.6s ease;
+		overflow: visible;
 		position: relative;
 	}
 
 	.post-wrapper:hover .post {
 		box-shadow: 30px 30px 0px var(--color-3);
-		animation: floatingWobble 4s ease-in-out infinite alternate;
-		/* Delays the wobble slightly so the initial lift happens clean */
-		animation-delay: 0.1s;
-	}
-
-	@keyframes floatingWobble {
-		0% { transform: rotate(0deg); }
-		100% { transform: rotate(2deg); }
 	}
 
 	/* NEW HIGHLIGHT */
@@ -311,7 +330,7 @@
 		border: 3px solid #1c1c1c; /* Heavy brutalist border */
 		z-index: 100;
 		pointer-events: none;
-		box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+		box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
 		text-shadow: none;
 		text-transform: uppercase;
 	}
@@ -324,7 +343,7 @@
 	.post-wrapper:hover .post::after {
 		width: 70px;
 		height: 70px;
-		background: #F0F0F0;
+		background: #f0f0f0;
 	}
 
 	:global(.dark) .post {
@@ -339,6 +358,7 @@
 		width: 100%;
 		height: 220px;
 		overflow: hidden;
+		border-radius: 16px 16px 0 0;
 		border-bottom: 4px solid var(--color-3);
 		background: #000;
 	}
@@ -419,7 +439,9 @@
 		border-radius: 999px;
 		width: fit-content;
 		box-shadow: 4px 4px 0 var(--color-3);
-		transition: transform 0.2s, box-shadow 0.2s;
+		transition:
+			transform 0.2s,
+			box-shadow 0.2s;
 		font-family: 'Space Mono', monospace;
 	}
 
@@ -429,7 +451,7 @@
 	}
 
 	:global(.dark) .read-btn {
-		background: #FACC15;
+		background: #facc15;
 		color: #000;
 		border-color: #000;
 		box-shadow: 4px 4px 0 #000;
@@ -438,16 +460,16 @@
 	/* Skeleton */
 	.skeleton-box {
 		flex: 0 0 450px;
-		background: rgba(0,0,0,0.05);
+		background: rgba(0, 0, 0, 0.05);
 	}
 
 	.skeleton-img {
 		height: 220px;
-		background: rgba(0,0,0,0.1);
+		background: rgba(0, 0, 0, 0.1);
 	}
 
 	.skeleton-line {
-		background: rgba(0,0,0,0.1);
+		background: rgba(0, 0, 0, 0.1);
 		height: 1.5rem;
 		margin: 1rem 2rem;
 		border-radius: 4px;
@@ -455,28 +477,46 @@
 	}
 
 	@keyframes pulse {
-		0%, 100% { opacity: 0.6; }
-		50% { opacity: 0.3; }
+		0%,
+		100% {
+			opacity: 0.6;
+		}
+		50% {
+			opacity: 0.3;
+		}
 	}
 
 	@media (max-width: 768px) {
-		.title { font-size: 2.2rem; }
-		.post-wrapper, .skeleton-box { 
-			flex: 0 0 260px; 
+		.title {
+			font-size: 2.2rem;
+		}
+		.post-wrapper,
+		.skeleton-box {
+			flex: 0 0 260px;
 		}
 		.post {
 			min-height: 380px;
 		}
-		.post-img-wrap { height: 140px; }
-		.post-body { padding: 1.25rem; }
-		.post-title { font-size: 1.25rem; }
-		.excerpt { 
-			font-size: 0.85rem; 
+		.post-img-wrap {
+			height: 140px;
+		}
+		.post-body {
+			padding: 1.25rem;
+		}
+		.post-title {
+			font-size: 1.25rem;
+		}
+		.excerpt {
+			font-size: 0.85rem;
 			line-height: 1.4;
 			margin-bottom: 1.5rem;
 		}
-		.blog-header { padding: 0 6vw; margin-bottom: 1.5rem; }
-		.scroll-track { padding: 4rem 6vw 4rem; }
+		.blog-header {
+			padding: 0 6vw;
+			margin-bottom: 1.5rem;
+		}
+		.scroll-track {
+			padding: 4rem 6vw 4rem;
+		}
 	}
 </style>
-

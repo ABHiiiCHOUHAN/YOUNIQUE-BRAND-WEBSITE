@@ -4,25 +4,65 @@
     "title": "Brand Identity",
     "tag": "ID / VISUAL",
     "year": "2024",
-    "tone": "yellow",
     "icon": "✦",
     "cover": "/assets/branding/File 1.jpeg",
     "desc": "Innovative solutions for your growth.",
     "fullDesc": "We focus on developing mindset, discovering leadership potential and team building, helping companies improve processes and create teams with glowing eyes.",
     "stats": [
-      { "val": "7500 hours", "label": "project work" },
-      { "val": "7000 people", "label": "impacted" },
-      { "val": "10 years", "label": "experience" }
+      {
+        "val": "7500 hours",
+        "label": "project work"
+      },
+      {
+        "val": "7000 people",
+        "label": "impacted"
+      },
+      {
+        "val": "10 years",
+        "label": "experience"
+      }
     ],
     "gallery": [
-      { "type": "image", "url": "/assets/branding/File 1.jpeg", "title": "Brand Strategy" },
-      { "type": "image", "url": "/assets/branding/File 2.jpeg", "title": "Logo Concept" },
-      { "type": "image", "url": "/assets/branding/File 3.jpeg", "title": "Visual Pattern" },
-      { "type": "image", "url": "/assets/branding/File 4.jpeg", "title": "Typography" },
-      { "type": "image", "url": "/assets/branding/File 1.jpeg", "title": "Main Visual" },
-      { "type": "image", "url": "/assets/branding/File 2.jpeg", "title": "Details" },
-      { "type": "image", "url": "/assets/branding/File 3.jpeg", "title": "Applications" },
-      { "type": "image", "url": "/assets/branding/File 4.jpeg", "title": "Final Result" }
+      {
+        "type": "image",
+        "url": "/assets/branding/File 1.jpeg",
+        "title": "Brand Strategy"
+      },
+      {
+        "type": "image",
+        "url": "/assets/branding/File 2.jpeg",
+        "title": "Logo Concept"
+      },
+      {
+        "type": "image",
+        "url": "/assets/branding/File 3.jpeg",
+        "title": "Visual Pattern"
+      },
+      {
+        "type": "image",
+        "url": "/assets/branding/File 4.jpeg",
+        "title": "Typography"
+      },
+      {
+        "type": "image",
+        "url": "/assets/branding/File 1.jpeg",
+        "title": "Main Visual"
+      },
+      {
+        "type": "image",
+        "url": "/assets/branding/File 2.jpeg",
+        "title": "Details"
+      },
+      {
+        "type": "image",
+        "url": "/assets/branding/File 3.jpeg",
+        "title": "Applications"
+      },
+      {
+        "type": "image",
+        "url": "/assets/branding/File 4.jpeg",
+        "title": "Final Result"
+      }
     ]
   },
   {
@@ -36,21 +76,70 @@
     "desc": "Clean structure. Loud energy.",
     "fullDesc": "We craft digital ecosystems that vibrate. Our focus is on high-performance architecture and seamless user journeys that bridge the gap between art and tech.",
     "stats": [
-      { "val": "42 sites", "label": "launched" },
-      { "val": "0.4s", "label": "avg load time" },
-      { "val": "99.9%", "label": "uptime" }
+      {
+        "val": "42 sites",
+        "label": "launched"
+      },
+      {
+        "val": "0.4s",
+        "label": "avg load time"
+      },
+      {
+        "val": "99.9%",
+        "label": "uptime"
+      }
     ],
     "gallery": [
-      { "type": "image", "url": "/assets/digital/1.jpg", "title": "UX Flow" },
-      { "type": "image", "url": "/assets/digital/2.jpg", "title": "Mobile UI" },
-      { "type": "image", "url": "/assets/digital/3.jpg", "title": "Design System" },
-      { "type": "image", "url": "/assets/digital/4.jpg", "title": "Code View" },
-      { "type": "image", "url": "/assets/digital/5.jpg", "title": "Backend" },
-      { "type": "image", "url": "/assets/digital/6.jpg", "title": "Interactive" },
-      { "type": "image", "url": "/assets/digital/7.jpg", "title": "Mobile First" },
-      { "type": "image", "url": "/assets/digital/8.jpg", "title": "Architecture" },
-      { "type": "image", "url": "/assets/digital/9.jpg", "title": "Core System" },
-      { "type": "image", "url": "/assets/digital/10.jpg", "title": "Final Product" }
+      {
+        "type": "image",
+        "url": "/assets/digital/1.jpg",
+        "title": "UX Flow"
+      },
+      {
+        "type": "image",
+        "url": "/assets/digital/2.jpg",
+        "title": "Mobile UI"
+      },
+      {
+        "type": "image",
+        "url": "/assets/digital/3.jpg",
+        "title": "Design System"
+      },
+      {
+        "type": "image",
+        "url": "/assets/digital/4.jpg",
+        "title": "Code View"
+      },
+      {
+        "type": "image",
+        "url": "/assets/digital/5.jpg",
+        "title": "Backend"
+      },
+      {
+        "type": "image",
+        "url": "/assets/digital/6.jpg",
+        "title": "Interactive"
+      },
+      {
+        "type": "image",
+        "url": "/assets/digital/7.jpg",
+        "title": "Mobile First"
+      },
+      {
+        "type": "image",
+        "url": "/assets/digital/8.jpg",
+        "title": "Architecture"
+      },
+      {
+        "type": "image",
+        "url": "/assets/digital/9.jpg",
+        "title": "Core System"
+      },
+      {
+        "type": "image",
+        "url": "/assets/digital/10.jpg",
+        "title": "Final Product"
+      }
     ]
   },
   {
@@ -64,17 +153,50 @@
     "desc": "Attention is the new currency.",
     "fullDesc": "We manage your social presence from strategy to execution. Focusing on viral loops, community engagement, and aesthetic consistency across all platforms.",
     "stats": [
-      { "val": "1.2M", "label": "engagement" },
-      { "val": "24/7", "label": "monitoring" },
-      { "val": "15", "label": "brands managed" }
+      {
+        "val": "1.2M",
+        "label": "engagement"
+      },
+      {
+        "val": "24/7",
+        "label": "monitoring"
+      },
+      {
+        "val": "15",
+        "label": "brands managed"
+      }
     ],
     "gallery": [
-      { "type": "image", "url": "/assets/social/IMG_6068.jpg", "title": "Campaign Launch" },
-      { "type": "image", "url": "/assets/social/IMG_6069.PNG", "title": "Social Feed" },
-      { "type": "image", "url": "/assets/social/dasd.png", "title": "Grid View" },
-      { "type": "image", "url": "/assets/social/Gemini_Generated_Image_cz3fy9cz3fy9cz3f.png", "title": "Engagement Stats" },
-      { "type": "image", "url": "/assets/social/IMG_6068.jpg", "title": "Viral Content" },
-      { "type": "image", "url": "/assets/social/IMG_6069.PNG", "title": "Brand Story" }
+      {
+        "type": "image",
+        "url": "/assets/social/IMG_6068.jpg",
+        "title": "Campaign Launch"
+      },
+      {
+        "type": "image",
+        "url": "/assets/social/IMG_6069.PNG",
+        "title": "Social Feed"
+      },
+      {
+        "type": "image",
+        "url": "/assets/social/dasd.png",
+        "title": "Grid View"
+      },
+      {
+        "type": "image",
+        "url": "/assets/social/Gemini_Generated_Image_cz3fy9cz3fy9cz3f.png",
+        "title": "Engagement Stats"
+      },
+      {
+        "type": "image",
+        "url": "/assets/social/IMG_6068.jpg",
+        "title": "Viral Content"
+      },
+      {
+        "type": "image",
+        "url": "/assets/social/IMG_6069.PNG",
+        "title": "Brand Story"
+      }
     ]
   },
   {
@@ -88,41 +210,230 @@
     "desc": "Dynamic storytelling at scale.",
     "fullDesc": "High-end post-production for commercials, social content, and documentaries. We handle color grading, sound design, and rhythm-based editing.",
     "stats": [
-      { "val": "500+", "label": "video cuts" },
-      { "val": "4K", "label": "native res" },
-      { "val": "100%", "label": "on-time delivery" }
+      {
+        "val": "500+",
+        "label": "video cuts"
+      },
+      {
+        "val": "4K",
+        "label": "native res"
+      },
+      {
+        "val": "100%",
+        "label": "on-time delivery"
+      }
     ],
     "gallery": [
-      { "id": "1", "type": "image", "url": "https://picsum.photos/id/1015/600/900", "title": "Cinematic Grades", "height": 900 },
-      { "id": "2", "type": "image", "url": "https://picsum.photos/id/1016/800/600", "title": "Action Sequences", "height": 600 },
-      { "id": "3", "type": "image", "url": "https://picsum.photos/id/1018/600/800", "title": "Story Beats", "height": 800 },
-      { "id": "4", "type": "image", "url": "https://picsum.photos/id/1019/600/400", "title": "VFX Overlay", "height": 400 },
-      { "id": "5", "type": "image", "url": "https://picsum.photos/id/1020/600/900", "title": "Rhythm Cut", "height": 900 },
-      { "id": "6", "type": "image", "url": "https://picsum.photos/id/1021/600/600", "title": "Mood Board", "height": 600 },
-      { "id": "7", "type": "image", "url": "https://picsum.photos/id/1022/600/800", "title": "Transition Study", "height": 800 },
-      { "id": "8", "type": "image", "url": "https://picsum.photos/id/1023/800/600", "title": "Final Render", "height": 600 },
-      { "id": "9", "type": "image", "url": "https://picsum.photos/id/1024/600/900", "title": "The Hook", "height": 900 },
-      { "id": "10", "type": "image", "url": "https://picsum.photos/id/1025/600/400", "title": "Soundscape", "height": 400 },
-      { "id": "11", "type": "image", "url": "https://picsum.photos/id/1026/600/800", "title": "Split Screens", "height": 800 },
-      { "id": "12", "type": "image", "url": "https://picsum.photos/id/1027/600/600", "title": "Grain Texture", "height": 600 },
-      { "id": "13", "type": "image", "url": "https://picsum.photos/id/1028/600/900", "title": "Macro Detail", "height": 900 },
-      { "id": "14", "type": "image", "url": "https://picsum.photos/id/1029/600/400", "title": "Neon Night", "height": 400 },
-      { "id": "15", "type": "image", "url": "https://picsum.photos/id/1031/800/600", "title": "Urban Flow", "height": 600 },
-      { "id": "16", "type": "image", "url": "https://picsum.photos/id/1032/600/800", "title": "Depth Field", "height": 800 },
-      { "id": "17", "type": "image", "url": "https://picsum.photos/id/1033/600/900", "title": "Abstract Cut", "height": 900 },
-      { "id": "18", "type": "image", "url": "https://picsum.photos/id/1035/600/400", "title": "Tech Pulse", "height": 400 },
-      { "id": "19", "type": "image", "url": "https://picsum.photos/id/1036/600/600", "title": "Glitch Study", "height": 600 },
-      { "id": "20", "type": "image", "url": "https://picsum.photos/id/1037/600/800", "title": "Fast Pace", "height": 800 },
-      { "id": "21", "type": "image", "url": "https://picsum.photos/id/1038/800/600", "title": "Slow Burn", "height": 600 },
-      { "id": "22", "type": "image", "url": "https://picsum.photos/id/1039/600/900", "title": "Wide Angle", "height": 900 },
-      { "id": "23", "type": "image", "url": "https://picsum.photos/id/1040/600/400", "title": "Focus Pull", "height": 400 },
-      { "id": "24", "type": "image", "url": "https://picsum.photos/id/1041/600/800", "title": "Lens Flare", "height": 800 },
-      { "id": "25", "type": "image", "url": "https://picsum.photos/id/1042/600/600", "title": "Grainy Film", "height": 600 },
-      { "id": "26", "type": "image", "url": "https://picsum.photos/id/1043/600/900", "title": "Shadow Play", "height": 900 },
-      { "id": "27", "type": "image", "url": "https://picsum.photos/id/1044/600/400", "title": "High Key", "height": 400 },
-      { "id": "28", "type": "image", "url": "https://picsum.photos/id/1045/600/800", "title": "Low Key", "height": 800 },
-      { "id": "29", "type": "image", "url": "https://picsum.photos/id/1047/600/600", "title": "Symmetry", "height": 600 },
-      { "id": "30", "type": "image", "url": "https://picsum.photos/id/1048/600/800", "title": "Ending Frame", "height": 800 }
+      {
+        "id": "1",
+        "type": "image",
+        "url": "https://picsum.photos/id/1015/600/900",
+        "title": "Cinematic Grades",
+        "height": 900
+      },
+      {
+        "id": "2",
+        "type": "image",
+        "url": "https://picsum.photos/id/1016/800/600",
+        "title": "Action Sequences",
+        "height": 600
+      },
+      {
+        "id": "3",
+        "type": "image",
+        "url": "https://picsum.photos/id/1018/600/800",
+        "title": "Story Beats",
+        "height": 800
+      },
+      {
+        "id": "4",
+        "type": "image",
+        "url": "https://picsum.photos/id/1019/600/400",
+        "title": "VFX Overlay",
+        "height": 400
+      },
+      {
+        "id": "5",
+        "type": "image",
+        "url": "https://picsum.photos/id/1020/600/900",
+        "title": "Rhythm Cut",
+        "height": 900
+      },
+      {
+        "id": "6",
+        "type": "image",
+        "url": "https://picsum.photos/id/1021/600/600",
+        "title": "Mood Board",
+        "height": 600
+      },
+      {
+        "id": "7",
+        "type": "image",
+        "url": "https://picsum.photos/id/1022/600/800",
+        "title": "Transition Study",
+        "height": 800
+      },
+      {
+        "id": "8",
+        "type": "image",
+        "url": "https://picsum.photos/id/1023/800/600",
+        "title": "Final Render",
+        "height": 600
+      },
+      {
+        "id": "9",
+        "type": "image",
+        "url": "https://picsum.photos/id/1024/600/900",
+        "title": "The Hook",
+        "height": 900
+      },
+      {
+        "id": "10",
+        "type": "image",
+        "url": "https://picsum.photos/id/1025/600/400",
+        "title": "Soundscape",
+        "height": 400
+      },
+      {
+        "id": "11",
+        "type": "image",
+        "url": "https://picsum.photos/id/1026/600/800",
+        "title": "Split Screens",
+        "height": 800
+      },
+      {
+        "id": "12",
+        "type": "image",
+        "url": "https://picsum.photos/id/1027/600/600",
+        "title": "Grain Texture",
+        "height": 600
+      },
+      {
+        "id": "13",
+        "type": "image",
+        "url": "https://picsum.photos/id/1028/600/900",
+        "title": "Macro Detail",
+        "height": 900
+      },
+      {
+        "id": "14",
+        "type": "image",
+        "url": "https://picsum.photos/id/1029/600/400",
+        "title": "Neon Night",
+        "height": 400
+      },
+      {
+        "id": "15",
+        "type": "image",
+        "url": "https://picsum.photos/id/1031/800/600",
+        "title": "Urban Flow",
+        "height": 600
+      },
+      {
+        "id": "16",
+        "type": "image",
+        "url": "https://picsum.photos/id/1032/600/800",
+        "title": "Depth Field",
+        "height": 800
+      },
+      {
+        "id": "17",
+        "type": "image",
+        "url": "https://picsum.photos/id/1033/600/900",
+        "title": "Abstract Cut",
+        "height": 900
+      },
+      {
+        "id": "18",
+        "type": "image",
+        "url": "https://picsum.photos/id/1035/600/400",
+        "title": "Tech Pulse",
+        "height": 400
+      },
+      {
+        "id": "19",
+        "type": "image",
+        "url": "https://picsum.photos/id/1036/600/600",
+        "title": "Glitch Study",
+        "height": 600
+      },
+      {
+        "id": "20",
+        "type": "image",
+        "url": "https://picsum.photos/id/1037/600/800",
+        "title": "Fast Pace",
+        "height": 800
+      },
+      {
+        "id": "21",
+        "type": "image",
+        "url": "https://picsum.photos/id/1038/800/600",
+        "title": "Slow Burn",
+        "height": 600
+      },
+      {
+        "id": "22",
+        "type": "image",
+        "url": "https://picsum.photos/id/1039/600/900",
+        "title": "Wide Angle",
+        "height": 900
+      },
+      {
+        "id": "23",
+        "type": "image",
+        "url": "https://picsum.photos/id/1040/600/400",
+        "title": "Focus Pull",
+        "height": 400
+      },
+      {
+        "id": "24",
+        "type": "image",
+        "url": "https://picsum.photos/id/1041/600/800",
+        "title": "Lens Flare",
+        "height": 800
+      },
+      {
+        "id": "25",
+        "type": "image",
+        "url": "https://picsum.photos/id/1042/600/600",
+        "title": "Grainy Film",
+        "height": 600
+      },
+      {
+        "id": "26",
+        "type": "image",
+        "url": "https://picsum.photos/id/1043/600/900",
+        "title": "Shadow Play",
+        "height": 900
+      },
+      {
+        "id": "27",
+        "type": "image",
+        "url": "https://picsum.photos/id/1044/600/400",
+        "title": "High Key",
+        "height": 400
+      },
+      {
+        "id": "28",
+        "type": "image",
+        "url": "https://picsum.photos/id/1045/600/800",
+        "title": "Low Key",
+        "height": 800
+      },
+      {
+        "id": "29",
+        "type": "image",
+        "url": "https://picsum.photos/id/1047/600/600",
+        "title": "Symmetry",
+        "height": 600
+      },
+      {
+        "id": "30",
+        "type": "image",
+        "url": "https://picsum.photos/id/1048/600/800",
+        "title": "Ending Frame",
+        "height": 800
+      }
     ]
   },
   {
@@ -136,21 +447,70 @@
     "desc": "Physical designs you can touch.",
     "fullDesc": "Layout, typography, and print production. We design posters, books, and packaging that make an impact in the real world.",
     "stats": [
-      { "val": "200", "label": "poster runs" },
-      { "val": "Pantone", "label": "matched" },
-      { "val": "12", "label": "book designs" }
+      {
+        "val": "200",
+        "label": "poster runs"
+      },
+      {
+        "val": "Pantone",
+        "label": "matched"
+      },
+      {
+        "val": "12",
+        "label": "book designs"
+      }
     ],
     "gallery": [
-      { "type": "image", "url": "/assets/graphics/1.jpg", "title": "Gallery Wall" },
-      { "type": "image", "url": "/assets/graphics/2.jpg", "title": "Letterpress" },
-      { "type": "image", "url": "/assets/graphics/3.jpg", "title": "Book Layout" },
-      { "type": "image", "url": "/assets/graphics/4.jpg", "title": "Ink Mixing" },
-      { "type": "image", "url": "/assets/graphics/5.jpg", "title": "Finished Print" },
-      { "type": "image", "url": "/assets/graphics/6.jpg", "title": "Poster Set" },
-      { "type": "image", "url": "/assets/graphics/7.jpg", "title": "Typography Set" },
-      { "type": "image", "url": "/assets/graphics/8.jpg", "title": "Color Swatch" },
-      { "type": "image", "url": "/assets/graphics/9.jpg", "title": "Paper Texture" },
-      { "type": "image", "url": "/assets/graphics/10.jpg", "title": "Bound Volume" }
+      {
+        "type": "image",
+        "url": "/assets/graphics/1.jpg",
+        "title": "Gallery Wall"
+      },
+      {
+        "type": "image",
+        "url": "/assets/graphics/2.jpg",
+        "title": "Letterpress"
+      },
+      {
+        "type": "image",
+        "url": "/assets/graphics/3.jpg",
+        "title": "Book Layout"
+      },
+      {
+        "type": "image",
+        "url": "/assets/graphics/4.jpg",
+        "title": "Ink Mixing"
+      },
+      {
+        "type": "image",
+        "url": "/assets/graphics/5.jpg",
+        "title": "Finished Print"
+      },
+      {
+        "type": "image",
+        "url": "/assets/graphics/6.jpg",
+        "title": "Poster Set"
+      },
+      {
+        "type": "image",
+        "url": "/assets/graphics/7.jpg",
+        "title": "Typography Set"
+      },
+      {
+        "type": "image",
+        "url": "/assets/graphics/8.jpg",
+        "title": "Color Swatch"
+      },
+      {
+        "type": "image",
+        "url": "/assets/graphics/9.jpg",
+        "title": "Paper Texture"
+      },
+      {
+        "type": "image",
+        "url": "/assets/graphics/10.jpg",
+        "title": "Bound Volume"
+      }
     ]
   },
   {
@@ -164,21 +524,70 @@
     "desc": "Depth beyond the screen.",
     "fullDesc": "Full-stack CGI and 3D modeling for products, environments, and character design. We build assets that look and feel tactile.",
     "stats": [
-      { "val": "2K", "label": "polygons" },
-      { "val": "Cycles", "label": "rendering" },
-      { "val": "85", "label": "assets built" }
+      {
+        "val": "2K",
+        "label": "polygons"
+      },
+      {
+        "val": "Cycles",
+        "label": "rendering"
+      },
+      {
+        "val": "85",
+        "label": "assets built"
+      }
     ],
     "gallery": [
-      { "type": "image", "url": "/assets/models/1.jpg", "title": "Abstract CGI" },
-      { "type": "image", "url": "/assets/models/2.jpg", "title": "Mesh Flow" },
-      { "type": "image", "url": "/assets/models/3.jpg", "title": "Lighting Rig" },
-      { "type": "image", "url": "/assets/models/4.jpg", "title": "Texture Map" },
-      { "type": "image", "url": "/assets/models/5.jpg", "title": "Final Render" },
-      { "type": "image", "url": "/assets/models/6.jpg", "title": "Shadow Study" },
-      { "type": "image", "url": "/assets/models/7.jpg", "title": "Polygon Mesh" },
-      { "type": "image", "url": "/assets/models/8.jpg", "title": "Environment" },
-      { "type": "image", "url": "/assets/models/9.jpg", "title": "Node Setup" },
-      { "type": "image", "url": "/assets/models/10.jpg", "title": "CGI Final" }
+      {
+        "type": "image",
+        "url": "/assets/models/1.jpg",
+        "title": "Abstract CGI"
+      },
+      {
+        "type": "image",
+        "url": "/assets/models/2.jpg",
+        "title": "Mesh Flow"
+      },
+      {
+        "type": "image",
+        "url": "/assets/models/3.jpg",
+        "title": "Lighting Rig"
+      },
+      {
+        "type": "image",
+        "url": "/assets/models/4.jpg",
+        "title": "Texture Map"
+      },
+      {
+        "type": "image",
+        "url": "/assets/models/5.jpg",
+        "title": "Final Render"
+      },
+      {
+        "type": "image",
+        "url": "/assets/models/6.jpg",
+        "title": "Shadow Study"
+      },
+      {
+        "type": "image",
+        "url": "/assets/models/7.jpg",
+        "title": "Polygon Mesh"
+      },
+      {
+        "type": "image",
+        "url": "/assets/models/8.jpg",
+        "title": "Environment"
+      },
+      {
+        "type": "image",
+        "url": "/assets/models/9.jpg",
+        "title": "Node Setup"
+      },
+      {
+        "type": "image",
+        "url": "/assets/models/10.jpg",
+        "title": "CGI Final"
+      }
     ]
   }
 ]

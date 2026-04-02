@@ -1,6 +1,6 @@
 {
-  "paths": {
-    "component": "src/lib/components",
-    "lib": "src/lib"
-  }
+	"paths": {
+		"component": "src/lib/components",
+		"lib": "src/lib"
+	}
 }

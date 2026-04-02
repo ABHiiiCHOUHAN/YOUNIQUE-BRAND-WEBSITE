@@ -1,14 +1,14 @@
 [
-  { "id": 1, "name": "TSVITKA", "industry": "LIFESTYLE & BEAUTY", "type": "ILLUSTRATIVE MARK" },
-  { "id": 2, "name": "JUMP", "industry": "ARCADE GAME", "type": "TYPOGRAPHIC LOGO" },
-  { "id": 3, "name": "THE HUMAN", "industry": "NON-PROFIT", "type": "MINIMALIST EMBLEM" },
-  { "id": 4, "name": "PAW PLANET", "industry": "PET CARE", "type": "PICTORIAL MARK" },
-  { "id": 5, "name": "PEOPLE PROJECT", "industry": "SOCIAL DESIGN", "type": "WORDMARK" },
-  { "id": 6, "name": "ACQUARIO", "industry": "FESTIVAL", "type": "DYNAMIC LOGO" },
-  { "id": 7, "name": "TOMÁ", "industry": "APPAREL", "type": "ICONIC MARK" },
-  { "id": 8, "name": "STITCH", "industry": "TEXTILE STUDIO", "type": "CRAFTED LOGOTYPE" },
-  { "id": 9, "name": "ELARA", "industry": "WELLNESS", "type": "GEOMETRIC MARK" },
-  { "id": 10, "name": "FORK", "industry": "FOOD TECH", "type": "NEGATIVE SPACE" },
-  { "id": 11, "name": "QUARK", "industry": "DATA SCIENCE", "type": "ABSTRACT LOGO" },
-  { "id": 12, "name": "VELO", "industry": "CYCLING APP", "type": "MOTION GRAPHIC" }
+	{ "id": 1, "name": "TSVITKA", "industry": "LIFESTYLE & BEAUTY", "type": "ILLUSTRATIVE MARK" },
+	{ "id": 2, "name": "JUMP", "industry": "ARCADE GAME", "type": "TYPOGRAPHIC LOGO" },
+	{ "id": 3, "name": "THE HUMAN", "industry": "NON-PROFIT", "type": "MINIMALIST EMBLEM" },
+	{ "id": 4, "name": "PAW PLANET", "industry": "PET CARE", "type": "PICTORIAL MARK" },
+	{ "id": 5, "name": "PEOPLE PROJECT", "industry": "SOCIAL DESIGN", "type": "WORDMARK" },
+	{ "id": 6, "name": "ACQUARIO", "industry": "FESTIVAL", "type": "DYNAMIC LOGO" },
+	{ "id": 7, "name": "TOMÁ", "industry": "APPAREL", "type": "ICONIC MARK" },
+	{ "id": 8, "name": "STITCH", "industry": "TEXTILE STUDIO", "type": "CRAFTED LOGOTYPE" },
+	{ "id": 9, "name": "ELARA", "industry": "WELLNESS", "type": "GEOMETRIC MARK" },
+	{ "id": 10, "name": "FORK", "industry": "FOOD TECH", "type": "NEGATIVE SPACE" },
+	{ "id": 11, "name": "QUARK", "industry": "DATA SCIENCE", "type": "ABSTRACT LOGO" },
+	{ "id": 12, "name": "VELO", "industry": "CYCLING APP", "type": "MOTION GRAPHIC" }
 ]
