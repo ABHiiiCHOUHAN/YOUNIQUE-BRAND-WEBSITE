@@ -174,8 +174,9 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		gap: 1.5rem 2.5rem; /* Reduced gap */
-		margin: 2rem 0; /* Reduced vertical margin */
+		gap: 1.5rem 2.5rem;
+		margin: 6rem auto 2rem;
+		max-width: 1440px; /* Allows 4 folders (320px each + gaps) on large screens */
 		padding: 0 1rem;
 	}
 
@@ -186,7 +187,7 @@
 		margin-top: 36px;
 		display: block;
 		text-decoration: none;
-		z-index: 5; /* Ensure link is above background */
+		z-index: 5;
 		pointer-events: auto;
 	}
 
@@ -382,11 +383,18 @@
 		transform: rotate(25deg) scale(1.3) translateY(-35px);
 	}
 
-	/* Responsive */
 	@media (max-width: 980px) {
+		.folder-grid {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
 		.folder-card-wrap {
-			width: 280px;
-			height: 280px;
+			max-width: 280px;
+			grid-column: auto;
+		}
+		.folder-card-wrap:nth-child(5) {
+			grid-column: auto;
 		}
 		.folder-title {
 			font-size: 2.2rem;
@@ -395,11 +403,16 @@
 
 	@media (max-width: 640px) {
 		.folder-grid {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 			gap: 3rem 1rem;
 		}
 		.folder-card-wrap {
 			width: 100%;
+			max-width: 100%;
 			height: 240px;
+			aspect-ratio: auto;
 			margin-top: 36px !important;
 		}
 		.folder-card-solo {

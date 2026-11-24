@@ -995,7 +995,17 @@
 
 	:global(.dark) .minimal-back-btn {
 		background: var(--color-1); /* Pop yellow on dark mode back icon */
-		color: var(--color-3);
+		color: #1c1c1c; /* Force dark icon color for contrast */
+		border-color: #1c1c1c;
+		box-shadow: 4px 4px 0 #1c1c1c;
+	}
+
+	:global(.dark) .minimal-back-btn:hover {
+		box-shadow: 7px 7px 0 #1c1c1c;
+	}
+
+	:global(.dark) .minimal-back-btn:active {
+		box-shadow: 0px 0px 0 #1c1c1c;
 	}
 
 	.minimal-back-btn:hover {
