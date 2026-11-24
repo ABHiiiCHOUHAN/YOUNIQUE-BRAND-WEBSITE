@@ -399,11 +399,13 @@
 
 	@media (max-width: 640px) {
 		.folder-grid {
-			gap: 3rem 1rem;
+			gap: 2.5rem 1rem;
+			justify-content: center;
 		}
 		.folder-card-wrap {
-			width: 100%;
-			height: 240px;
+			width: 280px;
+			max-width: calc(100vw - 2.5rem);
+			height: 280px;
 			margin-top: 36px !important;
 		}
 		.folder-card-solo {

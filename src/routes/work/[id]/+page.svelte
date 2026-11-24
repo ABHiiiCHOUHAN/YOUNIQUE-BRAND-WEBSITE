@@ -6,6 +6,7 @@
 	import CardSwap from '$lib/components/CardSwap.svelte';
 	import InfiniteMenu from '$lib/components/InfiniteMenu.svelte';
 	import PaperCrumple from '$lib/components/PaperCrumple.svelte';
+	import DepthCarousel from '$lib/components/DepthCarousel.svelte';
 	import logoData from '$lib/data/logofolio.json';
 
 	let { data } = $props();
@@ -14,6 +15,62 @@
 	// Paper Crumple (Graphics & Print - Project 9)
 	let selectedPrintIndex = $state(0);
 	let paperResetKey = $state(0);
+
+	// Video Showcase (Video Editing - Project 8)
+	let selectedVideoIndex = $state(0);
+	let thumbnailTrackRef = $state(null);
+	let isThumbDragging = $state(false);
+	let thumbStartX = 0;
+	let thumbScrollLeft = 0;
+	let thumbHasMoved = false;
+
+	function onThumbPointerDown(e) {
+		if (!thumbnailTrackRef) return;
+		isThumbDragging = true;
+		thumbHasMoved = false;
+		thumbStartX = e.pageX - thumbnailTrackRef.offsetLeft;
+		thumbScrollLeft = thumbnailTrackRef.scrollLeft;
+	}
+
+	function onThumbPointerMove(e) {
+		if (!isThumbDragging || !thumbnailTrackRef) return;
+		const x = e.pageX - thumbnailTrackRef.offsetLeft;
+		const walk = x - thumbStartX;
+		if (Math.abs(walk) > 5) {
+			thumbHasMoved = true;
+		}
+		thumbnailTrackRef.scrollLeft = thumbScrollLeft - walk;
+	}
+
+	function onThumbPointerUp() {
+		isThumbDragging = false;
+	}
+
+	function selectThumbnail(index) {
+		if (thumbHasMoved) return; // Prevent selection if user was dragging
+		selectedVideoIndex = index;
+		centerActiveThumbnail(index);
+	}
+
+	function centerActiveThumbnail(index) {
+		if (!thumbnailTrackRef) return;
+		const cards = thumbnailTrackRef.querySelectorAll('.thumbnail-card');
+		if (cards[index]) {
+			cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+		}
+	}
+
+	function scrollThumbnails(direction) {
+		if (!thumbnailTrackRef) return;
+		thumbnailTrackRef.scrollBy({ left: 380 * direction, behavior: 'smooth' });
+	}
+
+	$effect(() => {
+		const idx = selectedVideoIndex;
+		if (!isThumbDragging) {
+			centerActiveThumbnail(idx);
+		}
+	});
 
 	onMount(() => {
 		showPage = true;
@@ -168,18 +225,116 @@
 					</div>
 				</div>
 			{:else if data.project.id === 8}
-				<!-- Masonry Layout for Video Editing -->
+				<!-- Dynamic Cuts - Depth Carousel for Video Editing -->
 				<div class="gallery-label-header">
 					<h2 class="sub-label">DYNAMIC EDITS // CUTS</h2>
 				</div>
-				<div class="masonry-wrap">
-					<Masonry
-						items={data.project.gallery}
-						animateFrom="bottom"
-						stagger={0.08}
-						scaleOnHover={true}
-						blurToFocus={true}
+				<div class="depth-carousel-wrapper">
+					<DepthCarousel
+						items={(data.project.gallery || []).map((it, idx) => ({
+							image: it.url,
+							video: it.video || `/videos/cut-${idx + 1}.mp4`,
+							title: it.title || `Video Reel #${idx + 1}`,
+							alt: it.title || 'Dynamic Video Cut'
+						}))}
+						selectedIndex={selectedVideoIndex}
+						onChange={(idx) => (selectedVideoIndex = idx)}
+						depth={180}
+						spread={160}
+						tilt={16}
+						tiltDirection="right"
+						perspective={1000}
+						visibleCards={4}
+						falloff={0.24}
+						blur={4}
+						autoplay={true}
+						autoplayDelay={3200}
+						loop={true}
+						cardWidth={500}
+						cardHeight={740}
+						radius={20}
+						duration={800}
+						showIndicators={false}
 					/>
+				</div>
+
+				<!-- Video Thumbnails Section -->
+				<div class="video-thumbnails-section">
+					<div class="thumbnails-header">
+						<div class="thumbnails-title-group">
+							<span class="live-dot"></span>
+							<h3 class="thumbnails-heading">CURATED CUTS & REELS</h3>
+							<span class="counter-badge">
+								{selectedVideoIndex + 1} / {(data.project.gallery || []).length}
+							</span>
+						</div>
+						<div class="thumbnails-controls">
+							<p class="thumbnails-hint">Click or drag with mouse to browse</p>
+							<div class="thumbnails-arrows">
+								<button
+									type="button"
+									class="thumb-arrow-btn"
+									onclick={() => scrollThumbnails(-1)}
+									aria-label="Scroll thumbnails left"
+								>
+									←
+								</button>
+								<button
+									type="button"
+									class="thumb-arrow-btn"
+									onclick={() => scrollThumbnails(1)}
+									aria-label="Scroll thumbnails right"
+								>
+									→
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- svelte-ignore a11y_no_static_element_interactions -->
+					<div
+						class="thumbnails-track-wrap"
+						class:is-dragging={isThumbDragging}
+						bind:this={thumbnailTrackRef}
+						onpointerdown={onThumbPointerDown}
+						onpointermove={onThumbPointerMove}
+						onpointerup={onThumbPointerUp}
+						onpointercancel={onThumbPointerUp}
+						onpointerleave={onThumbPointerUp}
+					>
+						<div class="thumbnails-track">
+							{#each data.project.gallery || [] as item, i}
+								<button
+									type="button"
+									class="thumbnail-card"
+									class:is-active={selectedVideoIndex === i}
+									onclick={() => selectThumbnail(i)}
+									aria-label="View cut {item.title || i + 1}"
+								>
+									<div class="thumbnail-preview">
+										<img
+											src={item.url}
+											alt={item.title || `Cut ${i + 1}`}
+											loading="lazy"
+											draggable="false"
+										/>
+										<div class="thumbnail-play-icon">
+											<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+												<path d="M8 5v14l11-7z" />
+											</svg>
+										</div>
+										<span class="thumbnail-duration">
+											0:{String(25 + ((i * 7) % 35)).padStart(2, '0')}
+										</span>
+									</div>
+									<div class="thumbnail-meta">
+										<span class="thumbnail-num">CUT #{String(i + 1).padStart(2, '0')}</span>
+										<span class="thumbnail-name">{item.title}</span>
+									</div>
+								</button>
+							{/each}
+						</div>
+					</div>
 				</div>
 			{:else if data.project.id === 2}
 				<!-- Browser Mockup for Digital Experiences -->
@@ -484,6 +639,7 @@
 		min-height: 100vh;
 		padding-top: 6rem;
 		padding-bottom: 6rem;
+		overflow-x: hidden;
 	}
 
 	.gallery-header {
@@ -1358,6 +1514,303 @@
 		font-weight: 900;
 		letter-spacing: 0.2em;
 		opacity: 0.8;
+	}
+
+	.depth-carousel-wrapper {
+		width: 100%;
+		max-width: 1400px;
+		height: 840px; /* 2x size for PC */
+		margin: 1.5rem auto 0;
+		position: relative;
+		overflow: visible; /* Prevent shadow clipping */
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+
+	.depth-carousel-wrapper::-webkit-scrollbar {
+		display: none;
+	}
+
+	@media (max-width: 1024px) {
+		.depth-carousel-wrapper {
+			height: 720px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.depth-carousel-wrapper {
+			height: 580px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.depth-carousel-wrapper {
+			height: 480px; /* Optimal for phone inspect viewing */
+		}
+	}
+
+	/* Video Thumbnails Section */
+	.video-thumbnails-section {
+		position: relative;
+		z-index: 50;
+		max-width: 1400px;
+		margin: 4rem auto 0;
+		padding: 0 1rem;
+		width: 100%;
+		pointer-events: auto;
+	}
+
+	.thumbnails-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 1.25rem;
+		padding-bottom: 0.75rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	.thumbnails-title-group {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.live-dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: #6bdac9;
+		box-shadow: 0 0 10px #6bdac9;
+		animation: livePulse 2s infinite ease-in-out;
+	}
+
+	@keyframes livePulse {
+		0%,
+		100% {
+			opacity: 1;
+			transform: scale(1);
+		}
+		50% {
+			opacity: 0.4;
+			transform: scale(0.85);
+		}
+	}
+
+	.thumbnails-heading {
+		font-family: var(--font-primary, sans-serif);
+		font-weight: 900;
+		font-size: 1.05rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: #fff;
+		margin: 0;
+	}
+
+	.counter-badge {
+		font-size: 0.75rem;
+		font-weight: 800;
+		padding: 0.2rem 0.6rem;
+		border-radius: 999px;
+		background: rgba(107, 218, 201, 0.15);
+		border: 1px solid rgba(107, 218, 201, 0.4);
+		color: #6bdac9;
+		font-family: monospace;
+	}
+
+	.thumbnails-controls {
+		display: flex;
+		align-items: center;
+		gap: 1.25rem;
+	}
+
+	.thumbnails-hint {
+		font-size: 0.8rem;
+		color: rgba(255, 255, 255, 0.5);
+		margin: 0;
+		font-weight: 500;
+	}
+
+	.thumbnails-arrows {
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	.thumb-arrow-btn {
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		background: rgba(255, 255, 255, 0.08);
+		color: #fff;
+		display: grid;
+		place-items: center;
+		cursor: pointer;
+		font-size: 0.9rem;
+		transition: all 0.2s ease;
+	}
+
+	.thumb-arrow-btn:hover {
+		background: #6bdac9;
+		color: #0b0d12;
+		border-color: #6bdac9;
+	}
+
+	.thumbnails-track-wrap {
+		width: 100%;
+		overflow-x: auto;
+		overflow-y: hidden;
+		padding: 0.75rem 0 1.5rem;
+		scrollbar-width: thin;
+		scrollbar-color: rgba(107, 218, 201, 0.35) rgba(255, 255, 255, 0.05);
+		cursor: grab;
+		user-select: none;
+		-webkit-user-select: none;
+		touch-action: pan-y;
+	}
+
+	.thumbnails-track-wrap.is-dragging {
+		cursor: grabbing;
+		scroll-behavior: auto;
+	}
+
+	.thumbnails-track-wrap::-webkit-scrollbar {
+		height: 6px;
+	}
+
+	.thumbnails-track-wrap::-webkit-scrollbar-track {
+		background: rgba(255, 255, 255, 0.05);
+		border-radius: 999px;
+	}
+
+	.thumbnails-track-wrap::-webkit-scrollbar-thumb {
+		background: rgba(107, 218, 201, 0.35);
+		border-radius: 999px;
+	}
+
+	.thumbnails-track-wrap::-webkit-scrollbar-thumb:hover {
+		background: #6bdac9;
+	}
+
+	.thumbnails-track {
+		display: flex;
+		gap: 1.25rem;
+		width: max-content;
+		padding: 0 0.25rem;
+	}
+
+	.thumbnail-card {
+		width: 190px;
+		display: flex;
+		flex-direction: column;
+		background: rgba(20, 24, 33, 0.85);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 12px;
+		overflow: hidden;
+		cursor: pointer;
+		text-align: left;
+		padding: 0;
+		transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+		position: relative;
+		user-select: none;
+		-webkit-user-select: none;
+	}
+
+	.thumbnail-card * {
+		pointer-events: none; /* Crucial: stops image dragstart from canceling clicks */
+	}
+
+	.thumbnail-card:hover {
+		transform: translateY(-4px);
+		border-color: rgba(107, 218, 201, 0.5);
+		box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.5);
+	}
+
+	.thumbnail-card.is-active {
+		border-color: #6bdac9;
+		box-shadow:
+			0 0 0 2px rgba(107, 218, 201, 0.5),
+			0 16px 32px -8px rgba(0, 0, 0, 0.7);
+		transform: translateY(-6px);
+		background: rgba(28, 35, 48, 0.95);
+	}
+
+	.thumbnail-preview {
+		width: 100%;
+		height: 110px;
+		position: relative;
+		overflow: hidden;
+		background: #000;
+	}
+
+	.thumbnail-preview img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.4s ease;
+		-webkit-user-drag: none;
+	}
+
+	.thumbnail-card:hover .thumbnail-preview img {
+		transform: scale(1.08);
+	}
+
+	.thumbnail-play-icon {
+		position: absolute;
+		inset: 0;
+		display: grid;
+		place-items: center;
+		background: rgba(0, 0, 0, 0.35);
+		color: #fff;
+		opacity: 0.8;
+		transition: all 0.2s ease;
+	}
+
+	.thumbnail-card:hover .thumbnail-play-icon,
+	.thumbnail-card.is-active .thumbnail-play-icon {
+		opacity: 1;
+		color: #6bdac9;
+		background: rgba(0, 0, 0, 0.2);
+	}
+
+	.thumbnail-duration {
+		position: absolute;
+		bottom: 6px;
+		right: 6px;
+		background: rgba(0, 0, 0, 0.8);
+		color: #fff;
+		font-size: 0.65rem;
+		font-weight: 700;
+		padding: 2px 5px;
+		border-radius: 4px;
+		font-family: monospace;
+	}
+
+	.thumbnail-meta {
+		padding: 0.75rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+	}
+
+	.thumbnail-num {
+		font-size: 0.65rem;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		color: #6bdac9;
+	}
+
+	.thumbnail-name {
+		font-size: 0.82rem;
+		font-weight: 700;
+		color: #fff;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.masonry-wrap {
