@@ -1,4 +1,5 @@
 <script>
+	import '$lib/styles/fonts/home.css';
 	import { onMount } from 'svelte';
 
 	const reviews = [
@@ -239,14 +240,6 @@
 </section>
 
 <style>
-	@font-face {
-		font-family: 'ShadowsIntoLight';
-		src: url('/fonts/ShadowsIntoLight-Regular.ttf') format('truetype');
-		font-weight: normal;
-		font-style: normal;
-		font-display: swap;
-	}
-
 	.reviews-wrap {
 		padding: 10rem 0; /* No side padding to allow full-width scroll */
 		background: #3d3d3d;

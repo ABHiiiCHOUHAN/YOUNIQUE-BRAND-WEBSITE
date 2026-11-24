@@ -344,7 +344,7 @@
 					<div class="gallery-inputs">
 						{#each projStats as stat, index}
 							<div class="gallery-row">
-								<input bind:value={stat.val} placeholder="Value (e.g. 7500 hours)" />
+								<input bind:value={stat.val} placeholder="Value (e.g. 350+ hrs)" />
 								<input bind:value={stat.label} placeholder="Label (e.g. project work)" />
 								<button
 									type="button"

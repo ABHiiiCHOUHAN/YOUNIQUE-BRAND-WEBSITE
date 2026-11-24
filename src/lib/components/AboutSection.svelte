@@ -1,4 +1,5 @@
 <script>
+	import '$lib/styles/fonts/about.css';
 	import AboutIllustration from './AboutIllustration.svelte';
 	const words = ['THE', 'MINDS', 'BEHIND', 'THE', 'CHAOS'];
 </script>

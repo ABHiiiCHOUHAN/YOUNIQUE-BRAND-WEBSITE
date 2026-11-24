@@ -1053,7 +1053,7 @@
 
 	.pill-num {
 		opacity: 0.5;
-		font-family: 'SpaceGrotesk', monospace;
+		font-family: 'Space Grotesk', monospace;
 	}
 
 	.pill-text {

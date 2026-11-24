@@ -1,0 +1,48 @@
+/* Fonts used on the Home page (hero section, kinetic typography & reviews) */
+
+@font-face {
+	font-family: 'Kubizmus Demo';
+	src: url('/fonts/home/Kubizmus.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Kinetic-Balium';
+	src: url('/fonts/home/Balium.ttf') format('truetype');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Kinetic-TikiTropic';
+	src: url('/fonts/home/TikiTropic.ttf') format('truetype');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Kinetic-Ballantiness';
+	src: url('/fonts/home/Ballantiness.otf') format('opentype');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Kinetic-Travel';
+	src: url('/fonts/home/Travel.ttf') format('truetype');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'ShadowsIntoLight';
+	src: url('/fonts/home/ShadowsIntoLight-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+:root {
+	--kinetic-font-1: 'Kinetic-Balium', 'serif';
+	--kinetic-font-4: 'Kinetic-TikiTropic', 'cursive';
+	--kinetic-font-5: 'Kinetic-Ballantiness', 'cursive';
+	--kinetic-font-6: 'Kinetic-Travel', 'sans-serif';
+}

@@ -1,4 +1,5 @@
 <script>
+	import '$lib/styles/fonts/home.css';
 	import KineticDecor from '$lib/components/KineticDecor.svelte';
 	import WorkSection from '$lib/components/WorkSection.svelte';
 	import SkillsSection from '$lib/components/SkillsSection.svelte';

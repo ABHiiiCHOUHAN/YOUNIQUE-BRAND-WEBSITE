@@ -1,4 +1,5 @@
 <script>
+	import '$lib/styles/fonts/work.css';
 	import { onMount, onDestroy } from 'svelte';
 	let { projects = [] } = $props();
 

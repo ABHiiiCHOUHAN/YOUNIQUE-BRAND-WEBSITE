@@ -1,0 +1,82 @@
+/* Shared fonts used across the layout (header, footer, body) and multiple pages */
+
+@font-face {
+	font-family: 'Unbounded';
+	src: url('/fonts/global/Unbounded-VariableFont_wght.ttf') format('truetype');
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Space Grotesk';
+	src: url('/fonts/global/SpaceGrotesk-Medium.ttf') format('truetype');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Space Grotesk';
+	src: url('/fonts/global/SpaceGrotesk-Bold.ttf') format('truetype');
+	font-weight: 700 800;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Space Mono';
+	src: url('/fonts/global/SpaceMono-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Space Mono';
+	src: url('/fonts/global/SpaceMono-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Space Mono';
+	src: url('/fonts/global/SpaceMono-Italic.ttf') format('truetype');
+	font-weight: normal;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Rubik Mono One';
+	src: url('/fonts/global/RubikMonoOne-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Nauryz';
+	src: url('/fonts/global/Nauryz.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Kinetic-Nauryz';
+	src: url('/fonts/global/Nauryz.ttf') format('truetype');
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Kinetic-LLPixel';
+	src: url('/fonts/global/LLPIXEL.ttf') format('truetype');
+	font-display: swap;
+}
+
+:root {
+	--kinetic-font-2: 'Kinetic-LLPixel', 'monospace';
+	--kinetic-font-3: 'Kinetic-Nauryz', 'serif';
+}

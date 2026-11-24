@@ -334,15 +334,6 @@
 </div>
 
 <style>
-	@font-face {
-		font-family: 'SpaceGrotesk';
-		src: url('/fonts/static/SpaceGrotesk-Medium.ttf') format('truetype');
-	}
-	@font-face {
-		font-family: 'SpaceMonoItalic';
-		src: url('/fonts/Space_Mono/SpaceMono-Italic.ttf') format('truetype');
-	}
-
 	.infinite-menu-container {
 		width: 100%;
 		height: 100vh;
@@ -383,7 +374,8 @@
 	}
 
 	.industry {
-		font-family: 'SpaceMonoItalic', monospace;
+		font-family: 'Space Mono', monospace;
+		font-style: italic;
 		font-size: 0.65rem;
 		letter-spacing: 0.25em;
 		opacity: 0.5;
@@ -391,7 +383,7 @@
 	}
 
 	.name {
-		font-family: 'SpaceGrotesk', sans-serif;
+		font-family: 'Space Grotesk', sans-serif;
 		font-size: 2rem;
 		font-weight: 500;
 		letter-spacing: -0.02em;
@@ -400,7 +392,7 @@
 	}
 
 	.type {
-		font-family: 'SpaceGrotesk', sans-serif;
+		font-family: 'Space Grotesk', sans-serif;
 		font-size: 0.6rem;
 		letter-spacing: 0.15em;
 		opacity: 0.35;

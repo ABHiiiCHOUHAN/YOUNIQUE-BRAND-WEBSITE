@@ -1,4 +1,5 @@
 <script>
+	import '$lib/styles/fonts/blog.css';
 	import { onMount } from 'svelte';
 	let { postsPromise } = $props();
 

@@ -1,0 +1,9 @@
+/* Fonts used on the Work page (/work) and Work section */
+
+@font-face {
+	font-family: 'moon-get';
+	src: url('/fonts/work/MoonGet.otf') format('opentype');
+	font-weight: 900;
+	font-style: normal;
+	font-display: swap;
+}

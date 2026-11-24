@@ -8,6 +8,8 @@
 	let mobile = $state('');
 	let message = $state('');
 	let status = $state('');
+	let showSuccessPopup = $state(false);
+	let popupTimeout;
 	let showValidation = $state(false);
 	let validationErrors = $state({ name: '', email: '', mobile: '', message: '' });
 	let contactEmail = $state(PUBLIC_CONTACT_EMAIL || 'hello@younique.studio');
@@ -108,21 +110,36 @@
 			console.error('Failed to log message internally:', err);
 		}
 
-		// 2. Open the user's mail client
-		window.location.href = mailLink;
+		// 2. Open mail client in background / non-navigation
+		const tempLink = document.createElement('a');
+		tempLink.href = mailLink;
+		tempLink.style.display = 'none';
+		document.body.appendChild(tempLink);
+		tempLink.click();
+		tempLink.remove();
 
-		// 3. Transition to success UI
+		// 3. Transition to success UI and show popup
+		status = 'success';
+		showSuccessPopup = true;
+
+		if (popupTimeout) clearTimeout(popupTimeout);
+		popupTimeout = setTimeout(() => {
+			showSuccessPopup = false;
+		}, 5000);
+
+		// Reset form
 		setTimeout(() => {
-			status = 'success';
-			// Reset form
-			setTimeout(() => {
-				status = '';
-				name = '';
-				email = '';
-				mobile = '';
-				message = '';
-			}, 3000);
-		}, 1200);
+			status = '';
+			name = '';
+			email = '';
+			mobile = '';
+			message = '';
+		}, 3000);
+	}
+
+	function closePopup() {
+		showSuccessPopup = false;
+		if (popupTimeout) clearTimeout(popupTimeout);
 	}
 </script>
 
@@ -282,6 +299,41 @@
 			</a>
 		</div>
 	</div>
+
+	{#if showSuccessPopup}
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+		<div class="popup-backdrop" onclick={closePopup} role="presentation">
+			<div
+				class="popup-card"
+				role="dialog"
+				aria-modal="true"
+				tabindex="-1"
+				aria-labelledby="popup-title"
+				onclick={(e) => e.stopPropagation()}
+			>
+				<button class="popup-close-btn" onclick={closePopup} aria-label="Close notification">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+						<line x1="18" y1="6" x2="6" y2="18"></line>
+						<line x1="6" y1="6" x2="18" y2="18"></line>
+					</svg>
+				</button>
+
+				<div class="popup-icon-wrap">
+					<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+						<polyline points="20 6 9 17 4 12"></polyline>
+					</svg>
+				</div>
+
+				<div class="popup-body">
+					<h3 id="popup-title" class="popup-title">Message Sent!</h3>
+					<p class="popup-desc">your message has been sent , we will contact you asap!</p>
+				</div>
+
+				<div class="popup-timer-bar"></div>
+			</div>
+		</div>
+	{/if}
 </section>
 
 <style>
@@ -650,7 +702,7 @@
 
 	.btn--waiting,
 	.btn--success {
-		cursor: wait;
+		cursor: default;
 	}
 	.btn--success {
 		background: #4ade80 !important;
@@ -661,5 +713,166 @@
 		align-items: center;
 		justify-content: center;
 		gap: 0.75rem;
+	}
+
+	/* Success Popup Styles */
+	.popup-backdrop {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.45);
+		backdrop-filter: blur(4px);
+		-webkit-backdrop-filter: blur(4px);
+		z-index: 9999;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1.5rem;
+		animation: popupFadeIn 0.25s ease-out;
+	}
+
+	.popup-card {
+		position: relative;
+		background: #fffaf4;
+		border: 3.5px solid #1c1c1c;
+		border-radius: 24px;
+		box-shadow: 8px 10px 0px #1c1c1c;
+		padding: 2.5rem 2rem 2rem;
+		max-width: 460px;
+		width: 100%;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		overflow: hidden;
+		animation: popupSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.popup-close-btn {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		background: transparent;
+		border: 2px solid #1c1c1c;
+		border-radius: 50%;
+		width: 32px;
+		height: 32px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		color: #1c1c1c;
+		transition: all 0.15s ease;
+	}
+
+	.popup-close-btn:hover {
+		background: #1c1c1c;
+		color: #fff;
+		transform: scale(1.05);
+	}
+
+	.popup-icon-wrap {
+		width: 64px;
+		height: 64px;
+		border-radius: 50%;
+		background: #4ade80;
+		color: #1c1c1c;
+		border: 3px solid #1c1c1c;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 1.25rem;
+		box-shadow: 4px 4px 0px #1c1c1c;
+	}
+
+	.popup-title {
+		font-family: 'Unbounded', sans-serif;
+		font-size: 1.45rem;
+		font-weight: 800;
+		color: #1c1c1c;
+		margin-bottom: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: -0.02em;
+	}
+
+	.popup-desc {
+		font-family: inherit;
+		font-size: 1.05rem;
+		line-height: 1.5;
+		color: #3d3d3d;
+		font-weight: 600;
+		margin: 0;
+	}
+
+	.popup-timer-bar {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		height: 5px;
+		background: #ffd600;
+		width: 100%;
+		animation: popupTimer 5s linear forwards;
+	}
+
+	@keyframes popupFadeIn {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	@keyframes popupSlideUp {
+		from {
+			opacity: 0;
+			transform: scale(0.92) translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: scale(1) translateY(0);
+		}
+	}
+
+	@keyframes popupTimer {
+		from {
+			width: 100%;
+		}
+		to {
+			width: 0%;
+		}
+	}
+
+	/* Dark mode styling for popup */
+	:global(.dark) .popup-card {
+		background: #2a2a2a;
+		border-color: #fff;
+		box-shadow: 10px 12px 0px #000;
+	}
+
+	:global(.dark) .popup-close-btn {
+		border-color: #fff;
+		color: #fff;
+	}
+
+	:global(.dark) .popup-close-btn:hover {
+		background: #fff;
+		color: #1c1c1c;
+	}
+
+	:global(.dark) .popup-icon-wrap {
+		border-color: #fff;
+		box-shadow: 4px 4px 0px #000;
+	}
+
+	:global(.dark) .popup-title {
+		color: #fff;
+	}
+
+	:global(.dark) .popup-desc {
+		color: #e5e5e5;
+	}
+
+	:global(.dark) .popup-timer-bar {
+		background: #4ade80;
 	}
 </style>

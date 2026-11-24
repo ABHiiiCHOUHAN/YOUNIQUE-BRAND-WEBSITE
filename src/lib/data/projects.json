@@ -10,15 +10,15 @@
     "fullDesc": "We focus on developing mindset, discovering leadership potential and team building, helping companies improve processes and create teams with glowing eyes.",
     "stats": [
       {
-        "val": "7500 hours",
+        "val": "350+ hrs",
         "label": "project work"
       },
       {
-        "val": "7000 people",
-        "label": "impacted"
+        "val": "12 brands",
+        "label": "crafted"
       },
       {
-        "val": "10 years",
+        "val": "1+ year",
         "label": "experience"
       }
     ],
@@ -77,15 +77,15 @@
     "fullDesc": "We craft digital ecosystems that vibrate. Our focus is on high-performance architecture and seamless user journeys that bridge the gap between art and tech.",
     "stats": [
       {
-        "val": "42 sites",
+        "val": "6 sites",
         "label": "launched"
       },
       {
-        "val": "0.4s",
+        "val": "1.2s",
         "label": "avg load time"
       },
       {
-        "val": "99.9%",
+        "val": "99.2%",
         "label": "uptime"
       }
     ],
@@ -154,15 +154,15 @@
     "fullDesc": "We manage your social presence from strategy to execution. Focusing on viral loops, community engagement, and aesthetic consistency across all platforms.",
     "stats": [
       {
-        "val": "1.2M",
+        "val": "45K+",
         "label": "engagement"
       },
       {
-        "val": "24/7",
-        "label": "monitoring"
+        "val": "90+",
+        "label": "posts shipped"
       },
       {
-        "val": "15",
+        "val": "4",
         "label": "brands managed"
       }
     ],
@@ -211,7 +211,7 @@
     "fullDesc": "High-end post-production for commercials, social content, and documentaries. We handle color grading, sound design, and rhythm-based editing.",
     "stats": [
       {
-        "val": "500+",
+        "val": "40+",
         "label": "video cuts"
       },
       {
@@ -219,7 +219,7 @@
         "label": "native res"
       },
       {
-        "val": "100%",
+        "val": "95%",
         "label": "on-time delivery"
       }
     ],
@@ -448,16 +448,16 @@
     "fullDesc": "Layout, typography, and print production. We design posters, books, and packaging that make an impact in the real world.",
     "stats": [
       {
-        "val": "200",
-        "label": "poster runs"
+        "val": "24",
+        "label": "poster designs"
       },
       {
         "val": "Pantone",
         "label": "matched"
       },
       {
-        "val": "12",
-        "label": "book designs"
+        "val": "3",
+        "label": "editorial layouts"
       }
     ],
     "gallery": [
@@ -526,14 +526,14 @@
     "stats": [
       {
         "val": "2K",
-        "label": "polygons"
+        "label": "textures"
       },
       {
         "val": "Cycles",
         "label": "rendering"
       },
       {
-        "val": "85",
+        "val": "18",
         "label": "assets built"
       }
     ],
