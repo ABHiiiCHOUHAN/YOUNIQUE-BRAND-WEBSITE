@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import { page } from '$app/stores';
@@ -9,10 +10,39 @@
 	let { children } = $props();
 
 	let isDark = $state(false);
-	let scrollY = $state(0);
-	const isAtBottom = $derived.by(() => {
-		if (!browser) return false;
-		return scrollY + window.innerHeight >= document.documentElement.scrollHeight - 50;
+	let isScrolled = $state(false);
+	let isAtBottom = $state(false);
+
+	onMount(() => {
+		let ticking = false;
+		let cachedDocHeight = document.documentElement.scrollHeight;
+		let cachedWinHeight = window.innerHeight;
+
+		const updateMetrics = () => {
+			cachedDocHeight = document.documentElement.scrollHeight;
+			cachedWinHeight = window.innerHeight;
+		};
+
+		window.addEventListener('resize', updateMetrics, { passive: true });
+
+		const onScroll = () => {
+			if (!ticking) {
+				window.requestAnimationFrame(() => {
+					const y = window.scrollY;
+					isScrolled = y > 50;
+					isAtBottom = y + cachedWinHeight >= cachedDocHeight - 50;
+					ticking = false;
+				});
+				ticking = true;
+			}
+		};
+
+		window.addEventListener('scroll', onScroll, { passive: true });
+
+		return () => {
+			window.removeEventListener('scroll', onScroll);
+			window.removeEventListener('resize', updateMetrics);
+		};
 	});
 
 	$effect(() => {
@@ -46,11 +76,10 @@
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
-<svelte:window bind:scrollY />
 
 <div class="app">
 	{#if !isStandalone}
-		<header class="header" class:scrolled={scrollY > 50} class:header--hidden={isAtBottom}>
+		<header class="header" class:scrolled={isScrolled} class:header--hidden={isAtBottom}>
 			<nav class="navbar" aria-label="Primary">
 				<a class="brand" href="/" aria-label="Younique Design Studio home">
 					<div
@@ -66,18 +95,18 @@
 						<a
 							class="nav-link"
 							class:active={$page.url.hash === '#work' || $page.url.pathname === '/work'}
-							href="/#work">Work</a
+							href="/#work"><span class="nav-text">Work</span></a
 						>
 					</li>
 					<li>
 						<a
 							class="nav-link"
 							class:active={$page.url.hash === '#blog' || $page.url.pathname.startsWith('/blog')}
-							href="/#blog">Blog</a
+							href="/#blog"><span class="nav-text">Blog</span></a
 						>
 					</li>
 					<li>
-						<a class="nav-link" class:active={$page.url.hash === '#about'} href="/#about">About</a>
+						<a class="nav-link" class:active={$page.url.hash === '#about'} href="/#about"><span class="nav-text">About</span></a>
 					</li>
 					<li><a class="btn-contact" href="/#contact">Contact</a></li>
 					<li>
@@ -316,33 +345,46 @@
 		font-size: 0.95rem;
 		font-family: var(--font-secondary);
 		letter-spacing: 0.05em;
-		transition: all 0.3s ease;
+		transition:
+			color 0.3s ease,
+			transform 0.3s ease;
 		position: relative;
-		padding: 0.5rem 1rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.5rem 0.85rem;
 	}
 
 	:global(.dark) .nav-link {
 		color: #f4f4f4;
 	}
 
-	.nav-link:hover {
+	.nav-link:hover,
+	.nav-link.active {
 		color: var(--color-2);
 		transform: translateY(-2px);
 	}
 
-	.nav-link::after {
+	.nav-text {
+		position: relative;
+		display: inline-block;
+	}
+
+	.nav-text::after {
 		content: '';
 		position: absolute;
-		bottom: 0;
+		bottom: -3px;
 		left: 0;
 		width: 100%;
 		height: 2px;
 		background: var(--color-1);
 		transform: scaleX(0);
-		transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+		transform-origin: center;
+		transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
-	.nav-link:hover::after {
+	.nav-link:hover .nav-text::after,
+	.nav-link.active .nav-text::after {
 		transform: scaleX(1);
 	}
 
@@ -585,10 +627,15 @@
 
 		/* Mobile Header Downsizing */
 		.nav-links {
-			gap: 0.85rem;
+			gap: 0.5rem;
 		}
 		.nav-link {
-			font-size: 0.7rem;
+			font-size: 0.72rem;
+			padding: 0.35rem 0.45rem;
+		}
+		.nav-text::after {
+			bottom: -2px;
+			height: 2px;
 		}
 		.btn-contact {
 			padding: 0.5rem 1.2rem;

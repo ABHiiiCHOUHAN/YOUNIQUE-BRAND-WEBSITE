@@ -5,10 +5,15 @@
 	import Masonry from '$lib/components/Masonry.svelte';
 	import CardSwap from '$lib/components/CardSwap.svelte';
 	import InfiniteMenu from '$lib/components/InfiniteMenu.svelte';
+	import PaperCrumple from '$lib/components/PaperCrumple.svelte';
 	import logoData from '$lib/data/logofolio.json';
 
 	let { data } = $props();
 	let showPage = $state(false);
+
+	// Paper Crumple (Graphics & Print - Project 9)
+	let selectedPrintIndex = $state(0);
+	let paperResetKey = $state(0);
 
 	onMount(() => {
 		showPage = true;
@@ -279,6 +284,99 @@
 						</div>
 					</div>
 				</div>
+			{:else if data.project.id === 9}
+				<!-- Interactive Paper Crumple Studio for Graphics & Print -->
+				<div class="paper-studio-container">
+					<!-- Main Paper Crumple Stage -->
+					{#key selectedPrintIndex}
+						<div class="paper-stage-wrapper">
+							<PaperCrumple
+								src={data.project.gallery[selectedPrintIndex]?.url || '/assets/graphics/1.jpg'}
+								alt={data.project.gallery[selectedPrintIndex]?.title || 'Print Art'}
+								width={340}
+								height={460}
+								sceneHeight={580}
+								releaseBehavior="restore"
+								crumpleAmount={0.75}
+								crumpleDuration={0.65}
+								releaseDuration={0.55}
+								foldCount={9}
+								foldSharpness={0.7}
+								wrinkleDepth={0.7}
+								creaseStrength={0.22}
+								paperColor="#f4f0e8"
+								paperTexture={0.3}
+								draggable={true}
+								returnToOrigin={true}
+								lightIntensity={2.2}
+								shadowOpacity={0.22}
+								dragRotation={18}
+								seed={selectedPrintIndex * 13 + 7}
+								detail={56}
+								resetKey={paperResetKey}
+							/>
+
+							<div class="stage-hint">
+								<span>✋ CLICK & DRAG TO CRUMPLE</span>
+							</div>
+						</div>
+					{/key}
+
+					<!-- Active Print Details & Gallery Selector -->
+					<div class="print-meta-bar">
+						<div class="print-info">
+							<span class="print-number">ARCHIVE 09.{String(selectedPrintIndex + 1).padStart(2, '0')}</span>
+							<h3 class="print-title">{data.project.gallery[selectedPrintIndex]?.title || 'Print Design'}</h3>
+						</div>
+						<div class="print-nav">
+							<button
+								class="nav-btn"
+								onclick={() => {
+									selectedPrintIndex =
+										(selectedPrintIndex - 1 + data.project.gallery.length) %
+										data.project.gallery.length;
+									paperResetKey += 1;
+								}}
+								aria-label="Previous Print"
+							>
+								←
+							</button>
+							<span class="print-counter">{selectedPrintIndex + 1} / {data.project.gallery.length}</span>
+							<button
+								class="nav-btn"
+								onclick={() => {
+									selectedPrintIndex =
+										(selectedPrintIndex + 1) % data.project.gallery.length;
+									paperResetKey += 1;
+								}}
+								aria-label="Next Print"
+							>
+								→
+							</button>
+						</div>
+					</div>
+
+					<!-- Thumbnails Strip -->
+					<div class="print-thumbnails-grid">
+						{#each data.project.gallery as item, idx}
+							<button
+								class="print-thumb-card {selectedPrintIndex === idx ? 'is-selected' : ''}"
+								onclick={() => {
+									selectedPrintIndex = idx;
+									paperResetKey += 1;
+								}}
+							>
+								<div class="thumb-preview">
+									<img src={item.url} alt={item.title} />
+									{#if selectedPrintIndex === idx}
+										<div class="thumb-badge">ACTIVE</div>
+									{/if}
+								</div>
+								<span class="thumb-title">{item.title}</span>
+							</button>
+						{/each}
+					</div>
+				</div>
 			{:else}
 				<div class="gallery-bento layout-{data.project.id}">
 					{#each currentSet as item, i}
@@ -288,7 +386,7 @@
 						</div>
 					{/each}
 				</div>
-				{#if data.project.id !== 8 && data.project.id !== 7}
+				{#if data.project.id !== 8 && data.project.id !== 7 && data.project.id !== 9}
 					<div class="gallery-header">
 						<div class="nav-btns">
 							<button class="nav-btn" onclick={prevGroup} aria-label="Previous">←</button>
@@ -557,28 +655,188 @@
 		display: none;
 	} /* Focus on the 4 key slots per set */
 
-	/* 9. Graphics & Print (Asymmetric Magazine Layout) */
-	.layout-9 {
-		grid-template-columns: repeat(3, 1fr);
-		grid-template-rows: repeat(2, 450px);
+	/* 9. Graphics & Print — Interactive Paper Crumple Studio */
+	.paper-studio-container {
+		max-width: 1200px;
+		margin: 2rem auto 0;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
 	}
-	.layout-9 .cell-0 {
-		grid-column: span 1;
-		grid-row: span 2;
-	} /* Vertical Feature */
-	.layout-9 .cell-1 {
-		grid-column: span 2;
-		grid-row: span 1;
-	} /* Wide Top */
-	.layout-9 .cell-2,
-	.layout-9 .cell-3 {
-		grid-column: span 1;
-		grid-row: span 1;
+
+	.paper-stage-wrapper {
+		position: relative;
+		width: 100%;
+		border-radius: 20px;
+		border: 3px solid var(--color-3);
+		background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.95) 0%, rgba(235, 230, 220, 0.7) 100%);
+		box-shadow: 12px 12px 0 var(--color-3);
+		overflow: hidden;
+		transition: border-color 0.3s ease, box-shadow 0.3s ease;
 	}
-	.layout-9 .cell-4 {
-		grid-column: span 1;
-		grid-row: span 1;
-		visibility: hidden;
+
+	:global(.dark) .paper-stage-wrapper {
+		border-color: #f4f4f4;
+		background: radial-gradient(circle at 50% 40%, #2f2f2f 0%, #1a1a1a 100%);
+		box-shadow: 12px 12px 0 #000;
+	}
+
+	.stage-hint {
+		position: absolute;
+		bottom: 1.25rem;
+		right: 1.25rem;
+		z-index: 10;
+		padding: 0.35rem 0.85rem;
+		background: rgba(28, 28, 28, 0.8);
+		color: var(--color-1, #fdd803);
+		border-radius: 999px;
+		font-family: 'Space Mono', monospace;
+		font-size: 0.65rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		pointer-events: none;
+		backdrop-filter: blur(6px);
+	}
+
+	.print-meta-bar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 1.5rem;
+		padding: 0.5rem 0.5rem;
+	}
+
+	.print-number {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.8rem;
+		font-weight: 700;
+		color: var(--color-1, #fd5a04);
+		letter-spacing: 0.1em;
+		display: block;
+		margin-bottom: 0.25rem;
+	}
+
+	.print-title {
+		font-size: clamp(1.4rem, 3vw, 2.2rem);
+		font-weight: 900;
+		text-transform: uppercase;
+		margin: 0;
+		letter-spacing: -0.02em;
+	}
+
+	.print-nav {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.print-counter {
+		font-family: 'Space Mono', monospace;
+		font-size: 0.9rem;
+		font-weight: 700;
+	}
+
+	.print-thumbnails-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+		gap: 1rem;
+		width: 100%;
+	}
+
+	.print-thumb-card {
+		background: transparent;
+		border: 2px solid rgba(28, 28, 28, 0.15);
+		border-radius: 12px;
+		padding: 0.5rem;
+		cursor: pointer;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		text-align: left;
+		transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+		color: inherit;
+	}
+
+	:global(.dark) .print-thumb-card {
+		border-color: rgba(255, 255, 255, 0.15);
+	}
+
+	.print-thumb-card:hover {
+		transform: translateY(-4px);
+		border-color: var(--color-3);
+		box-shadow: 4px 4px 0 var(--color-3);
+	}
+
+	:global(.dark) .print-thumb-card:hover {
+		border-color: #f4f4f4;
+		box-shadow: 4px 4px 0 #000;
+	}
+
+	.print-thumb-card.is-selected {
+		border-color: var(--color-1, #fdd803);
+		background: rgba(253, 216, 3, 0.08);
+		box-shadow: 4px 4px 0 var(--color-3);
+		transform: translateY(-2px);
+	}
+
+	:global(.dark) .print-thumb-card.is-selected {
+		border-color: var(--color-1, #fdd803);
+		background: rgba(253, 216, 3, 0.12);
+		box-shadow: 4px 4px 0 #000;
+	}
+
+	.thumb-preview {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 3 / 4;
+		border-radius: 8px;
+		overflow: hidden;
+		border: 1px solid rgba(0, 0, 0, 0.1);
+		background: #f4f0e8;
+	}
+
+	.thumb-preview img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.thumb-badge {
+		position: absolute;
+		bottom: 4px;
+		right: 4px;
+		background: var(--color-1, #fdd803);
+		color: #1c1c1c;
+		font-family: 'Space Mono', monospace;
+		font-size: 0.6rem;
+		font-weight: 900;
+		padding: 2px 6px;
+		border-radius: 4px;
+		border: 1px solid #1c1c1c;
+	}
+
+	.thumb-title {
+		font-size: 0.72rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	@media (max-width: 640px) {
+		.print-thumbnails-grid {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 0.6rem;
+		}
+		.stage-hint {
+			font-size: 0.55rem;
+			bottom: 0.75rem;
+			right: 0.75rem;
+		}
 	}
 
 	/* 10. 3D Models (Sculptural Layout) */
@@ -917,6 +1175,11 @@
 	/* Stats Section */
 	.slide--stats {
 		background: var(--bg-light);
+		transition: background-color 0.3s ease;
+	}
+
+	:global(.dark) .slide--stats {
+		background: var(--color-5, #3d3d3d);
 	}
 
 	.stats-grid {
@@ -954,24 +1217,32 @@
 	.val {
 		font-family: 'Space Mono', monospace;
 		font-size: 2.2rem;
-		font-weight: 500;
+		font-weight: 700;
 		margin-top: 0;
-		color: var(--text-dark);
+		color: var(--color-3, #1c1c1c);
 		letter-spacing: -0.02em;
+		transition: color 0.3s ease;
 	}
 
 	:global(.dark) .val {
-		color: var(--text-light);
+		color: var(--color-1, #fdd803) !important;
 	}
 
 	.label {
 		font-family: 'Unbounded', sans-serif; /* Standard grotesk look */
-		font-size: 0.65rem;
-		opacity: 0.5;
+		font-size: 0.75rem;
+		opacity: 0.65;
 		margin-top: 0.5rem;
 		text-transform: uppercase;
 		font-weight: 700;
 		letter-spacing: 0.1em;
+		color: var(--color-3, #1c1c1c);
+		transition: color 0.3s ease, opacity 0.3s ease;
+	}
+
+	:global(.dark) .label {
+		color: #fffaf4 !important;
+		opacity: 0.85 !important;
 	}
 
 	.minimal-back-btn {

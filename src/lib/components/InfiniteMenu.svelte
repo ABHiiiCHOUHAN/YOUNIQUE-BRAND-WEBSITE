@@ -23,6 +23,8 @@
 	let radius = 10;
 	let baseScale = 3;
 	let itemCount = $derived(items.length || 20);
+	let animationFrameId;
+	let isDestroyed = false;
 
 	onMount(() => {
 		init();
@@ -31,6 +33,8 @@
 	});
 
 	onDestroy(() => {
+		isDestroyed = true;
+		if (animationFrameId) cancelAnimationFrame(animationFrameId);
 		if (renderer) {
 			renderer.dispose();
 			renderer.forceContextLoss();
@@ -58,8 +62,8 @@
 		);
 		camera.position.z = isMobile ? 32 : 25;
 
-		renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+		renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
 		renderer.setSize(container.clientWidth, container.clientHeight);
 		container.appendChild(renderer.domElement);
 
@@ -251,7 +255,8 @@
 	}
 
 	function animate() {
-		requestAnimationFrame(animate);
+		if (isDestroyed) return;
+		animationFrameId = requestAnimationFrame(animate);
 		time += 0.01;
 
 		// Smoothing (lerping) logic for rotation

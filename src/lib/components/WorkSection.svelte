@@ -96,6 +96,7 @@
 		{#each categories as cat, i}
 			<a
 				href="/work/{cat.id}"
+				data-sveltekit-preload-data="hover"
 				class="folder-card-wrap stagger-item"
 				style:animation-delay="{i * 0.15}s"
 				onmouseenter={() => (hoveredId = cat.id)}
@@ -190,6 +191,7 @@
 		text-decoration: none;
 		z-index: 5;
 		pointer-events: auto;
+		cursor: pointer;
 	}
 
 	/* Expand hit area to prevent hover glitch */
@@ -349,7 +351,7 @@
 	/* Interactive States & Scroll Center State */
 	.folder-card-wrap:hover .folder-card-solo,
 	.folder-card-solo.is-active {
-		transform: translateY(-15px) scale(1.05) rotate(0deg) !important;
+		transform: translateY(-15px) scale(1.05) rotate(0deg);
 		box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.15);
 		z-index: 10;
 	}
@@ -384,18 +386,11 @@
 		transform: rotate(25deg) scale(1.3) translateY(-35px);
 	}
 
+	/* Responsive */
 	@media (max-width: 980px) {
-		.folder-grid {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-		}
 		.folder-card-wrap {
-			max-width: 280px;
-			grid-column: auto;
-		}
-		.folder-card-wrap:nth-child(5) {
-			grid-column: auto;
+			width: 280px;
+			height: 280px;
 		}
 		.folder-title {
 			font-size: 2.2rem;
@@ -404,16 +399,11 @@
 
 	@media (max-width: 640px) {
 		.folder-grid {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
 			gap: 3rem 1rem;
 		}
 		.folder-card-wrap {
 			width: 100%;
-			max-width: 100%;
 			height: 240px;
-			aspect-ratio: auto;
 			margin-top: 36px !important;
 		}
 		.folder-card-solo {

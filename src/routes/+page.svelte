@@ -9,12 +9,8 @@
 	import { inView } from '$lib/actions/inView.js';
 
 	let { data } = $props();
-
-	let scrollY = $state(0);
 	let isTripping = $state(false);
 </script>
-
-<svelte:window bind:scrollY />
 
 <main class="neo-hero page-transition">
 	<section class="hero-void">

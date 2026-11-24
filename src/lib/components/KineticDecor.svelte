@@ -23,7 +23,8 @@
 			antialias: true
 		});
 
-		renderer.setPixelRatio(window.devicePixelRatio);
+		// Cap pixel ratio to 1.5 max to avoid massive GPU fillrate lag on iPhone 16 Pro Max (DPR 3)
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
 		camera.position.z = 15;
 
 		// Post-processing for Depth of Field
@@ -189,9 +190,12 @@
 
 		// Animation Loop
 		const clock = new THREE.Clock();
+		let animationFrameId;
+		let isDestroyed = false;
 
 		function animate() {
-			requestAnimationFrame(animate);
+			if (isDestroyed) return;
+			animationFrameId = requestAnimationFrame(animate);
 			const time = clock.getElapsedTime();
 
 			// Smooth parallax on the entire scene based on cursor position
@@ -216,14 +220,21 @@
 					Math.sin(time * mesh.userData.floatSpeed + mesh.userData.floatOffset) * 0.015;
 			});
 
-			composer.render();
+			if (isMobile) {
+				renderer.render(scene, camera);
+			} else {
+				composer.render();
+			}
 		}
 		animate();
 
 		return () => {
+			isDestroyed = true;
+			if (animationFrameId) cancelAnimationFrame(animationFrameId);
 			if (wrapper) resizeObserver.disconnect();
 			window.removeEventListener('pointermove', onPointerMove);
 			renderer.dispose();
+			renderer.forceContextLoss();
 			composer.dispose();
 		};
 	});
