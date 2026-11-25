@@ -1,35 +1,26 @@
 import { json } from '@sveltejs/kit';
-import fs from 'fs/promises';
 import path from 'path';
+import { readJson, updateJson } from '$lib/server/jsonStore.js';
 
 const dataPath = path.resolve('src/lib/data/settings.json');
-
-async function getSettings() {
-	try {
-		const file = await fs.readFile(dataPath, 'utf-8');
-		return JSON.parse(file);
-	} catch (err) {
-		if (err.code === 'ENOENT') {
-			const defaultSettings = { contactEmail: 'theyouniquedesign@gmail.com' };
-			await fs.mkdir(path.dirname(dataPath), { recursive: true });
-			await fs.writeFile(dataPath, JSON.stringify(defaultSettings, null, 2));
-			return defaultSettings;
-		}
-		throw err;
-	}
-}
+const DEFAULT_SETTINGS = { contactEmail: 'theyouniquedesign@gmail.com' };
 
 export async function GET() {
-	const settings = await getSettings();
+	const settings = await readJson(dataPath, DEFAULT_SETTINGS);
 	return json(settings);
 }
 
-export async function POST({ request }) {
-	const newSettings = await request.json();
-	const currentSettings = await getSettings();
+export async function POST({ request, locals }) {
+	if (!locals.isAdmin) {
+		return json({ error: 'Unauthorized' }, { status: 401 });
+	}
 
-	const updatedSettings = { ...currentSettings, ...newSettings };
-	await fs.writeFile(dataPath, JSON.stringify(updatedSettings, null, 2));
+	const newSettings = await request.json();
+
+	const updatedSettings = await updateJson(dataPath, DEFAULT_SETTINGS, (currentSettings) => {
+		const merged = { ...(currentSettings || {}), ...newSettings };
+		return { data: merged, result: merged };
+	});
 
 	return json(updatedSettings);
 }

@@ -8,6 +8,7 @@
 	let progress = $derived(Math.min(100, (scrollY / (pageHeight - 800)) * 100));
 
 	import { onMount } from 'svelte';
+	import { sanitizeBlogHtml } from '$lib/sanitize.js';
 	onMount(() => {
 		pageHeight = document.documentElement.scrollHeight;
 	});
@@ -46,7 +47,7 @@
 		</div>
 
 		<div class="content">
-			{@html post.content || post.excerpt}
+			{@html sanitizeBlogHtml(post.content || post.excerpt)}
 		</div>
 
 		<footer class="post-footer">

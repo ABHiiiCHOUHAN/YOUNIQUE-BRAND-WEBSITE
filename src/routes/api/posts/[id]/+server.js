@@ -1,33 +1,49 @@
 import { json } from '@sveltejs/kit';
-import fs from 'fs/promises';
 import path from 'path';
+import { sanitizeBlogHtml } from '$lib/sanitize.js';
+import { updateJson } from '$lib/server/jsonStore.js';
 
 const dataPath = path.resolve('src/lib/data/posts.json');
 
-export async function PUT({ params, request }) {
+export async function PUT({ params, request, locals }) {
+	if (!locals.isAdmin) {
+		return json({ error: 'Unauthorized: Admin authentication required.' }, { status: 401 });
+	}
+
 	const id = parseInt(params.id);
 	const updates = await request.json();
 
-	const file = await fs.readFile(dataPath, 'utf-8');
-	const posts = JSON.parse(file);
+	const sanitizedUpdates = { ...updates };
+	if (typeof sanitizedUpdates.content === 'string') {
+		sanitizedUpdates.content = sanitizeBlogHtml(sanitizedUpdates.content);
+	}
+	if (typeof sanitizedUpdates.excerpt === 'string') {
+		sanitizedUpdates.excerpt = sanitizeBlogHtml(sanitizedUpdates.excerpt);
+	}
 
-	const index = posts.findIndex((p) => p.id === id);
-	if (index === -1) return json({ error: 'Not found' }, { status: 404 });
+	const updated = await updateJson(dataPath, [], (posts) => {
+		const list = Array.isArray(posts) ? [...posts] : [];
+		const index = list.findIndex((p) => p.id === id);
+		if (index === -1) return { result: null };
+		list[index] = { ...list[index], ...sanitizedUpdates };
+		return { data: list, result: list[index] };
+	});
 
-	posts[index] = { ...posts[index], ...updates };
-	await fs.writeFile(dataPath, JSON.stringify(posts, null, 2));
-
-	return json(posts[index]);
+	if (!updated) return json({ error: 'Not found' }, { status: 404 });
+	return json(updated);
 }
 
-export async function DELETE({ params }) {
+export async function DELETE({ params, locals }) {
+	if (!locals.isAdmin) {
+		return json({ error: 'Unauthorized: Admin authentication required.' }, { status: 401 });
+	}
+
 	const id = parseInt(params.id);
 
-	const file = await fs.readFile(dataPath, 'utf-8');
-	let posts = JSON.parse(file);
-
-	posts = posts.filter((p) => p.id !== id);
-	await fs.writeFile(dataPath, JSON.stringify(posts, null, 2));
+	await updateJson(dataPath, [], (posts) => {
+		const list = Array.isArray(posts) ? posts.filter((p) => p.id !== id) : [];
+		return { data: list, result: true };
+	});
 
 	return json({ success: true });
 }

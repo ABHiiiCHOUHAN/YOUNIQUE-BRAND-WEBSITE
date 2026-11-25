@@ -1,42 +1,36 @@
 import { json } from '@sveltejs/kit';
-import fs from 'fs/promises';
 import path from 'path';
+import { sanitizeBlogHtml } from '$lib/sanitize.js';
+import { readJson, updateJson } from '$lib/server/jsonStore.js';
 
 const dataPath = path.resolve('src/lib/data/posts.json');
 
-// Initialize empty array if file is missing
-async function getPosts() {
-	try {
-		const file = await fs.readFile(dataPath, 'utf-8');
-		return JSON.parse(file);
-	} catch (err) {
-		if (err.code === 'ENOENT') {
-			await fs.writeFile(dataPath, '[]');
-			return [];
-		}
-		throw err;
-	}
-}
-
 export async function GET() {
-	const posts = await getPosts();
+	const posts = await readJson(dataPath, []);
 	return json(posts);
 }
 
-export async function POST({ request }) {
+export async function POST({ request, locals }) {
+	if (!locals.isAdmin) {
+		return json({ error: 'Unauthorized: Admin authentication required.' }, { status: 401 });
+	}
+
 	const { title, excerpt, content, date } = await request.json();
-	const posts = await getPosts();
+	const cleanContent = sanitizeBlogHtml(content || '');
+	const cleanExcerpt = sanitizeBlogHtml(excerpt || cleanContent.substring(0, 100) + '...');
 
 	const newPost = {
 		id: Date.now(),
-		title,
-		excerpt: excerpt || content.substring(0, 100) + '...',
-		content,
+		title: typeof title === 'string' ? title : '',
+		excerpt: cleanExcerpt,
+		content: cleanContent,
 		date: date || new Date().toISOString().split('T')[0]
 	};
 
-	posts.unshift(newPost); // Add to top
-	await fs.writeFile(dataPath, JSON.stringify(posts, null, 2));
+	await updateJson(dataPath, [], (posts) => {
+		const list = Array.isArray(posts) ? [newPost, ...posts] : [newPost];
+		return { data: list, result: newPost };
+	});
 
 	return json(newPost, { status: 201 });
 }

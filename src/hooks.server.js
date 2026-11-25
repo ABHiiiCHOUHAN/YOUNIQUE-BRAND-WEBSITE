@@ -56,6 +56,15 @@ export async function handle({ event, resolve }) {
 	response.headers.set('X-Content-Type-Options', 'nosniff');
 	response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
 	response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+	response.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
+
+	if (event.url.protocol === 'https:') {
+		response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+	}
+
+	if (pathname.startsWith('/admin') || pathname === '/api/messages') {
+		response.headers.set('Cache-Control', 'no-store');
+	}
 
 	return response;
 }

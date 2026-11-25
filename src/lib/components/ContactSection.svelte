@@ -7,7 +7,9 @@
 	let countryCode = $state('91');
 	let mobile = $state('');
 	let message = $state('');
+	let websiteUrlConfirm = $state('');
 	let status = $state('');
+	let submitError = $state('');
 	let showSuccessPopup = $state(false);
 	let popupTimeout;
 	let showValidation = $state(false);
@@ -47,24 +49,22 @@
 
 		// Reset errors
 		validationErrors = { name: '', email: '', mobile: '', message: '' };
+		submitError = '';
 		let hasError = false;
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 		if (!name.trim()) {
 			validationErrors.name = 'REQUIRED';
 			hasError = true;
+		} else if (name.trim().length > 100) {
+			validationErrors.name = 'TOO LONG';
+			hasError = true;
 		}
 
-		if (!email) {
+		if (!email.trim()) {
 			validationErrors.email = 'REQUIRED';
 			hasError = true;
-		} else if (!email.includes('@')) {
-			validationErrors.email = 'INVALID EMAIL';
-			hasError = true;
-		} else if (
-			!email.toLowerCase().split('?')[0].split('#')[0].endsWith('.com') &&
-			!email.toLowerCase().split('?')[0].split('#')[0].endsWith('.in') &&
-			!email.toLowerCase().split('?')[0].split('#')[0].endsWith('.edu')
-		) {
+		} else if (!emailRegex.test(email.trim())) {
 			validationErrors.email = 'INVALID EMAIL';
 			hasError = true;
 		}
@@ -78,8 +78,11 @@
 			hasError = true;
 		}
 
-		if (!message) {
+		if (!message.trim()) {
 			validationErrors.message = 'REQUIRED';
+			hasError = true;
+		} else if (message.trim().length > 2000) {
+			validationErrors.message = 'MAX 2000 CHARS';
 			hasError = true;
 		}
 
@@ -101,13 +104,28 @@
 
 		// 1. Log the message to our internal API (Admin manage section)
 		try {
-			await fetch('/api/messages', {
+			const res = await fetch('/api/messages', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ name, email, mobile: fullMobile, message })
+				body: JSON.stringify({
+					name,
+					email,
+					mobile: fullMobile,
+					message,
+					website_url_confirm: websiteUrlConfirm
+				})
 			});
+			if (!res.ok) {
+				const errData = await res.json().catch(() => ({}));
+				submitError = errData.error || 'Unable to send inquiry right now.';
+				status = '';
+				return;
+			}
 		} catch (err) {
 			console.error('Failed to log message internally:', err);
+			submitError = 'Network error. Please try again.';
+			status = '';
+			return;
 		}
 
 		// 2. Open mail client in background / non-navigation
@@ -154,11 +172,22 @@
 		</header>
 
 		<form class="form" onsubmit={onSubmit} novalidate>
+			<div class="hp-field" aria-hidden="true">
+				<label for="website_url_confirm">Website</label>
+				<input
+					id="website_url_confirm"
+					type="text"
+					name="website_url_confirm"
+					bind:value={websiteUrlConfirm}
+					tabindex="-1"
+					autocomplete="off"
+				/>
+			</div>
 			<div class="form-left">
 				<label class="field">
 					<span class="label">Name</span>
 					<div class="input-wrap">
-						<input bind:value={name} name="name" placeholder="Your name" autocomplete="name" />
+						<input bind:value={name} name="name" placeholder="Your name" autocomplete="name" maxlength="100" />
 						{#if showValidation && validationErrors.name}<span class="error-hint"
 								>{validationErrors.name}</span
 							>{/if}
@@ -193,7 +222,7 @@
 				<label class="field">
 					<span class="label">Email</span>
 					<div class="input-wrap">
-						<input type="email" bind:value={email} placeholder="you@example.com" />
+						<input type="email" bind:value={email} placeholder="you@example.com" maxlength="254" />
 						{#if showValidation && validationErrors.email}<span class="error-hint"
 								>{validationErrors.email}</span
 							>{/if}
@@ -205,13 +234,17 @@
 				<label class="field field--full">
 					<span class="label">Message</span>
 					<div class="input-wrap">
-						<textarea bind:value={message} placeholder="Talk to us about your vision..." rows="6"
+						<textarea bind:value={message} placeholder="Talk to us about your vision..." rows="6" maxlength="2000"
 						></textarea>
 						{#if showValidation && validationErrors.message}<span class="error-hint"
 								>{validationErrors.message}</span
 							>{/if}
 					</div>
 				</label>
+
+				{#if submitError}
+					<div class="submit-error-banner" role="alert">{submitError}</div>
+				{/if}
 
 				<button
 					class="btn btn--submit"
@@ -874,5 +907,28 @@
 
 	:global(.dark) .popup-timer-bar {
 		background: #4ade80;
+	}
+
+	.hp-field {
+		position: absolute;
+		left: -9999px;
+		top: -9999px;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.submit-error-banner {
+		background: #ff5252;
+		color: #ffffff;
+		border: 2px solid var(--color-3);
+		box-shadow: 4px 4px 0px var(--color-3);
+		padding: 0.75rem 1rem;
+		border-radius: 12px;
+		font-weight: 800;
+		font-size: 0.9rem;
+		margin-bottom: 0.5rem;
 	}
 </style>

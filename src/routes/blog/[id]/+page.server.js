@@ -1,4 +1,5 @@
 import { error } from '@sveltejs/kit';
+import { sanitizeBlogHtml } from '$lib/sanitize.js';
 
 export async function load({ fetch, params }) {
 	const res = await fetch('/api/posts');
@@ -9,5 +10,11 @@ export async function load({ fetch, params }) {
 
 	if (!post) throw error(404, 'Post not found');
 
-	return { post };
+	return {
+		post: {
+			...post,
+			content: sanitizeBlogHtml(post.content),
+			excerpt: sanitizeBlogHtml(post.excerpt)
+		}
+	};
 }

@@ -1,24 +1,26 @@
 import { json } from '@sveltejs/kit';
-import fs from 'fs/promises';
 import path from 'path';
+import { readJson, updateJson } from '$lib/server/jsonStore.js';
 
 const dataPath = path.resolve('src/lib/data/slides.json');
 
-async function getSlides() {
-	const file = await fs.readFile(dataPath, 'utf-8');
-	return JSON.parse(file);
-}
-
 export async function GET() {
-	const slides = await getSlides();
+	const slides = await readJson(dataPath, []);
 	return json(slides);
 }
 
-export async function POST({ request }) {
+export async function POST({ request, locals }) {
+	if (!locals.isAdmin) {
+		return json({ error: 'Unauthorized' }, { status: 401 });
+	}
+
 	const { img, chip, caption } = await request.json();
-	const slides = await getSlides();
 	const newSlide = { id: Date.now(), img, chip, caption };
-	slides.push(newSlide);
-	await fs.writeFile(dataPath, JSON.stringify(slides, null, 2));
+
+	await updateJson(dataPath, [], (slides) => {
+		const list = Array.isArray(slides) ? [...slides, newSlide] : [newSlide];
+		return { data: list, result: newSlide };
+	});
+
 	return json(newSlide, { status: 201 });
 }

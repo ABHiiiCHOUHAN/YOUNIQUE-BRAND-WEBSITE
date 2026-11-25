@@ -1,29 +1,40 @@
 import { json } from '@sveltejs/kit';
-import fs from 'fs/promises';
 import path from 'path';
+import { updateJson } from '$lib/server/jsonStore.js';
 
 const dataPath = path.resolve('src/lib/data/slides.json');
 
-async function getSlides() {
-	const file = await fs.readFile(dataPath, 'utf-8');
-	return JSON.parse(file);
-}
+export async function PUT({ params, request, locals }) {
+	if (!locals.isAdmin) {
+		return json({ error: 'Unauthorized' }, { status: 401 });
+	}
 
-export async function PUT({ params, request }) {
 	const { id } = params;
 	const { img, chip, caption } = await request.json();
-	const slides = await getSlides();
-	const index = slides.findIndex((s) => s.id === parseInt(id));
-	if (index === -1) return json({ error: 'Not found' }, { status: 404 });
-	slides[index] = { ...slides[index], img, chip, caption };
-	await fs.writeFile(dataPath, JSON.stringify(slides, null, 2));
-	return json(slides[index]);
+
+	const updated = await updateJson(dataPath, [], (slides) => {
+		const list = Array.isArray(slides) ? [...slides] : [];
+		const index = list.findIndex((s) => s.id === parseInt(id));
+		if (index === -1) return { result: null };
+		list[index] = { ...list[index], img, chip, caption };
+		return { data: list, result: list[index] };
+	});
+
+	if (!updated) return json({ error: 'Not found' }, { status: 404 });
+	return json(updated);
 }
 
-export async function DELETE({ params }) {
+export async function DELETE({ params, locals }) {
+	if (!locals.isAdmin) {
+		return json({ error: 'Unauthorized' }, { status: 401 });
+	}
+
 	const { id } = params;
-	let slides = await getSlides();
-	slides = slides.filter((s) => s.id !== parseInt(id));
-	await fs.writeFile(dataPath, JSON.stringify(slides, null, 2));
+
+	await updateJson(dataPath, [], (slides) => {
+		const list = Array.isArray(slides) ? slides.filter((s) => s.id !== parseInt(id)) : [];
+		return { data: list, result: true };
+	});
+
 	return json({ success: true });
 }
