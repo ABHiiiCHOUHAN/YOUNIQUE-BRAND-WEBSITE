@@ -11,41 +11,6 @@ const DEFAULT_PROJECTS = [
 		tag: 'Identity',
 		tone: 'yellow',
 		desc: 'Logos, type, and rules that feel inevitable.'
-	},
-	{
-		id: 2,
-		title: 'UI / UX Systems',
-		tag: 'Product',
-		tone: 'blue',
-		desc: 'Interfaces that look loud and work quietly.'
-	},
-	{
-		id: 3,
-		title: 'Launch Strategy',
-		tag: 'Strategy',
-		tone: 'dark',
-		desc: 'Positioning, messaging, and conversion flow.'
-	},
-	{
-		id: 4,
-		title: 'Art Direction',
-		tag: 'Visual',
-		tone: 'blue',
-		desc: 'Bold visuals with controlled chaos.'
-	},
-	{
-		id: 5,
-		title: '3D Motion',
-		tag: 'Motion',
-		tone: 'dark',
-		desc: 'Animations that actually make sense.'
-	},
-	{
-		id: 6,
-		title: 'Editorial',
-		tag: 'Print',
-		tone: 'yellow',
-		desc: 'Layouts that demand to be read.'
 	}
 ];
 
@@ -59,14 +24,33 @@ export async function POST({ request, locals }) {
 		return json({ error: 'Unauthorized' }, { status: 401 });
 	}
 
-	const { title, tag, tone, desc } = await request.json();
+	const {
+		title,
+		tag,
+		year,
+		tone,
+		desc,
+		fullDesc,
+		challenge,
+		creativeDirection,
+		resultMetric,
+		gallery,
+		stats
+	} = await request.json();
 
 	const newProject = {
 		id: Date.now(),
 		title,
 		tag,
+		year: year || '2024',
 		tone: tone || 'dark',
-		desc
+		desc,
+		fullDesc: fullDesc || '',
+		challenge: challenge || '',
+		creativeDirection: creativeDirection || '',
+		resultMetric: resultMetric || '',
+		gallery: Array.isArray(gallery) ? gallery : [],
+		stats: Array.isArray(stats) ? stats : []
 	};
 
 	await updateJson(dataPath, DEFAULT_PROJECTS, (projects) => {

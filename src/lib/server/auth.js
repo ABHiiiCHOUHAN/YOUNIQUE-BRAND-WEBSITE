@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { env } from '$env/dynamic/private';
 
 export const COOKIE_NAME = 'admin_session';
-const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 7; // 7 days
+const SESSION_MAX_AGE_SECONDS = 60 * 60 * 4; // 4 hours max server token lifetime
 
 function getAdminPassword() {
 	return env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD || 'younique-admin-2026!';
@@ -38,6 +38,7 @@ export function createSessionToken() {
 	const secret = getSessionSecret();
 	const payload = Buffer.from(
 		JSON.stringify({
+			v: 2,
 			admin: true,
 			iat: Date.now()
 		})
@@ -82,7 +83,7 @@ export function verifySessionToken(token) {
 		}
 
 		const data = JSON.parse(Buffer.from(payloadB64, 'base64url').toString('utf-8'));
-		if (!data.admin || !data.iat) {
+		if (data.v !== 2 || !data.admin || !data.iat) {
 			return false;
 		}
 
@@ -107,8 +108,7 @@ export function setSessionCookie(cookies) {
 		path: '/',
 		httpOnly: true,
 		sameSite: 'lax',
-		secure: process.env.NODE_ENV === 'production',
-		maxAge: SESSION_MAX_AGE_SECONDS
+		secure: process.env.NODE_ENV === 'production'
 	});
 }
 

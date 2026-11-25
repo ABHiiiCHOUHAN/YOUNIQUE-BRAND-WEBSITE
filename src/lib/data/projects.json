@@ -63,7 +63,10 @@
         "url": "/assets/branding/File 4.jpeg",
         "title": "Final Result"
       }
-    ]
+    ],
+    "challenge": "Growing founders often blend into crowded categories with fragmented logos and inconsistent pitch assets that erode buyer trust before a conversation even begins.",
+    "creativeDirection": "Constructed modular typographic grids paired with high-contrast monochrome palettes, bespoke vector geometry, and unified brand governance guidelines.",
+    "resultMetric": "Brand identity scaled across 3 countries & 12+ launches"
   },
   {
     "id": 2,
@@ -140,7 +143,10 @@
         "url": "/assets/digital/10.jpg",
         "title": "Final Product"
       }
-    ]
+    ],
+    "challenge": "High-bounce landing pages and sluggish off-the-shelf templates were costing digital-first products qualified leads during critical launch windows.",
+    "creativeDirection": "Engineered sub-second SvelteKit architectures driven by tactile motion physics, bold Swiss contrast, and conversion-focused visual hierarchy.",
+    "resultMetric": "42% increase in launch conversion with 1.2s load time"
   },
   {
     "id": 7,
@@ -197,7 +203,10 @@
         "url": "/assets/social/IMG_6069.PNG",
         "title": "Brand Story"
       }
-    ]
+    ],
+    "challenge": "Low organic reach and forgettable static feeds prevented emerging consumer brands from converting passive scrollers into active communities.",
+    "creativeDirection": "Built high-retention carousel frameworks, kinetic typography templates, and rhythmic visual hooks engineered for immediate mobile thumb-stops.",
+    "resultMetric": "3.4x organic engagement growth across core channels"
   },
   {
     "id": 8,
@@ -434,7 +443,10 @@
         "title": "Ending Frame",
         "height": 800
       }
-    ]
+    ],
+    "challenge": "Unstructured raw footage and slow-paced product cuts were losing over 70% of viewers within the first 3 seconds on vertical social feeds.",
+    "creativeDirection": "Applied frame-accurate match-cuts, dynamic kinetic captions, crisp sound design, and high-energy motion transitions built for retention.",
+    "resultMetric": "700K+ organic reel views & 48% average completion"
   },
   {
     "id": 9,
@@ -511,7 +523,10 @@
         "url": "/assets/graphics/10.jpg",
         "title": "Bound Volume"
       }
-    ]
+    ],
+    "challenge": "Digital-first studios lacked tangible, gallery-worthy print collateral and editorial layouts that commanded physical presence in real-world spaces.",
+    "creativeDirection": "Paired brutalist Swiss typography with Pantone-matched spot contrast, tactile paper grain textures, and architectural grid discipline.",
+    "resultMetric": "24 custom print editions deployed across retail & events"
   },
   {
     "id": 10,
@@ -588,7 +603,10 @@
         "url": "/assets/models/10.jpg",
         "title": "CGI Final"
       }
-    ]
+    ],
+    "challenge": "Flat 2D product shots failed to communicate hardware depth, surface finish, and engineering craftsmanship to discerning online buyers.",
+    "creativeDirection": "Modeled Cycles-rendered 3D assets with studio rim-lighting rigs, realistic surface micro-textures, and 2K procedural shaders.",
+    "resultMetric": "18 photoreal 3D product systems shipped to production"
   },
   {
     "id": 11,
@@ -641,6 +659,9 @@
         "url": "https://picsum.photos/1200/900?random=118",
         "title": "Unboxing Experience"
       }
-    ]
+    ],
+    "challenge": "Crowded retail shelves buried conventional boxes—brands needed structural packaging that turned every delivery into an organic unboxing asset.",
+    "creativeDirection": "Engineered custom structural dielines, sustainable inner trays, tactile print finishes, and bold multi-face display typography.",
+    "resultMetric": "2.6x organic unboxing shares across flagship SKUs"
   }
 ]

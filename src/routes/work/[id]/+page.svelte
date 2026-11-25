@@ -181,6 +181,29 @@
 					{/if}
 				</div>
 			</div>
+
+			{#if data.project.challenge || data.project.creativeDirection || data.project.resultMetric}
+				<div class="narrative-grid">
+					{#if data.project.challenge}
+						<div class="narrative-card">
+							<span class="narrative-index">01 // THE CHALLENGE</span>
+							<p class="narrative-copy">{data.project.challenge}</p>
+						</div>
+					{/if}
+					{#if data.project.creativeDirection}
+						<div class="narrative-card">
+							<span class="narrative-index">02 // CREATIVE DIRECTION</span>
+							<p class="narrative-copy">{data.project.creativeDirection}</p>
+						</div>
+					{/if}
+					{#if data.project.resultMetric}
+						<div class="narrative-card narrative-card--outcome">
+							<span class="narrative-index">03 // THE RESULT METRIC</span>
+							<p class="narrative-outcome-val">{data.project.resultMetric}</p>
+						</div>
+					{/if}
+				</div>
+			{/if}
 		</section>
 
 		<!-- Section 2: Carousel Bento Gallery -->
@@ -630,6 +653,66 @@
 		margin-top: 2rem;
 		opacity: 0.8;
 		font-size: 1.15rem;
+	}
+
+	/* Narrative Case Studies (Outcome > Visuals) */
+	.narrative-grid {
+		max-width: 1400px;
+		width: 100%;
+		margin: 4.5rem auto 0;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.75rem;
+	}
+
+	.narrative-card {
+		border: 3px solid var(--text-dark);
+		background: var(--bg-light);
+		color: var(--text-dark);
+		border-radius: 20px;
+		padding: 1.75rem;
+		box-shadow: 6px 7px 0px var(--text-dark);
+		display: flex;
+		flex-direction: column;
+		gap: 0.9rem;
+	}
+
+	.narrative-card--outcome {
+		background: var(--color-1, #ffd600);
+		color: #1c1c1c;
+		border-color: #1c1c1c;
+		box-shadow: 6px 7px 0px #1c1c1c;
+	}
+
+	.narrative-index {
+		font-size: 0.75rem;
+		font-weight: 900;
+		letter-spacing: 0.08em;
+		opacity: 0.75;
+		text-transform: uppercase;
+	}
+
+	.narrative-copy {
+		margin: 0;
+		font-size: 0.98rem;
+		line-height: 1.6;
+		font-weight: 600;
+	}
+
+	.narrative-outcome-val {
+		margin: 0;
+		font-size: clamp(1.25rem, 2vw, 1.6rem);
+		line-height: 1.25;
+		font-weight: 900;
+		letter-spacing: -0.02em;
+	}
+
+	@media (max-width: 960px) {
+		.narrative-grid {
+			grid-template-columns: 1fr;
+			margin-top: 3rem;
+			gap: 1.25rem;
+		}
 	}
 
 	/* Gallery Section */

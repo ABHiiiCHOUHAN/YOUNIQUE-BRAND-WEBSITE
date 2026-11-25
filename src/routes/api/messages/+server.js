@@ -48,7 +48,17 @@ export async function POST({ request, getClientAddress }) {
 		}
 
 		const body = await request.json();
-		const { name, email, mobile, message, website_url_confirm, turnstileToken } = body || {};
+		const {
+			name,
+			email,
+			mobile,
+			message,
+			services,
+			budget,
+			timeline,
+			website_url_confirm,
+			turnstileToken
+		} = body || {};
 
 		// 2. Honeypot check
 		if (typeof website_url_confirm === 'string' && website_url_confirm.trim().length > 0) {
@@ -108,11 +118,20 @@ export async function POST({ request, getClientAddress }) {
 			);
 		}
 
+		const cleanServices = Array.isArray(services)
+			? services.filter((s) => typeof s === 'string').map((s) => s.trim().slice(0, 60)).slice(0, 8)
+			: [];
+		const cleanBudget = typeof budget === 'string' ? budget.trim().slice(0, 50) : '';
+		const cleanTimeline = typeof timeline === 'string' ? timeline.trim().slice(0, 50) : '';
+
 		const newMessage = {
 			id: Date.now().toString(),
 			name: cleanName,
 			email: cleanEmail,
 			mobile: cleanMobile,
+			services: cleanServices,
+			budget: cleanBudget,
+			timeline: cleanTimeline,
 			message: cleanMessage,
 			date: new Date().toISOString(),
 			status: 'new'

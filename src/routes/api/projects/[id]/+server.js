@@ -19,13 +19,38 @@ export async function PUT({ params, request, locals }) {
 	}
 
 	const { id } = params;
-	const { title, tag, tone, desc } = await request.json();
+	const {
+		title,
+		tag,
+		year,
+		tone,
+		desc,
+		fullDesc,
+		challenge,
+		creativeDirection,
+		resultMetric,
+		gallery,
+		stats
+	} = await request.json();
 
 	const updated = await updateJson(dataPath, [], (projects) => {
 		const list = Array.isArray(projects) ? [...projects] : [];
 		const index = list.findIndex((p) => p.id.toString() === id);
 		if (index === -1) return { result: null };
-		list[index] = { ...list[index], title, tag, tone, desc };
+		list[index] = {
+			...list[index],
+			...(title !== undefined && { title }),
+			...(tag !== undefined && { tag }),
+			...(year !== undefined && { year }),
+			...(tone !== undefined && { tone }),
+			...(desc !== undefined && { desc }),
+			...(fullDesc !== undefined && { fullDesc }),
+			...(challenge !== undefined && { challenge }),
+			...(creativeDirection !== undefined && { creativeDirection }),
+			...(resultMetric !== undefined && { resultMetric }),
+			...(Array.isArray(gallery) && { gallery }),
+			...(Array.isArray(stats) && { stats })
+		};
 		return { data: list, result: list[index] };
 	});
 

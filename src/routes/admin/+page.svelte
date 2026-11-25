@@ -19,13 +19,31 @@
 	let projYear = $state('2024');
 	let projDesc = $state('');
 	let projFullDesc = $state('');
+	let projChallenge = $state('');
+	let projCreativeDirection = $state('');
+	let projResultMetric = $state('');
 	let projGallery = $state([]);
 	let projStats = $state([]);
 	let projStatus = $state('');
 
+	// Client Decks State
+	let decks = $state([]);
+	let editingDeckSlug = $state(null);
+	let deckSlug = $state('');
+	let deckClientName = $state('');
+	let deckClientCompany = $state('');
+	let deckTitle = $state('');
+	let deckVersion = $state('v1.0 // Draft Review');
+	let deckPasscode = $state('');
+	let deckNotes = $state('');
+	let deckDeliverables = $state([]);
+	let deckStatus = $state('');
+	let copiedDeckSlug = $state('');
+
 	// Settings State
 	let settings = $state({
 		contactEmail: '',
+		bookingLink: '',
 		xLink: '',
 		linkedinLink: '',
 		instagramLink: '',
@@ -41,8 +59,10 @@
 		posts = data.posts || [];
 		projects = data.projects || [];
 		messages = data.messages || [];
+		decks = data.decks || [];
 		settings = data.settings || {
 			contactEmail: 'theyouniquedesign@gmail.com',
+			bookingLink: 'https://cal.com',
 			xLink: '#twitter',
 			linkedinLink: '#linkedin',
 			instagramLink: '#instagram',
@@ -138,6 +158,9 @@
 		projYear = proj.year || '2024';
 		projDesc = proj.desc || '';
 		projFullDesc = proj.fullDesc || '';
+		projChallenge = proj.challenge || '';
+		projCreativeDirection = proj.creativeDirection || '';
+		projResultMetric = proj.resultMetric || '';
 		projGallery = proj.gallery || [];
 		projStats = proj.stats || [];
 		projStatus = '';
@@ -151,6 +174,9 @@
 		projYear = '2024';
 		projDesc = '';
 		projFullDesc = '';
+		projChallenge = '';
+		projCreativeDirection = '';
+		projResultMetric = '';
 		projGallery = [];
 		projStats = [];
 	}
@@ -176,6 +202,9 @@
 					year: projYear,
 					desc: projDesc,
 					fullDesc: projFullDesc,
+					challenge: projChallenge,
+					creativeDirection: projCreativeDirection,
+					resultMetric: projResultMetric,
 					gallery: projGallery,
 					stats: projStats
 				})
@@ -210,6 +239,100 @@
 			alert('Network error.');
 		}
 	}
+	// Client Deck Functions
+	function editDeck(deck) {
+		editingDeckSlug = deck.slug;
+		deckSlug = deck.slug;
+		deckClientName = deck.clientName;
+		deckClientCompany = deck.clientCompany || '';
+		deckTitle = deck.title;
+		deckVersion = deck.version || 'v1.0 // Draft Review';
+		deckPasscode = '';
+		deckNotes = deck.notes || '';
+		deckDeliverables = (deck.deliverables || []).map((d) => ({ ...d }));
+		deckStatus = '';
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	}
+
+	function cancelEditDeck() {
+		editingDeckSlug = null;
+		deckSlug = '';
+		deckClientName = '';
+		deckClientCompany = '';
+		deckTitle = '';
+		deckVersion = 'v1.0 // Draft Review';
+		deckPasscode = '';
+		deckNotes = '';
+		deckDeliverables = [];
+	}
+
+	async function saveDeck(e) {
+		e.preventDefault();
+		if (!deckSlug || !deckClientName || !deckTitle || (!editingDeckSlug && !deckPasscode)) {
+			deckStatus = 'Slug, client name, title, and passcode are required.';
+			return;
+		}
+		deckStatus = 'Saving...';
+
+		const method = editingDeckSlug ? 'PUT' : 'POST';
+		const url = editingDeckSlug ? `/api/decks/${editingDeckSlug}` : '/api/decks';
+
+		try {
+			const res = await fetch(url, {
+				method,
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					slug: deckSlug,
+					clientName: deckClientName,
+					clientCompany: deckClientCompany,
+					title: deckTitle,
+					version: deckVersion,
+					passcode: deckPasscode,
+					notes: deckNotes,
+					deliverables: deckDeliverables
+				})
+			});
+			if (res.ok) {
+				const saved = await res.json();
+				if (editingDeckSlug) {
+					const idx = decks.findIndex((d) => d.slug === editingDeckSlug);
+					if (idx !== -1) decks[idx] = saved;
+					deckStatus = 'Client deck updated!';
+				} else {
+					decks = [saved, ...decks];
+					deckStatus = 'Client deck created!';
+				}
+				cancelEditDeck();
+			} else {
+				const err = await res.json().catch(() => ({}));
+				deckStatus = err.error || 'Error saving deck.';
+			}
+		} catch {
+			deckStatus = 'Network error.';
+		}
+	}
+
+	async function deleteDeck(slug) {
+		if (!confirm(`Delete client deck /deck/${slug}?`)) return;
+		try {
+			const res = await fetch(`/api/decks/${slug}`, { method: 'DELETE' });
+			if (res.ok) {
+				decks = decks.filter((d) => d.slug !== slug);
+				if (editingDeckSlug === slug) cancelEditDeck();
+				deckStatus = 'Deck deleted.';
+			} else alert('Failed to delete deck.');
+		} catch {
+			alert('Network error.');
+		}
+	}
+
+	function copyDeckLink(slug) {
+		const url = `${window.location.origin}/deck/${slug}`;
+		navigator.clipboard?.writeText(url);
+		copiedDeckSlug = slug;
+		setTimeout(() => (copiedDeckSlug = ''), 2000);
+	}
+
 	async function saveSettings(e) {
 		if (e) e.preventDefault();
 		settingsStatus = 'Saving...';
@@ -253,12 +376,16 @@
 			{/if}
 		</button>
 		<button
+			class="tab-btn {activeTab === 'decks' ? 'active' : ''}"
+			onclick={() => (activeTab = 'decks')}>Client Decks</button
+		>
+		<button
 			class="tab-btn {activeTab === 'settings' ? 'active' : ''}"
 			onclick={() => (activeTab = 'settings')}>Site Settings</button
 		>
-		<a href="/admin/logout" class="tab-btn btn-logout" data-sveltekit-preload-data="off">
-			Log Out
-		</a>
+		<form method="POST" action="/admin/logout" style="display: contents;">
+			<button type="submit" class="tab-btn btn-logout">Log Out</button>
+		</form>
 	</div>
 
 	{#if activeTab === 'blog'}
@@ -340,6 +467,33 @@
 					<span class="label">Full Project Content</span>
 					<textarea bind:value={projFullDesc} rows="6" placeholder="Detailed story of the work..."
 					></textarea>
+				</label>
+
+				<div class="separator-dash"></div>
+				<h3 class="field--full">Narrative Case Study (Outcome > Visuals)</h3>
+
+				<label class="field field--full">
+					<span class="label">01 // The Challenge</span>
+					<textarea
+						bind:value={projChallenge}
+						rows="3"
+						placeholder="What was the client's problem before hiring you?"
+					></textarea>
+				</label>
+				<label class="field field--full">
+					<span class="label">02 // Creative Direction</span>
+					<textarea
+						bind:value={projCreativeDirection}
+						rows="3"
+						placeholder="Typography choices, motion language, and visual hooks..."
+					></textarea>
+				</label>
+				<label class="field field--full">
+					<span class="label">03 // Result Metric (Outcome Headline)</span>
+					<input
+						bind:value={projResultMetric}
+						placeholder="e.g. 42% increase in launch conversion"
+					/>
 				</label>
 
 				<div class="gallery-manager field--full">
@@ -457,6 +611,19 @@
 									{msg.name} // <a href="mailto:{msg.email}">{msg.email}</a>
 								</h3>
 								{#if msg.mobile}<p class="mobile-text">PH: {msg.mobile}</p>{/if}
+								{#if (msg.services && msg.services.length > 0) || msg.budget || msg.timeline}
+									<div class="scope-badges">
+										{#each msg.services || [] as svc}
+											<span class="scope-chip">{svc}</span>
+										{/each}
+										{#if msg.budget}
+											<span class="scope-chip scope-chip--accent">Budget: {msg.budget}</span>
+										{/if}
+										{#if msg.timeline}
+											<span class="scope-chip">Timeline: {msg.timeline}</span>
+										{/if}
+									</div>
+								{/if}
 								<div class="msg-content">
 									<p>{msg.message}</p>
 								</div>
@@ -469,6 +636,132 @@
 						</div>
 					{/each}
 				</div>
+			</div>
+		</div>
+	{:else if activeTab === 'decks'}
+		<div class="panel">
+			<header class="page-header">
+				<h1 class="page-title">
+					{editingDeckSlug ? `Edit Deck: /deck/${editingDeckSlug}` : 'Create Private Client Deck.'}
+				</h1>
+			</header>
+			<form class="form" onsubmit={saveDeck}>
+				<label class="field">
+					<span class="label">Client URL Slug</span>
+					<input
+						bind:value={deckSlug}
+						placeholder="e.g. acme-rebrand"
+						disabled={Boolean(editingDeckSlug)}
+					/>
+				</label>
+				<label class="field">
+					<span class="label">Client Name</span>
+					<input bind:value={deckClientName} placeholder="e.g. Vatsal Patel" />
+				</label>
+				<label class="field">
+					<span class="label">Client Company (Optional)</span>
+					<input bind:value={deckClientCompany} placeholder="e.g. Acme Studio" />
+				</label>
+				<label class="field">
+					<span class="label">Deck Title</span>
+					<input bind:value={deckTitle} placeholder="e.g. Q4 Brand Identity & Reel Cuts" />
+				</label>
+				<label class="field">
+					<span class="label">Version / Stage</span>
+					<input bind:value={deckVersion} placeholder="v1.0 // Draft Review" />
+				</label>
+				<label class="field">
+					<span class="label">Access Passcode {editingDeckSlug ? '(leave blank to keep)' : ''}</span>
+					<input
+						type="text"
+						bind:value={deckPasscode}
+						placeholder={editingDeckSlug ? 'Enter new passcode to change' : 'Secret client code'}
+					/>
+				</label>
+				<label class="field field--full">
+					<span class="label">Creative Director Notes</span>
+					<textarea
+						bind:value={deckNotes}
+						rows="4"
+						placeholder="Context or feedback instructions for the client..."
+					></textarea>
+				</label>
+
+				<div class="gallery-manager field--full">
+					<span class="label">Deck Deliverables (Images, Videos, Links)</span>
+					<div class="gallery-inputs">
+						{#each deckDeliverables as item, index}
+							<div class="deck-deliverable-row">
+								<select bind:value={item.type} class="deck-type-select">
+									<option value="image">Image</option>
+									<option value="video">Video</option>
+									<option value="link">Link / PDF</option>
+								</select>
+								<input bind:value={item.title} placeholder="Deliverable title" />
+								<input bind:value={item.url} placeholder="Asset URL (e.g. /videos/cut-1.mp4)" />
+								<input bind:value={item.notes} placeholder="Notes (optional)" />
+								<button
+									type="button"
+									class="btn-small btn-delete"
+									onclick={() =>
+										(deckDeliverables = deckDeliverables.filter((_, i) => i !== index))}>×</button
+								>
+							</div>
+						{/each}
+						<button
+							type="button"
+							class="btn btn--outline"
+							onclick={() =>
+								(deckDeliverables = [
+									...deckDeliverables,
+									{ type: 'image', title: '', url: '', notes: '' }
+								])}>+ Add Deliverable</button
+						>
+					</div>
+				</div>
+
+				<div class="actions">
+					<button class="btn" type="submit"
+						>{editingDeckSlug ? 'Update Client Deck' : 'Create Client Deck'}</button
+					>
+					{#if editingDeckSlug}
+						<button class="btn btn--outline" type="button" onclick={cancelEditDeck}>Cancel</button>
+					{/if}
+					{#if deckStatus}
+						<div class="status">{deckStatus}</div>
+					{/if}
+				</div>
+			</form>
+		</div>
+
+		<div class="posts-list">
+			<h2 class="list-title">Private Client Decks</h2>
+			{#if decks.length === 0}
+				<p>No client decks yet. Create one above!</p>
+			{/if}
+			<div class="grid">
+				{#each decks as deck}
+					<article class="item-card">
+						<div class="item-info">
+							<span class="item-meta">
+								{deck.clientName}{deck.clientCompany ? ` · ${deck.clientCompany}` : ''} // {deck.version}
+							</span>
+							<h3 class="item-heading">{deck.title}</h3>
+							<a href="/deck/{deck.slug}" target="_blank" class="deck-url-preview"
+								>/deck/{deck.slug} ↗</a
+							>
+						</div>
+						<div class="item-actions">
+							<button class="btn-small" onclick={() => copyDeckLink(deck.slug)}>
+								{copiedDeckSlug === deck.slug ? 'Copied!' : 'Copy Link'}
+							</button>
+							<button class="btn-small" onclick={() => editDeck(deck)}>Edit</button>
+							<button class="btn-small btn-delete" onclick={() => deleteDeck(deck.slug)}
+								>Delete</button
+							>
+						</div>
+					</article>
+				{/each}
 			</div>
 		</div>
 	{:else if activeTab === 'settings'}
@@ -487,6 +780,20 @@
 						/>
 					</label>
 					<p class="help-text">All contact form submissions will be directed to this address.</p>
+				</div>
+
+				<div class="field field--full">
+					<label class="field">
+						<span class="label">Discovery Call Booking URL (Cal.com / Calendly)</span>
+						<input
+							type="url"
+							bind:value={settings.bookingLink}
+							placeholder="https://cal.com/younique-studio/20min"
+						/>
+					</label>
+					<p class="help-text">
+						Paste your personal Cal.com or Calendly link to embed it directly inside the 20-Min Call popup.
+					</p>
 				</div>
 
 				<div class="separator-dash"></div>
@@ -527,7 +834,7 @@
 <style>
 	.wrap {
 		padding: 2.25rem clamp(1rem, 3vw, 2.5rem) 4rem;
-		max-width: 880px;
+		max-width: 980px;
 		margin: 0 auto;
 		width: 100%;
 		box-sizing: border-box;
@@ -821,7 +1128,6 @@
 		}
 
 		.btn-logout {
-			grid-column: span 2;
 			margin-left: 0;
 			justify-content: center;
 			text-align: center;
@@ -1000,5 +1306,66 @@
 		border-top: 2px dashed var(--color-3);
 		margin: 1.5rem 0;
 		opacity: 0.3;
+	}
+
+	.scope-badges {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+		margin: 0.6rem 0 0.25rem;
+	}
+
+	.scope-chip {
+		font-size: 0.75rem;
+		font-weight: 800;
+		padding: 0.25rem 0.65rem;
+		border-radius: 999px;
+		border: 1.5px solid var(--color-3);
+		background: transparent;
+		color: var(--color-3);
+	}
+
+	.scope-chip--accent {
+		background: var(--color-1);
+		color: #1c1c1c;
+	}
+
+	.deck-deliverable-row {
+		display: grid;
+		grid-template-columns: 120px 1fr 1.2fr 1fr auto;
+		gap: 0.5rem;
+		align-items: center;
+	}
+
+	.deck-type-select {
+		width: 100%;
+		border-radius: 12px;
+		border: 2px solid var(--color-3);
+		background: var(--color-5);
+		color: var(--color-3);
+		padding: 0.85rem 0.6rem;
+		font: inherit;
+		font-weight: 700;
+		box-shadow: 4px 4px 0px var(--color-3);
+	}
+
+	.deck-url-preview {
+		font-size: 0.85rem;
+		font-weight: 800;
+		color: var(--color-3);
+		opacity: 0.75;
+		text-decoration: underline;
+		margin-top: 0.25rem;
+		display: inline-block;
+	}
+
+	@media (max-width: 780px) {
+		.deck-deliverable-row {
+			grid-template-columns: 1fr;
+			background: rgba(0, 0, 0, 0.03);
+			padding: 0.75rem;
+			border-radius: 12px;
+			border: 1.5px dashed var(--color-3);
+		}
 	}
 </style>

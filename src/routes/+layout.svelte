@@ -180,7 +180,7 @@
 				</p>
 			</footer>
 		{:else}
-			{#if !['/contact', '/admin', '/logofolio'].includes($page.url.pathname) && !$page.url.pathname.startsWith('/blog') && !$page.url.pathname.startsWith('/work')}
+			{#if !['/contact', '/admin', '/logofolio', '/privacy', '/terms', '/legal'].includes($page.url.pathname) && !$page.url.pathname.startsWith('/blog') && !$page.url.pathname.startsWith('/work') && !$page.url.pathname.startsWith('/deck')}
 				<div id="contact" class="animate-section" use:inView={{ threshold: 0.05 }}>
 					<ContactSection />
 				</div>
@@ -211,6 +211,7 @@
 									<li><a href="/#work">Work</a></li>
 									<li><a href="/#about">About</a></li>
 									<li><a href="/#damage">Stats</a></li>
+									<li><a href="/legal">Privacy &amp; Terms</a></li>
 								</ul>
 							</div>
 							<div class="footer-nav-block">
@@ -228,6 +229,9 @@
 						<div class="copy-text">
 							&copy; {new Date().getFullYear()} YOUNIQUE STUDIO // ALL RIGHTS RESERVED
 						</div>
+						<p class="ip-statement">
+							All client trademarks, logos, and brand assets showcased remain the intellectual property of their respective owners.
+						</p>
 					</div>
 				</div>
 			</footer>
@@ -615,15 +619,27 @@
 		border-top: 1px solid rgba(255, 255, 255, 0.1);
 		padding-top: 2rem;
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		gap: 0.55rem;
 	}
- 
+
 	.copy-text {
-		font-size: 0.7rem;
+		font-size: 0.72rem;
 		font-weight: 700;
-		opacity: 0.5;
+		opacity: 0.6;
 		text-align: center;
+	}
+
+	.ip-statement {
+		margin: 0;
+		font-size: 0.7rem;
+		font-weight: 500;
+		opacity: 0.45;
+		text-align: center;
+		max-width: 65ch;
+		line-height: 1.4;
 	}
 
 	@media (max-width: 768px) {

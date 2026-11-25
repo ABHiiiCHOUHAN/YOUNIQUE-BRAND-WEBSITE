@@ -34,12 +34,18 @@ export async function handle({ event, resolve }) {
 			);
 		}
 
-		// Public contact form submission is allowed
+		// Public contact form submission & unlocked client deck feedback submission are allowed
 		const isPublicMessageSubmission = pathname === '/api/messages' && method === 'POST';
+		const isDeckFeedbackSubmission =
+			pathname.startsWith('/api/decks/') && pathname.endsWith('/feedback') && method === 'POST';
 
 		// All other mutating requests (creating/updating/deleting posts, projects, settings, deleting messages)
 		// strictly require authenticated admin access!
-		if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(method) && !isPublicMessageSubmission) {
+		if (
+			['POST', 'PUT', 'PATCH', 'DELETE'].includes(method) &&
+			!isPublicMessageSubmission &&
+			!isDeckFeedbackSubmission
+		) {
 			if (!isAuthenticated) {
 				return json(
 					{ error: 'Unauthorized: Admin authentication required for this action.' },
@@ -62,7 +68,7 @@ export async function handle({ event, resolve }) {
 		response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
 	}
 
-	if (pathname.startsWith('/admin') || pathname === '/api/messages') {
+	if (pathname.startsWith('/admin') || pathname.startsWith('/deck/') || pathname === '/api/messages') {
 		response.headers.set('Cache-Control', 'no-store');
 	}
 
