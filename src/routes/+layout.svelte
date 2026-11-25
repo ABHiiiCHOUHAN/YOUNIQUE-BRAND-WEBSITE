@@ -73,6 +73,7 @@
 	}
 
 	const isStandalone = $derived(['/maintenance'].includes($page.url.pathname) || $page.error);
+	const isAdminRoute = $derived($page.url.pathname.startsWith('/admin'));
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
@@ -172,57 +173,65 @@
 	</main>
 
 	{#if !isStandalone}
-		{#if !['/contact', '/admin', '/logofolio'].includes($page.url.pathname) && !$page.url.pathname.startsWith('/blog') && !$page.url.pathname.startsWith('/work')}
-			<div id="contact" class="animate-section" use:inView={{ threshold: 0.05 }}>
-				<ContactSection />
-			</div>
+		{#if isAdminRoute}
+			<footer class="admin-minimal-footer">
+				<p class="admin-copy-text">
+					&copy; {new Date().getFullYear()} YOUNIQUE STUDIO // ALL RIGHTS RESERVED
+				</p>
+			</footer>
+		{:else}
+			{#if !['/contact', '/admin', '/logofolio'].includes($page.url.pathname) && !$page.url.pathname.startsWith('/blog') && !$page.url.pathname.startsWith('/work')}
+				<div id="contact" class="animate-section" use:inView={{ threshold: 0.05 }}>
+					<ContactSection />
+				</div>
+			{/if}
+
+			<footer class="site-footer" class:article-view={$page.url.pathname.startsWith('/blog/')}>
+				<div class="footer-massive footer-massive--nauryz">
+					<div class="marquee-track">
+						<span class="massive-text">DEFY THE DEFAULT ● YOUNIQUE DESIGN STUDIO ● &nbsp;</span>
+						<span class="massive-text">DEFY THE DEFAULT ● YOUNIQUE DESIGN STUDIO ● &nbsp;</span>
+						<span class="massive-text">DEFY THE DEFAULT ● YOUNIQUE DESIGN STUDIO ● &nbsp;</span>
+						<span class="massive-text">DEFY THE DEFAULT ● YOUNIQUE DESIGN STUDIO ● &nbsp;</span>
+					</div>
+				</div>
+
+				<div class="footer-inner">
+					<div class="footer-main-grid">
+						<div class="footer-brand-box">
+							<img src="/assets/3_footer_logo.png" alt="Younique Logo" class="footer-logo" />
+							<p class="footer-tagline">Pushing limits and<br />breaking patterns<br />since 2024.</p>
+						</div>
+
+						<div class="footer-links-container">
+							<div class="footer-nav-block">
+								<h4 class="nav-block-title">NAVIGATION</h4>
+								<ul class="nav-list">
+									<li><a href="/">Home</a></li>
+									<li><a href="/#work">Work</a></li>
+									<li><a href="/#about">About</a></li>
+									<li><a href="/#damage">Stats</a></li>
+								</ul>
+							</div>
+							<div class="footer-nav-block">
+								<h4 class="nav-block-title">DISCOVER</h4>
+								<ul class="nav-list">
+									<li><a href="/#reviews">Reviews</a></li>
+									<li><a href="/#blog">Blog</a></li>
+									<li><a href="/#contact">Contact</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="footer-bottom-bar">
+						<div class="copy-text">
+							&copy; {new Date().getFullYear()} YOUNIQUE STUDIO // ALL RIGHTS RESERVED
+						</div>
+					</div>
+				</div>
+			</footer>
 		{/if}
-
-		<footer class="site-footer" class:article-view={$page.url.pathname.startsWith('/blog/')}>
-			<div class="footer-massive footer-massive--nauryz">
-				<div class="marquee-track">
-					<span class="massive-text">DEFY THE DEFAULT ● YOUNIQUE DESIGN STUDIO ● &nbsp;</span>
-					<span class="massive-text">DEFY THE DEFAULT ● YOUNIQUE DESIGN STUDIO ● &nbsp;</span>
-					<span class="massive-text">DEFY THE DEFAULT ● YOUNIQUE DESIGN STUDIO ● &nbsp;</span>
-					<span class="massive-text">DEFY THE DEFAULT ● YOUNIQUE DESIGN STUDIO ● &nbsp;</span>
-				</div>
-			</div>
-
-			<div class="footer-inner">
-				<div class="footer-main-grid">
-					<div class="footer-brand-box">
-						<img src="/assets/3_footer_logo.png" alt="Younique Logo" class="footer-logo" />
-						<p class="footer-tagline">Pushing limits and<br />breaking patterns<br />since 2024.</p>
-					</div>
-
-					<div class="footer-links-container">
-						<div class="footer-nav-block">
-							<h4 class="nav-block-title">NAVIGATION</h4>
-							<ul class="nav-list">
-								<li><a href="/">Home</a></li>
-								<li><a href="/#work">Work</a></li>
-								<li><a href="/#about">About</a></li>
-								<li><a href="/#damage">Stats</a></li>
-							</ul>
-						</div>
-						<div class="footer-nav-block">
-							<h4 class="nav-block-title">DISCOVER</h4>
-							<ul class="nav-list">
-								<li><a href="/#reviews">Reviews</a></li>
-								<li><a href="/#blog">Blog</a></li>
-								<li><a href="/#contact">Contact</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-				<div class="footer-bottom-bar">
-					<div class="copy-text">
-						&copy; {new Date().getFullYear()} YOUNIQUE STUDIO // ALL RIGHTS RESERVED
-					</div>
-				</div>
-			</div>
-		</footer>
 	{/if}
 </div>
 
@@ -238,6 +247,36 @@
 	.app {
 		display: flex;
 		flex-direction: column;
+		min-height: 100vh;
+	}
+
+	.main {
+		position: relative;
+		flex: 1;
+	}
+
+	.admin-minimal-footer {
+		padding: 2.25rem 1.5rem;
+		text-align: center;
+		width: 100%;
+		border-top: 2px dashed rgba(28, 28, 28, 0.15);
+		margin-top: auto;
+		box-sizing: border-box;
+	}
+
+	:global(.dark) .admin-minimal-footer {
+		border-top-color: rgba(244, 244, 244, 0.15);
+	}
+
+	.admin-copy-text {
+		margin: 0;
+		font-family: inherit;
+		font-size: 0.85rem;
+		font-weight: 700;
+		letter-spacing: 0.05em;
+		opacity: 0.65;
+		color: var(--color-3);
+		text-transform: uppercase;
 	}
 
 	@keyframes dropHeader {

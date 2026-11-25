@@ -256,6 +256,9 @@
 			class="tab-btn {activeTab === 'settings' ? 'active' : ''}"
 			onclick={() => (activeTab = 'settings')}>Site Settings</button
 		>
+		<a href="/admin/logout" class="tab-btn btn-logout" data-sveltekit-preload-data="off">
+			Log Out
+		</a>
 	</div>
 
 	{#if activeTab === 'blog'}
@@ -523,32 +526,56 @@
 
 <style>
 	.wrap {
-		padding: 2.25rem clamp(1rem, 4vw, 4rem) 4rem;
-		max-width: 800px;
+		padding: 2.25rem clamp(1rem, 3vw, 2.5rem) 4rem;
+		max-width: 880px;
 		margin: 0 auto;
+		width: 100%;
+		box-sizing: border-box;
 	}
 
 	.tabs {
 		display: flex;
-		gap: 1rem;
+		flex-wrap: wrap;
+		gap: 0.75rem;
 		margin-bottom: 2rem;
+		align-items: center;
 	}
 
 	.tab-btn {
-		padding: 0.75rem 1.5rem;
-		font-size: 1.1rem;
+		font-family: inherit;
+		padding: 0.65rem 1.25rem;
+		font-size: 0.95rem;
 		font-weight: 800;
 		border-radius: 999px;
 		border: 2px solid var(--color-3);
 		background: transparent;
 		color: var(--color-3);
 		cursor: pointer;
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		white-space: nowrap;
 		transition: all 0.2s;
 	}
 
 	.tab-btn.active {
 		background: var(--color-3);
 		color: var(--color-5);
+	}
+
+	.btn-logout {
+		font-family: inherit;
+		color: var(--color-3);
+		border-color: var(--color-3);
+		background: transparent;
+	}
+
+	.btn-logout:hover {
+		background: #ff5252;
+		color: #ffffff;
+		border-color: var(--color-3);
+		box-shadow: 2px 2px 0px var(--color-3);
 	}
 
 	.panel {
@@ -772,14 +799,160 @@
 		color: #cc0000;
 	}
 
-	@media (max-width: 600px) {
+	@media (max-width: 680px) {
+		.wrap {
+			padding: 1.25rem 0.85rem 3rem;
+		}
+
+		.tabs {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 0.5rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.tab-btn {
+			width: 100%;
+			padding: 0.65rem 0.5rem;
+			font-size: 0.85rem;
+			justify-content: center;
+			text-align: center;
+			box-sizing: border-box;
+		}
+
+		.btn-logout {
+			grid-column: span 2;
+			margin-left: 0;
+			justify-content: center;
+			text-align: center;
+		}
+
+		.panel {
+			border-radius: 20px;
+			border-width: 2.5px;
+			box-shadow: 6px 6px 0px var(--color-3);
+			padding: 1.25rem 1rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.page-title {
+			font-size: 1.45rem;
+			word-break: break-word;
+		}
+
+		.form {
+			margin-top: 1.25rem;
+			gap: 0.85rem;
+		}
+
 		.field {
 			grid-column: span 12;
 		}
+
+		input,
+		textarea {
+			font-size: 16px;
+			padding: 0.75rem 0.85rem;
+			box-shadow: 3px 3px 0px var(--color-3);
+		}
+
+		.gallery-row {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			gap: 0.5rem;
+			background: rgba(0, 0, 0, 0.03);
+			padding: 0.65rem;
+			border-radius: 10px;
+			border: 1.5px dashed var(--color-3);
+			box-sizing: border-box;
+		}
+
+		.gallery-row input {
+			grid-column: 1 / 2;
+			width: 100%;
+			box-sizing: border-box;
+		}
+
+		.gallery-row .btn-delete {
+			grid-column: 2 / 3;
+			grid-row: 1 / span 2;
+			align-self: stretch;
+			padding: 0.6rem 0.85rem;
+			font-size: 1.1rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.actions {
+			display: flex;
+			flex-direction: column;
+			gap: 0.75rem;
+		}
+
+		.actions .btn,
+		.actions .btn--outline {
+			width: 100%;
+			text-align: center;
+			justify-content: center;
+			box-sizing: border-box;
+			padding: 0.85rem 1rem;
+		}
+
+		.status {
+			width: 100%;
+			text-align: center;
+			box-sizing: border-box;
+		}
+
+		.posts-list {
+			margin-top: 2.5rem;
+		}
+
+		.list-title {
+			font-size: 1.45rem;
+			margin-bottom: 1.25rem;
+		}
+
 		.item-card {
 			flex-direction: column;
-			align-items: flex-start;
+			align-items: stretch;
 			gap: 1rem;
+			padding: 1.15rem 1rem;
+			border-width: 2px;
+			border-radius: 14px;
+			box-shadow: 4px 4px 0px var(--color-3);
+		}
+
+		.item-info {
+			width: 100%;
+		}
+
+		.item-heading {
+			font-size: 1.1rem;
+			word-break: break-word;
+		}
+
+		.item-actions {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 0.5rem;
+			width: 100%;
+		}
+
+		.btn-small {
+			width: 100%;
+			text-align: center;
+			padding: 0.6rem 0.5rem;
+			min-height: 40px;
+			box-sizing: border-box;
+		}
+
+		.msg-content {
+			padding: 1rem;
+			font-size: 0.85rem;
+			word-break: break-word;
+			overflow-x: auto;
 		}
 	}
 	/* Gallery Manager */
