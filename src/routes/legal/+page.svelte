@@ -5,17 +5,17 @@
 <section class="legal-wrap page-transition">
 	<div class="legal-panel">
 		<header class="legal-header">
-			<span class="legal-pill">LEGAL // PRIVACY &amp; TERMS</span>
+			<span class="legal-pill">LEGAL | PRIVACY &amp; TERMS</span>
 			<h1 class="legal-title">Privacy Policy &amp; Terms of Service</h1>
-			<p class="legal-updated">Effective Date: November 2026 // Younique Design Studio</p>
+			<p class="legal-updated">Effective Date: November 2026 | Younique Design Studio</p>
 		</header>
 
 		<div class="legal-body">
 			<div class="legal-group">
-				<span class="group-tag">PART I // PRIVACY POLICY</span>
+				<span class="group-tag">PART I: PRIVACY POLICY</span>
 
 				<article class="legal-section">
-					<h2>01 // Information We Collect</h2>
+					<h2>01: Information We Collect</h2>
 					<p>
 						When you submit a project inquiry through our website, we collect the personal details
 						you voluntarily provide: your name, email address, phone number, and project message.
@@ -23,7 +23,7 @@
 				</article>
 
 				<article class="legal-section">
-					<h2>02 // How We Use Your Information</h2>
+					<h2>02: How We Use Your Information</h2>
 					<p>
 						Your contact details are used strictly to communicate regarding your inquiry, prepare
 						project proposals, and deliver contracted creative services. We never sell, rent, or
@@ -32,7 +32,7 @@
 				</article>
 
 				<article class="legal-section">
-					<h2>03 // Cookies &amp; Security</h2>
+					<h2>03: Cookies &amp; Security</h2>
 					<p>
 						We use strictly necessary, encrypted <code>HttpOnly</code> session cookies solely for
 						authenticated private client presentation decks (<code>/deck/[client]</code>) and
@@ -41,7 +41,7 @@
 				</article>
 
 				<article class="legal-section">
-					<h2>04 // Data Retention &amp; Your Rights</h2>
+					<h2>04: Data Retention &amp; Your Rights</h2>
 					<p>
 						We retain inquiry records only for as long as needed to handle client communications and
 						legal obligations. You may request access to, correction of, or deletion of your contact
@@ -54,10 +54,10 @@
 			<div class="legal-divider"></div>
 
 			<div class="legal-group">
-				<span class="group-tag">PART II // TERMS OF SERVICE &amp; IP</span>
+				<span class="group-tag">PART II: TERMS OF SERVICE &amp; IP</span>
 
 				<article class="legal-section">
-					<h2>05 // Scope of Creative Services</h2>
+					<h2>05: Scope of Creative Services</h2>
 					<p>
 						All design, motion, video editing, 3D production, and web development engagements are
 						governed by mutually signed project proposals or Statements of Work (SOW). Website
@@ -67,7 +67,7 @@
 				</article>
 
 				<article class="legal-section">
-					<h2>06 // Client Trademarks &amp; Intellectual Property</h2>
+					<h2>06: Client Trademarks &amp; Intellectual Property</h2>
 					<p>
 						All client trademarks, logos, brand names, and proprietary product assets showcased in
 						our portfolio case studies or presentation decks remain the intellectual property of
@@ -77,7 +77,7 @@
 				</article>
 
 				<article class="legal-section">
-					<h2>07 // Private Client Presentation Decks</h2>
+					<h2>07: Private Client Presentation Decks</h2>
 					<p>
 						Password-protected links under <code>/deck/[client]</code> contain confidential draft
 						revisions and strategy intended solely for the designated client. Unauthorized
@@ -87,7 +87,7 @@
 				</article>
 
 				<article class="legal-section">
-					<h2>08 // Studio Ownership &amp; Contact</h2>
+					<h2>08: Studio Ownership &amp; Contact</h2>
 					<p>
 						Original website code, design systems, and copy published on this site are copyright
 						&copy; {new Date().getFullYear()} Younique Design Studio. Inquiries regarding these terms

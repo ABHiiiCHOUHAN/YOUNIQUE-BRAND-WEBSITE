@@ -6,51 +6,126 @@
 	let isSubmitting = $state(false);
 	let brokenMedia = $state({});
 
-	// Thank You & Experience Feedback State
-	const EXPERIENCE_OPTIONS = ['Seamless', 'Loved the Direction', 'Needs Tweaks', "Let's Discuss"];
-	let expRating = $state('');
-	let expComment = $state('');
-	let expSubmitting = $state(false);
-	let expSuccess = $state(false);
-	let expError = $state('');
+	// Step 1: Star rating first -> Step 2 (if > 3 stars): gentle follow-up review modal
+	const STAR_LABELS = {
+		1: 'Needs Significant Revision',
+		2: 'Below Expectations',
+		3: 'Meets Expectations',
+		4: 'Strong Creative Direction',
+		5: 'Exceptional Delivery'
+	};
+
+	let selectedStars = $state(0);
+	let hoverStars = $state(0);
+	let ratingNote = $state('');
+	let ratingSubmitting = $state(false);
+	let ratingDone = $state(false);
+	let ratingError = $state('');
+	let submittedReviewId = $state('');
+
+	let showReviewModal = $state(false);
+	let reviewerName = $state('');
+	let reviewerRole = $state('');
+	let reviewText = $state('');
+	let reviewSubmitting = $state(false);
+	let reviewDone = $state(false);
+	let reviewError = $state('');
+
+	const activeStars = $derived(hoverStars || selectedStars);
 
 	function markMediaBroken(idx) {
 		brokenMedia = { ...brokenMedia, [idx]: true };
 	}
 
-	async function submitExperience(e) {
+	async function submitRating(e) {
 		e.preventDefault();
-		if (!expRating && !expComment.trim()) {
-			expError = 'Please select an experience tag or leave a quick note.';
+		if (!selectedStars) {
+			ratingError = 'Please select a star rating first.';
 			return;
 		}
-		expError = '';
-		expSubmitting = true;
+		ratingError = '';
+		ratingSubmitting = true;
 
 		try {
 			const res = await fetch(`/api/decks/${data.deck.slug}/feedback`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
-					rating: expRating,
-					comment: expComment
+					stars: selectedStars,
+					comment: selectedStars <= 3 ? ratingNote : '',
+					kind: 'rating'
 				})
 			});
 			if (res.ok) {
-				expSuccess = true;
-				expComment = '';
-				expRating = '';
+				const payload = await res.json().catch(() => ({}));
+				submittedReviewId = payload.reviewId || '';
+				ratingDone = true;
+				if (selectedStars > 3) {
+					reviewerName = data.deck.clientName || '';
+					reviewerRole = data.deck.clientCompany || '';
+					showReviewModal = true;
+				}
 			} else {
 				const err = await res.json().catch(() => ({}));
-				expError = err.error || 'Unable to submit feedback.';
+				ratingError = err.error || 'Unable to save rating.';
 			}
 		} catch {
-			expError = 'Network error. Please try again.';
+			ratingError = 'Network error. Please try again.';
 		} finally {
-			expSubmitting = false;
+			ratingSubmitting = false;
+		}
+	}
+
+	function closeReviewModal() {
+		showReviewModal = false;
+		reviewError = '';
+	}
+
+	function handleWindowKeydown(e) {
+		if (e.key === 'Escape' && showReviewModal) {
+			closeReviewModal();
+		}
+	}
+
+	async function submitReview(e) {
+		e.preventDefault();
+		if (!reviewText.trim()) {
+			reviewError = 'Please write a short sentence or choose "No thanks".';
+			return;
+		}
+		reviewError = '';
+		reviewSubmitting = true;
+
+		try {
+			const res = await fetch(`/api/decks/${data.deck.slug}/feedback`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					stars: selectedStars,
+					reviewerName,
+					reviewerRole,
+					comment: reviewText,
+					kind: 'review',
+					reviewId: submittedReviewId
+				})
+			});
+			if (res.ok) {
+				reviewDone = true;
+				showReviewModal = false;
+				reviewText = '';
+			} else {
+				const err = await res.json().catch(() => ({}));
+				reviewError = err.error || 'Unable to send review.';
+			}
+		} catch {
+			reviewError = 'Network error. Please try again.';
+		} finally {
+			reviewSubmitting = false;
 		}
 	}
 </script>
+
+<svelte:window onkeydown={handleWindowKeydown} />
 
 <svelte:head>
 	<title
@@ -160,7 +235,7 @@
 							<span class="field-caption">CLIENT &amp; COMPANY</span>
 							<span class="field-val field-val--primary">
 								{data.deck.clientName}{data.deck.clientCompany
-									? ` · ${data.deck.clientCompany}`
+									? ` | ${data.deck.clientCompany}`
 									: ''}
 							</span>
 						</div>
@@ -206,7 +281,7 @@
 						<article class="deliverable-item">
 							<div class="deliverable-meta-row">
 								<span class="deliverable-index">DELIVERABLE {String(i + 1).padStart(2, '0')}</span>
-								<span class="deliverable-type">TYPE · {item.type.toUpperCase()}</span>
+								<span class="deliverable-type">TYPE: {item.type.toUpperCase()}</span>
 							</div>
 
 							<div class="deliverable-fields">
@@ -279,51 +354,118 @@
 			{/if}
 		</div>
 
-		<!-- Below the deck: Thank You & Experience Feedback -->
-		<section class="thankyou-box" aria-label="Client Experience Feedback">
+		<!-- Below the deck: Client Experience Rating -->
+		<section class="thankyou-box" aria-label="Client Experience Rating">
 			<div class="thankyou-header">
-				<span class="field-caption">THANK YOU FOR PARTNERING WITH YOUNIQUE</span>
-				<h2 class="thankyou-title">Tell us about your experience</h2>
+				<span class="field-caption">CLIENT EXPERIENCE | FEEDBACK</span>
+				<h2 class="thankyou-title">How has your experience been so far?</h2>
 				<p class="thankyou-sub">
-					How did this revision feel? Share a quick reaction or note directly with our creative team.
+					We value your perspective. Please take a moment to rate the clarity, direction, and delivery of this presentation.
 				</p>
 			</div>
 
-			{#if expSuccess}
+			{#if ratingDone}
 				<div class="feedback-success" role="status">
-					Thank you! Your experience note has been received by our studio.
-				</div>
-			{:else}
-				<form class="feedback-form" onsubmit={submitExperience}>
-					<div class="exp-pills">
-						{#each EXPERIENCE_OPTIONS as opt}
+					<div class="success-badge" aria-hidden="true">
+						<svg
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="3"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<polyline points="20 6 9 17 4 12"></polyline>
+						</svg>
+					</div>
+					<div class="success-copy">
+						<p class="success-main">
+							{#if reviewDone}
+								Thank you for your {selectedStars}/5 rating and testimonial. Your endorsement means a great deal to our studio.
+							{:else if selectedStars <= 3}
+								Thank you for your candid rating ({selectedStars}/5). Your feedback has been logged for our creative leads.
+							{:else}
+								Thank you for rating your experience {selectedStars}/5. We sincerely appreciate your partnership.
+							{/if}
+						</p>
+						{#if selectedStars > 3 && !reviewDone && !showReviewModal}
 							<button
 								type="button"
-								class="exp-pill {expRating === opt ? 'is-selected' : ''}"
-								onclick={() => (expRating = expRating === opt ? '' : opt)}
+								class="link-leave-review"
+								onclick={() => (showReviewModal = true)}
 							>
-								{opt}
+								Share a brief client testimonial (Optional)
 							</button>
-						{/each}
+						{/if}
+					</div>
+				</div>
+			{:else}
+				<form class="feedback-form" onsubmit={submitRating}>
+					<div class="star-selector-bar">
+						<div class="star-row" role="radiogroup" aria-label="Experience rating out of 5 stars">
+							{#each [1, 2, 3, 4, 5] as star}
+								<button
+									type="button"
+									class="star-btn {activeStars >= star ? 'is-filled' : ''}"
+									onclick={() => {
+										selectedStars = star;
+										ratingError = '';
+									}}
+									onmouseenter={() => (hoverStars = star)}
+									onmouseleave={() => (hoverStars = 0)}
+									aria-label="{star} {star === 1 ? 'star' : 'stars'} — {STAR_LABELS[star]}"
+									aria-checked={selectedStars === star}
+									role="radio"
+								>
+									<svg
+										viewBox="0 0 24 24"
+										width="22"
+										height="22"
+										fill={activeStars >= star ? 'currentColor' : 'none'}
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										aria-hidden="true"
+									>
+										<polygon
+											points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+										></polygon>
+									</svg>
+								</button>
+							{/each}
+						</div>
+
+						<span class="rating-readout {activeStars > 0 ? 'has-value' : ''}">
+							{#if activeStars > 0}
+								{activeStars} / 5 | {STAR_LABELS[activeStars]}
+							{:else}
+								Select a rating
+							{/if}
+						</span>
 					</div>
 
-					<label class="field">
-						<span class="field-caption">YOUR THOUGHTS</span>
-						<textarea
-							bind:value={expComment}
-							rows="3"
-							maxlength="2000"
-							placeholder="Share your thoughts on pacing, creative direction, or your overall experience..."
-						></textarea>
-					</label>
+					{#if selectedStars > 0 && selectedStars <= 3}
+						<label class="field">
+							<span class="field-caption">AREAS FOR REFINEMENT (OPTIONAL)</span>
+							<textarea
+								bind:value={ratingNote}
+								rows="3"
+								maxlength="2000"
+								placeholder="Let us know where the creative direction, pacing, or deliverables fell short so we can address them promptly..."
+							></textarea>
+						</label>
+					{/if}
 
-					{#if expError}
-						<p class="exp-error" role="alert">{expError}</p>
+					{#if ratingError}
+						<p class="exp-error" role="alert">{ratingError}</p>
 					{/if}
 
 					<div class="feedback-actions">
-						<button type="submit" class="btn-solid" disabled={expSubmitting}>
-							{expSubmitting ? 'Sending...' : 'Send Experience Note'}
+						<button type="submit" class="btn-solid" disabled={ratingSubmitting || !selectedStars}>
+							{ratingSubmitting ? 'Submitting...' : 'Submit Rating'}
 						</button>
 					</div>
 				</form>
@@ -332,7 +474,107 @@
 	{/if}
 </section>
 
+<!-- Gentle Follow-up Testimonial Modal (only triggered after > 3 star rating, completely optional) -->
+{#if showReviewModal}
+	<div
+		class="modal-backdrop"
+		role="presentation"
+		onclick={(e) => {
+			if (e.target === e.currentTarget) closeReviewModal();
+		}}
+	>
+		<div
+			class="review-modal sheet"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="review-modal-title"
+		>
+			<div class="modal-topbar">
+				<span class="eyebrow">
+					CLIENT ENDORSEMENT | {selectedStars}/5 RATING
+				</span>
+				<button
+					type="button"
+					class="modal-close"
+					onclick={closeReviewModal}
+					aria-label="Close popup"
+					title="Close"
+				>
+					×
+				</button>
+			</div>
+
+			<h3 id="review-modal-title" class="modal-title">Thank you for the positive rating</h3>
+			<p class="modal-sub">
+				If you have a brief moment, a one- or two-sentence testimonial on our collaboration would be sincerely appreciated.
+			</p>
+
+			<form class="feedback-form" onsubmit={submitReview}>
+				<label class="field">
+					<span class="field-caption">YOUR NAME (OPTIONAL)</span>
+					<input
+						type="text"
+						bind:value={reviewerName}
+						maxlength="120"
+						placeholder="e.g. Jordan Lee"
+					/>
+				</label>
+
+				<label class="field">
+					<span class="field-caption">COMPANY / ROLE (OPTIONAL)</span>
+					<input
+						type="text"
+						bind:value={reviewerRole}
+						maxlength="140"
+						placeholder="e.g. Head of Brand at Acme"
+					/>
+				</label>
+
+				<label class="field">
+					<span class="field-caption">YOUR TESTIMONIAL</span>
+					<textarea
+						bind:value={reviewText}
+						rows="3"
+						maxlength="2000"
+						placeholder="Comment on the creative process, communication, or final deliverables..."
+					></textarea>
+				</label>
+
+				{#if reviewError}
+					<p class="exp-error" role="alert">{reviewError}</p>
+				{/if}
+
+				<div class="modal-actions">
+					<button type="submit" class="btn-open-asset" disabled={reviewSubmitting}>
+						{reviewSubmitting ? 'Submitting...' : 'Submit Testimonial'}
+					</button>
+					<button type="button" class="btn-ghost" onclick={closeReviewModal}>
+						No thanks
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+{/if}
+
 <style>
+	.wrap,
+	.modal-backdrop {
+		--dk-surface: var(--color-5, #fffaf4);
+		--dk-input-bg: #ffffff;
+		--dk-subtle-bg: #f1eadf;
+		--dk-border: #1c1c1c;
+		--dk-divider: rgba(28, 28, 28, 0.18);
+		--dk-shadow-ink: #1c1c1c;
+		--dk-text: #1c1c1c;
+		--dk-muted: #57534e;
+		--dk-accent: var(--color-1, #fdd803);
+		--dk-accent-ink: #111111;
+
+		font-family: var(--font-heading, system-ui, -apple-system, sans-serif);
+		color: var(--dk-text);
+	}
+
 	.wrap {
 		padding: 2.5rem clamp(1rem, 4vw, 3rem) 5rem;
 		max-width: 960px;
@@ -341,20 +583,34 @@
 		min-height: 75vh;
 		display: flex;
 		flex-direction: column;
-		gap: 2.5rem;
+		gap: 2rem;
 		justify-content: center;
 		box-sizing: border-box;
+	}
+
+	:global(.dark) .wrap,
+	:global(.dark) .modal-backdrop {
+		--dk-surface: #242424;
+		--dk-input-bg: #181818;
+		--dk-subtle-bg: #323232;
+		--dk-border: #c9c4bc;
+		--dk-divider: rgba(255, 250, 244, 0.16);
+		--dk-shadow-ink: #111111;
+		--dk-text: #fffaf4;
+		--dk-muted: #b8b3ac;
+		--dk-accent: #fdd803;
+		--dk-accent-ink: #111111;
 	}
 
 	/* Single presentation sheet */
 	.sheet {
 		width: 100%;
-		border-radius: 22px;
-		border: 2.5px solid var(--color-3);
-		background: var(--color-5);
-		color: var(--color-3);
-		box-shadow: 8px 8px 0px var(--color-3);
-		padding: clamp(1.5rem, 4vw, 3rem);
+		border-radius: 16px;
+		border: 2px solid var(--dk-border);
+		background: var(--dk-surface);
+		color: var(--dk-text);
+		box-shadow: 4px 4px 0px var(--dk-shadow-ink);
+		padding: clamp(1.5rem, 4vw, 2.75rem);
 		box-sizing: border-box;
 	}
 
@@ -366,40 +622,42 @@
 	.eyebrow {
 		display: inline-block;
 		font-size: 0.72rem;
-		font-weight: 900;
-		letter-spacing: 0.12em;
+		font-weight: 800;
+		letter-spacing: 0.1em;
 		text-transform: uppercase;
-		opacity: 0.65;
+		color: var(--dk-muted);
 	}
 
 	.gate-header {
-		margin: 0.85rem 0 1.75rem;
+		margin: 0.75rem 0 1.65rem;
 	}
 
 	.gate-title {
 		font-family: var(--font-heading);
-		font-size: clamp(1.85rem, 4vw, 2.5rem);
-		font-weight: 900;
+		font-size: clamp(1.75rem, 4vw, 2.35rem);
+		font-weight: 800;
 		margin: 0 0 0.4rem;
-		letter-spacing: -0.03em;
-		line-height: 1.1;
+		letter-spacing: -0.025em;
+		line-height: 1.12;
+		color: var(--dk-text);
 	}
 
 	.gate-sub {
 		margin: 0;
-		font-size: 0.98rem;
-		font-weight: 600;
-		opacity: 0.7;
+		font-size: 0.96rem;
+		font-weight: 500;
+		color: var(--dk-muted);
 	}
 
 	.error-banner {
 		margin-bottom: 1.25rem;
-		background: #d93838;
+		background: #dc2626;
 		color: #ffffff;
-		border: 2px solid var(--color-3);
-		padding: 0.75rem 1rem;
+		border: 2px solid #111111;
+		box-shadow: 2px 2px 0px var(--dk-shadow-ink);
+		padding: 0.72rem 1rem;
 		border-radius: 10px;
-		font-weight: 800;
+		font-weight: 700;
 		font-size: 0.9rem;
 	}
 
@@ -412,15 +670,13 @@
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: 0.45rem;
 	}
 
 	.label {
-		font-weight: 900;
-		font-size: 0.8rem;
-		text-transform: uppercase;
-		letter-spacing: 0.06em;
-		opacity: 0.8;
+		font-weight: 700;
+		font-size: 0.84rem;
+		color: var(--dk-text);
 	}
 
 	.input-wrap {
@@ -432,18 +688,27 @@
 	input,
 	textarea {
 		width: 100%;
-		border-radius: 12px;
-		border: 2px solid var(--color-3);
-		background: var(--color-5);
-		color: var(--color-3);
-		padding: 0.9rem 1rem;
+		border-radius: 10px;
+		border: 2px solid var(--dk-border);
+		background: var(--dk-input-bg);
+		color: var(--dk-text);
+		padding: 0.85rem 1rem;
 		font: inherit;
 		font-size: 16px;
-		font-weight: 600;
+		font-weight: 500;
 		outline: none;
-		box-shadow: 3px 3px 0px var(--color-3);
-		transition: box-shadow 0.15s ease;
+		box-shadow: 2px 2px 0px var(--dk-shadow-ink);
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease;
+		appearance: none;
 		box-sizing: border-box;
+	}
+
+	input::placeholder,
+	textarea::placeholder {
+		color: var(--dk-muted);
+		opacity: 0.75;
 	}
 
 	.input-wrap input {
@@ -452,12 +717,8 @@
 
 	input:focus,
 	textarea:focus {
-		box-shadow: 0 0 0 3px rgba(28, 28, 28, 0.25);
-	}
-
-	:global(.dark) input:focus,
-	:global(.dark) textarea:focus {
-		box-shadow: 0 0 0 3px rgba(244, 244, 244, 0.25);
+		border-color: var(--dk-accent);
+		box-shadow: 3px 3px 0px var(--dk-accent);
 	}
 
 	.toggle-btn {
@@ -472,23 +733,29 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		color: var(--color-3);
-		opacity: 0.75;
+		color: var(--dk-muted);
+		box-shadow: none;
+		transition: color 0.15s ease;
 	}
 
-	.toggle-btn:hover {
-		opacity: 1;
+	.toggle-btn:hover,
+	.toggle-btn:active,
+	.toggle-btn:focus-visible {
+		color: var(--dk-text);
+		transform: translateY(-50%);
+		box-shadow: none;
+		outline: none;
 	}
 
 	.eye-icon {
-		width: 22px;
-		height: 22px;
-		stroke: var(--color-3);
+		width: 21px;
+		height: 21px;
+		stroke: currentColor;
 	}
 
 	.actions {
 		display: flex;
-		gap: 0.85rem;
+		gap: 0.8rem;
 		flex-wrap: wrap;
 		margin-top: 0.25rem;
 	}
@@ -496,15 +763,20 @@
 	.btn-solid {
 		font-family: inherit;
 		border-radius: 999px;
-		padding: 0.85rem 1.75rem;
+		padding: 0.78rem 1.65rem;
 		font-weight: 800;
 		font-size: 0.92rem;
-		border: 2px solid var(--color-3);
-		background: var(--color-3);
-		color: var(--color-5);
+		border: 2px solid #111111;
+		background: var(--dk-accent);
+		color: var(--dk-accent-ink);
 		cursor: pointer;
 		text-decoration: none;
-		transition: transform 0.15s ease, opacity 0.15s ease;
+		outline: none;
+		box-shadow: 3px 3px 0px var(--dk-shadow-ink);
+		transition:
+			background-color 0.12s ease,
+			transform 0.1s ease,
+			box-shadow 0.1s ease;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -512,44 +784,69 @@
 	}
 
 	.btn-solid:hover:not(:disabled) {
-		transform: translateY(-2px);
-		opacity: 0.92;
+		background: #ffe234;
+	}
+
+	.btn-solid:active:not(:disabled) {
+		transform: translate(2px, 2px);
+		box-shadow: 1px 1px 0px var(--dk-shadow-ink);
+	}
+
+	.btn-solid:focus-visible {
+		outline: 2px solid var(--dk-accent);
+		outline-offset: 2px;
 	}
 
 	.btn-solid:disabled {
-		opacity: 0.6;
+		opacity: 0.5;
 		cursor: not-allowed;
 	}
 
 	.btn-ghost {
 		font-family: inherit;
 		border-radius: 999px;
-		padding: 0.85rem 1.5rem;
-		font-weight: 800;
+		padding: 0.78rem 1.45rem;
+		font-weight: 700;
 		font-size: 0.92rem;
-		border: 2px solid var(--color-3);
-		background: transparent;
-		color: var(--color-3);
+		border: 2px solid var(--dk-border);
+		background: var(--dk-surface);
+		color: var(--dk-text);
 		text-decoration: none;
+		outline: none;
+		box-shadow: 3px 3px 0px var(--dk-shadow-ink);
+		cursor: pointer;
+		transition:
+			background-color 0.12s ease,
+			transform 0.1s ease,
+			box-shadow 0.1s ease;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 	}
 
+	.btn-ghost:hover {
+		background: var(--dk-subtle-bg);
+	}
+
+	.btn-ghost:active {
+		transform: translate(2px, 2px);
+		box-shadow: 1px 1px 0px var(--dk-shadow-ink);
+	}
+
 	/* Visible field captions */
 	.field-caption {
 		display: block;
-		font-size: 0.68rem;
-		font-weight: 900;
-		letter-spacing: 0.1em;
+		font-size: 0.7rem;
+		font-weight: 800;
+		letter-spacing: 0.09em;
 		text-transform: uppercase;
-		opacity: 0.52;
+		color: var(--dk-muted);
 		margin-bottom: 0.25rem;
 	}
 
 	/* Unlocked Deck Header */
 	.deck-header {
-		padding-bottom: 1.75rem;
+		padding-bottom: 1.65rem;
 	}
 
 	.deck-topbar {
@@ -557,13 +854,13 @@
 		justify-content: space-between;
 		align-items: flex-start;
 		gap: 1.25rem;
-		margin-bottom: 1.75rem;
+		margin-bottom: 1.5rem;
 	}
 
 	.deck-fields-row {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1.5rem 2.5rem;
+		gap: 1.35rem 2.25rem;
 	}
 
 	.meta-field {
@@ -572,13 +869,13 @@
 	}
 
 	.field-val {
-		font-size: 0.9rem;
-		font-weight: 800;
-		color: var(--color-3);
+		font-size: 0.92rem;
+		font-weight: 700;
+		color: var(--dk-text);
 	}
 
 	.field-val--primary {
-		font-weight: 900;
+		font-weight: 800;
 	}
 
 	/* Lock icon button (no text) */
@@ -586,21 +883,30 @@
 		width: 40px;
 		height: 40px;
 		border-radius: 50%;
-		border: 2px solid var(--color-3);
-		background: transparent;
-		color: var(--color-3);
+		border: 2px solid var(--dk-border);
+		background: var(--dk-surface);
+		color: var(--dk-text);
+		box-shadow: 2px 2px 0px var(--dk-shadow-ink);
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		cursor: pointer;
-		transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+		outline: none;
+		transition:
+			background-color 0.12s ease,
+			color 0.12s ease,
+			transform 0.1s ease,
+			box-shadow 0.1s ease;
 		flex-shrink: 0;
 	}
 
 	.btn-lock-icon:hover {
-		background: var(--color-3);
-		color: var(--color-5);
-		transform: translateY(-1px);
+		background: var(--dk-subtle-bg);
+	}
+
+	.btn-lock-icon:active {
+		transform: translate(1px, 1px);
+		box-shadow: 1px 1px 0px var(--dk-shadow-ink);
 	}
 
 	.project-title-block {
@@ -610,11 +916,12 @@
 
 	.deck-title {
 		font-family: var(--font-heading);
-		font-size: clamp(2rem, 4.5vw, 3.1rem);
-		font-weight: 900;
+		font-size: clamp(1.85rem, 4vw, 2.75rem);
+		font-weight: 800;
 		margin: 0;
-		letter-spacing: -0.03em;
-		line-height: 1.08;
+		letter-spacing: -0.025em;
+		line-height: 1.1;
+		color: var(--dk-text);
 	}
 
 	/* Deliverables inside single box */
@@ -624,34 +931,30 @@
 	}
 
 	.deliverable-item {
-		border-top: 1.5px solid rgba(28, 28, 28, 0.16);
-		padding-top: 2rem;
-		margin-top: 2rem;
+		border-top: 1.5px solid var(--dk-divider);
+		padding-top: 1.85rem;
+		margin-top: 1.85rem;
 	}
 
 	.deliverable-item:first-child {
 		margin-top: 0;
 	}
 
-	:global(.dark) .deliverable-item {
-		border-top-color: rgba(244, 244, 244, 0.16);
-	}
-
 	.deliverable-meta-row {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin-bottom: 1.15rem;
+		margin-bottom: 1rem;
 		font-size: 0.72rem;
-		font-weight: 900;
+		font-weight: 800;
 		letter-spacing: 0.08em;
-		opacity: 0.55;
+		color: var(--dk-muted);
 	}
 
 	.deliverable-fields {
 		display: flex;
 		flex-direction: column;
-		gap: 1.1rem;
+		gap: 1rem;
 	}
 
 	.labeled-block {
@@ -661,31 +964,29 @@
 
 	.deliverable-title {
 		font-family: var(--font-heading);
-		font-size: clamp(1.3rem, 2.5vw, 1.65rem);
-		font-weight: 900;
+		font-size: clamp(1.25rem, 2.5vw, 1.55rem);
+		font-weight: 800;
 		margin: 0;
-		letter-spacing: -0.02em;
+		letter-spacing: -0.015em;
+		color: var(--dk-text);
 	}
 
 	.deliverable-notes {
 		margin: 0;
-		font-size: 0.96rem;
+		font-size: 0.95rem;
 		line-height: 1.55;
-		opacity: 0.85;
+		color: var(--dk-muted);
 		max-width: 68ch;
 	}
 
 	.media-frame {
 		margin-top: 0.25rem;
 		margin-bottom: 0.85rem;
-		border: 1.5px solid rgba(28, 28, 28, 0.2);
+		border: 2px solid var(--dk-border);
 		border-radius: 12px;
 		overflow: hidden;
-		background: rgba(0, 0, 0, 0.04);
-	}
-
-	:global(.dark) .media-frame {
-		border-color: rgba(244, 244, 244, 0.2);
+		background: #141414;
+		box-shadow: 2px 2px 0px var(--dk-shadow-ink);
 	}
 
 	.media-img,
@@ -705,56 +1006,64 @@
 		margin-top: 0.2rem;
 	}
 
-	/* Yellow ONLY for Open Asset CTA */
+	/* Yellow ONLY for primary action CTA */
 	.btn-open-asset {
 		font-family: inherit;
 		border-radius: 999px;
-		padding: 0.7rem 1.45rem;
-		font-weight: 900;
+		padding: 0.72rem 1.45rem;
+		font-weight: 800;
 		font-size: 0.88rem;
-		border: 2px solid var(--color-3);
-		background: var(--color-1, #ffd600);
-		color: #1c1c1c;
+		border: 2px solid #111111;
+		background: var(--dk-accent);
+		color: var(--dk-accent-ink);
 		cursor: pointer;
 		text-decoration: none;
-		box-shadow: 3px 3px 0px var(--color-3);
-		transition: transform 0.15s ease, box-shadow 0.15s ease;
+		outline: none;
+		box-shadow: 3px 3px 0px var(--dk-shadow-ink);
+		transition:
+			background-color 0.12s ease,
+			transform 0.1s ease,
+			box-shadow 0.1s ease;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		white-space: nowrap;
 	}
 
-	.btn-open-asset:hover {
-		transform: translate(-2px, -2px);
-		box-shadow: 5px 5px 0px var(--color-3);
+	.btn-open-asset:hover:not(:disabled) {
+		background: #ffe234;
+	}
+
+	.btn-open-asset:active:not(:disabled) {
+		transform: translate(2px, 2px);
+		box-shadow: 1px 1px 0px var(--dk-shadow-ink);
+	}
+
+	.btn-open-asset:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
 	}
 
 	.asset-url-hint {
-		font-family: monospace;
+		font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 		font-size: 0.8rem;
-		opacity: 0.55;
+		color: var(--dk-muted);
 		word-break: break-all;
 	}
 
 	.empty-deliverables {
-		border-top: 1.5px solid rgba(28, 28, 28, 0.16);
+		border-top: 1.5px solid var(--dk-divider);
 		padding-top: 2rem;
 		font-size: 0.95rem;
-		font-weight: 700;
-		opacity: 0.6;
+		font-weight: 600;
+		color: var(--dk-muted);
 	}
 
 	/* Creator notes placed below deliverables, understated */
 	.creator-notes-footer {
-		margin-top: 2.25rem;
-		padding-top: 1.35rem;
-		border-top: 1px dashed rgba(28, 28, 28, 0.2);
-		opacity: 0.68;
-	}
-
-	:global(.dark) .creator-notes-footer {
-		border-top-color: rgba(244, 244, 244, 0.2);
+		margin-top: 2rem;
+		padding-top: 1.25rem;
+		border-top: 1.5px dashed var(--dk-divider);
 	}
 
 	.notes-caption {
@@ -763,6 +1072,7 @@
 		font-weight: 800;
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
+		color: var(--dk-muted);
 		margin-bottom: 0.35rem;
 	}
 
@@ -771,98 +1081,290 @@
 		font-size: 0.92rem;
 		line-height: 1.6;
 		font-weight: 500;
+		color: var(--dk-muted);
 		max-width: 72ch;
 	}
 
-	/* Thank You & Experience Box below the deck */
+	/* Client Experience Rating Card (Unified Theme + Refined Professional Layout) */
 	.thankyou-box {
 		width: 100%;
-		border-radius: 20px;
-		border: 2px solid rgba(28, 28, 28, 0.2);
-		background: var(--color-5);
-		color: var(--color-3);
-		padding: clamp(1.5rem, 3.5vw, 2.5rem);
+		border-radius: 16px;
+		border: 2px solid var(--dk-border);
+		background: var(--dk-surface);
+		color: var(--dk-text);
+		box-shadow: 4px 4px 0px var(--dk-shadow-ink);
+		padding: clamp(1.5rem, 3.5vw, 2.25rem);
 		box-sizing: border-box;
 	}
 
-	:global(.dark) .thankyou-box {
-		border-color: rgba(244, 244, 244, 0.2);
-	}
-
 	.thankyou-header {
-		margin-bottom: 1.5rem;
+		padding-bottom: 1.15rem;
+		margin-bottom: 1.25rem;
+		border-bottom: 1.5px solid var(--dk-divider);
 	}
 
 	.thankyou-title {
 		font-family: var(--font-heading);
-		font-size: clamp(1.4rem, 3vw, 2rem);
-		font-weight: 900;
+		font-size: clamp(1.35rem, 2.8vw, 1.75rem);
+		font-weight: 800;
 		margin: 0.25rem 0 0.4rem;
 		letter-spacing: -0.02em;
+		color: var(--dk-text);
 	}
 
 	.thankyou-sub {
 		margin: 0;
-		font-size: 0.95rem;
-		opacity: 0.75;
+		font-size: 0.92rem;
+		color: var(--dk-muted);
 		line-height: 1.5;
+		max-width: 60ch;
 	}
 
 	.feedback-form {
 		display: flex;
 		flex-direction: column;
-		gap: 1.25rem;
+		gap: 1.15rem;
 	}
 
-	.exp-pills {
+	.star-selector-bar {
 		display: flex;
+		align-items: center;
+		justify-content: space-between;
 		flex-wrap: wrap;
-		gap: 0.6rem;
+		gap: 1rem;
+		background: var(--dk-subtle-bg);
+		border: 2px solid var(--dk-border);
+		border-radius: 12px;
+		padding: 0.75rem 1rem;
+		box-shadow: 2px 2px 0px var(--dk-shadow-ink);
 	}
 
-	.exp-pill {
-		font-family: inherit;
-		padding: 0.5rem 1rem;
-		border-radius: 999px;
-		border: 1.5px solid var(--color-3);
-		background: transparent;
-		color: var(--color-3);
-		font-weight: 700;
-		font-size: 0.85rem;
+	.star-row {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
+
+	.star-btn {
+		appearance: none;
+		background: var(--dk-surface);
+		border: 2px solid var(--dk-border);
+		border-radius: 9px;
+		width: 40px;
+		height: 40px;
+		padding: 0;
+		color: var(--dk-muted);
 		cursor: pointer;
-		transition: background 0.15s ease, color 0.15s ease;
+		outline: none;
+		box-shadow: 2px 2px 0px var(--dk-shadow-ink);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		transition:
+			background-color 0.12s ease,
+			border-color 0.12s ease,
+			color 0.12s ease,
+			transform 0.1s ease,
+			box-shadow 0.1s ease;
 	}
 
-	.exp-pill.is-selected {
-		background: var(--color-3);
-		color: var(--color-5);
+	.star-btn:hover {
+		border-color: var(--dk-accent);
+		color: var(--dk-text);
+	}
+
+	.star-btn:active {
+		transform: translate(1px, 1px);
+		box-shadow: 1px 1px 0px var(--dk-shadow-ink);
+	}
+
+	.star-btn.is-filled {
+		color: #111111;
+		background: var(--dk-accent);
+		border-color: #111111;
+		box-shadow: 2px 2px 0px var(--dk-shadow-ink);
+	}
+
+	.rating-readout {
+		font-size: 0.86rem;
+		font-weight: 700;
+		color: var(--dk-muted);
+		padding: 0.3rem 0.75rem;
+		border-radius: 999px;
+		border: 1.5px solid var(--dk-divider);
+		background: var(--dk-surface);
+	}
+
+	.rating-readout.has-value {
+		color: var(--dk-text);
+		border-color: var(--dk-border);
+		font-weight: 800;
 	}
 
 	.exp-error {
 		margin: 0;
-		color: #d93838;
-		font-weight: 800;
+		color: #dc2626;
+		font-weight: 700;
 		font-size: 0.88rem;
 	}
 
+	:global(.dark) .exp-error {
+		color: #fca5a5;
+	}
+
 	.feedback-success {
-		padding: 1rem 1.25rem;
+		padding: 1.1rem 1.25rem;
 		border-radius: 12px;
-		border: 2px solid var(--color-3);
-		background: rgba(28, 28, 28, 0.05);
+		border: 2px solid var(--dk-border);
+		background: var(--dk-subtle-bg);
+		box-shadow: 2px 2px 0px var(--dk-shadow-ink);
+		display: flex;
+		align-items: flex-start;
+		gap: 0.9rem;
+	}
+
+	.success-badge {
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		background: var(--dk-accent);
+		color: #111111;
+		border: 2px solid #111111;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		margin-top: 0.1rem;
+	}
+
+	.success-copy {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.45rem;
+	}
+
+	.success-main {
+		margin: 0;
+		font-weight: 700;
+		font-size: 0.94rem;
+		line-height: 1.45;
+		color: var(--dk-text);
+	}
+
+	.link-leave-review {
+		background: transparent;
+		border: none;
+		padding: 0;
+		font: inherit;
+		font-size: 0.86rem;
+		font-weight: 700;
+		color: var(--dk-text);
+		text-decoration: underline;
+		cursor: pointer;
+		opacity: 0.85;
+	}
+
+	.link-leave-review:hover {
+		opacity: 1;
+	}
+
+	/* Follow-up Testimonial Modal (> 3 stars) */
+	.modal-backdrop {
+		position: fixed;
+		inset: 0;
+		z-index: 200;
+		background: rgba(18, 18, 18, 0.58);
+		backdrop-filter: blur(4px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1.25rem;
+	}
+
+	.review-modal {
+		max-width: 520px;
+		width: 100%;
+		max-height: calc(100dvh - 2rem);
+		overflow-y: auto;
+		padding: clamp(1.5rem, 3.5vw, 2.25rem);
+	}
+
+	.modal-topbar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding-bottom: 0.75rem;
+		margin-bottom: 0.9rem;
+		border-bottom: 1.5px solid var(--dk-divider);
+	}
+
+	.modal-close {
+		width: 34px;
+		height: 34px;
+		border-radius: 50%;
+		border: 2px solid var(--dk-border);
+		background: var(--dk-surface);
+		color: var(--dk-text);
+		box-shadow: 2px 2px 0px var(--dk-shadow-ink);
+		font-size: 1.2rem;
+		line-height: 1;
+		font-weight: 700;
+		cursor: pointer;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		outline: none;
+		transition:
+			background-color 0.12s ease,
+			transform 0.1s ease,
+			box-shadow 0.1s ease;
+	}
+
+	.modal-close:hover {
+		background: var(--dk-subtle-bg);
+	}
+
+	.modal-close:active {
+		transform: translate(1px, 1px);
+		box-shadow: 1px 1px 0px var(--dk-shadow-ink);
+	}
+
+	.modal-title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.35rem, 3vw, 1.7rem);
 		font-weight: 800;
-		font-size: 0.95rem;
+		margin: 0 0 0.4rem;
+		letter-spacing: -0.02em;
+		color: var(--dk-text);
+	}
+
+	.modal-sub {
+		margin: 0 0 1.25rem;
+		font-size: 0.92rem;
+		line-height: 1.5;
+		color: var(--dk-muted);
+	}
+
+	.modal-actions {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 0.25rem;
 	}
 
 	@media (max-width: 680px) {
 		.wrap {
 			padding: 1.5rem 0.9rem 3.5rem;
-			gap: 1.75rem;
+			gap: 1.5rem;
 		}
-		.sheet {
-			border-radius: 18px;
-			box-shadow: 5px 5px 0px var(--color-3);
-			padding: 1.35rem 1.1rem;
+		.sheet,
+		.thankyou-box {
+			border-radius: 14px;
+			box-shadow: 3px 3px 0px var(--dk-shadow-ink);
+			padding: 1.25rem 1.05rem;
 		}
 		.deck-fields-row {
 			gap: 1rem 1.5rem;
@@ -870,6 +1372,9 @@
 		.deliverable-item {
 			padding-top: 1.5rem;
 			margin-top: 1.5rem;
+		}
+		.star-selector-bar {
+			padding: 0.7rem 0.85rem;
 		}
 	}
 </style>

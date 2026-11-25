@@ -45,3 +45,14 @@ export function sanitizeBlogHtml(dirty) {
 		}
 	});
 }
+
+/**
+ * Strip all HTML tags from plain text inputs (reviews, names, roles).
+ */
+export function sanitizePlainText(dirty) {
+	if (!dirty || typeof dirty !== 'string') return '';
+	return sanitizeHtml(dirty, {
+		allowedTags: [],
+		allowedAttributes: {}
+	}).trim();
+}

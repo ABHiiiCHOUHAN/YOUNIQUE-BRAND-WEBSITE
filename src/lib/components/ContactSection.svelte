@@ -800,7 +800,6 @@
 	.popup-close-btn:hover {
 		background: #1c1c1c;
 		color: #fff;
-		transform: scale(1.05);
 	}
 
 	.popup-icon-wrap {

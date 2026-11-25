@@ -116,7 +116,10 @@
 	</div>
 
 	<div id="reviews" use:inView={{ threshold: 0.05 }}>
-		<ReviewsSection />
+		<ReviewsSection
+			reviews={data?.reviewsData?.reviews}
+			placeholderImg={data?.reviewsData?.placeholderImg}
+		/>
 	</div>
 
 	<div id="blog" use:inView={{ threshold: 0.05 }}>

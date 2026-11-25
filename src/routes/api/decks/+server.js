@@ -48,7 +48,7 @@ export async function POST({ request, locals }) {
 			clientName: String(clientName).trim(),
 			clientCompany: typeof clientCompany === 'string' ? clientCompany.trim() : '',
 			title: String(title).trim(),
-			version: String(version || 'v1.0 // Draft Review').trim(),
+			version: String(version || 'v1.0 | Draft Review').trim(),
 			updatedAt: new Date().toISOString().split('T')[0],
 			passcodeHash: hashDeckPasscode(String(passcode)),
 			notes: typeof notes === 'string' ? notes.trim() : '',

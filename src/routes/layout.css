@@ -548,22 +548,15 @@ h4 {
 		background: rgba(255, 250, 244, 0.95);
 	}
 }
-/* --- INTERACTIVE BUTTON ANIMATIONS --- */
+/* --- INTERACTIVE BUTTON TRANSITIONS (CRISP, NO FLOATING BLUR SHADOWS) --- */
 .btn,
-button:not(.dot),
+button:not(.dot):not(.toggle-btn),
 .btn-outline,
 .hero-cta .btn {
-	transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-.btn:hover,
-button:not(.dot):hover,
-.btn-outline:hover {
-	transform: translateY(-3px) scale(1.02);
-	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
-
-.btn:active,
-button:not(.dot):active {
-	transform: translateY(-1px) scale(0.98);
+	transition:
+		background-color 140ms ease,
+		color 140ms ease,
+		border-color 140ms ease,
+		transform 100ms ease,
+		box-shadow 100ms ease;
 }

@@ -2,88 +2,10 @@
 	import '$lib/styles/fonts/home.css';
 	import { onMount } from 'svelte';
 
-	const reviews = [
-		{
-			text: "They took our complex fintech platform and gave it a soul. The visual systems they developed aren't just pretty—they're strategic assets that have fundamentally changed how our customers in Bangalore interact with us.",
-			author: 'Ajay Verma',
-			role: 'CTO // Bangalore, India',
-			img: '/assets/reviews/ajay.png',
-			shape: 'hexagon',
-			color: '#FFD4E9'
-		},
-		{
-			text: 'Most agencies just follow instructions. These guys challenge you to be better. They brought a level of design thinking that transformed our Delhi-based operations overnight.',
-			author: 'Meera Kapoor',
-			role: 'Executive Director // Delhi, India',
-			img: '/assets/reviews/meera.png',
-			shape: 'circle',
-			color: '#D1E8FF'
-		},
-		{
-			text: "The architectural clarity they brought to our tech stack's interface is astounding. We've seen a 35% increase in user retention since the rollout. Zero fluff, just high-impact results.",
-			author: 'Siddharth Malhotra',
-			role: 'Tech Founder // Mumbai, India',
-			img: '/assets/reviews/siddharth.png',
-			shape: 'star',
-			color: '#FFE499'
-		},
-		{
-			text: 'Finally, a team that understands the intersection of global aesthetics and Indian market nuances. They gave our brand a pulse in an increasingly crowded digital landscape.',
-			author: 'Ananya Rao',
-			role: 'Marketing Head // Chennai, India',
-			img: '/assets/reviews/ananya.png',
-			shape: 'hexagon',
-			color: '#E2FFD1'
-		},
-		{
-			text: "Strategic ROI is rarely this visible. We stopped being 'just another app' and started being a destination. Their work in the Hyderabad market has been nothing short of disruption.",
-			author: 'Suresh Menon',
-			role: 'CEO // Hyderabad, India',
-			img: '/assets/reviews/suresh.png',
-			shape: 'circle',
-			color: '#FFFAFF'
-		},
-		{
-			text: 'The level of sophistication they brought to our Cabo hospitality group is world-class. They captured the vibrant energy of the region while maintaining a premium executive feel.',
-			author: 'Elena Rodriguez',
-			role: 'Hospitality Exec // Cabo, MX',
-			img: '/assets/reviews/elena.png',
-			shape: 'star',
-			color: '#D6FFFA'
-		},
-		{
-			text: 'In a city like Dubai, you have to be loud to be heard. They gave us exactly the edge we needed for our flagship launch—sophisticated, fast, and visually stunning.',
-			author: 'Omar Al-Sayed',
-			role: 'Managing Director // Dubai, UAE',
-			img: '/assets/reviews/omar.png',
-			shape: 'hexagon',
-			color: '#D1FFF8'
-		},
-		{
-			text: 'The London scene is incredibly demanding. They turned our vague vision into a powerhouse brand that genuinely stands out. Their obsession with detail is what sets them apart.',
-			author: 'James Harrington',
-			role: 'CEO // London, UK',
-			img: '/assets/reviews/james.png',
-			shape: 'circle',
-			color: '#E8D1FF'
-		},
-		{
-			text: "Fantastic communication and even better output. They simplified our digital experience in Toronto in ways we didn't think possible. A highly recommended creative partner.",
-			author: 'Sarah Thompson',
-			role: 'Ops Lead // Toronto, CA',
-			img: '/assets/reviews/sarah.png',
-			shape: 'star',
-			color: '#D1D5FF'
-		},
-		{
-			text: 'Structural chaos done right. They have a unique perspective on design that feels years ahead of the curve. The Amsterdam office is absolutely wowed.',
-			author: 'Lars van der Berg',
-			role: 'Creative Director // Amsterdam, NL',
-			img: '/assets/reviews/lars.png',
-			shape: 'hexagon',
-			color: '#FFD1D1'
-		}
-	];
+	let {
+		reviews = [],
+		placeholderImg = '/assets/reviews/default-placeholder.svg'
+	} = $props();
 
 	let scrollContainer;
 	let activeIndex = $state(0);
@@ -94,7 +16,9 @@
 
 	const startAutoPlay = () => {
 		stopAutoPlay();
+		if (!reviews.length) return;
 		interval = setInterval(() => {
+			if (!reviews.length) return;
 			activeIndex = (activeIndex + 1) % reviews.length;
 			scrollTo(activeIndex);
 		}, 4000);
@@ -105,7 +29,7 @@
 	};
 
 	const scrollTo = (index) => {
-		if (!scrollContainer) return;
+		if (!scrollContainer || !reviews.length) return;
 		const items = scrollContainer.querySelectorAll('.review-slide');
 		if (items[index]) {
 			const item = items[index];
@@ -116,6 +40,7 @@
 	};
 
 	const next = () => {
+		if (!reviews.length) return;
 		stopAutoPlay();
 		activeIndex = (activeIndex + 1) % reviews.length;
 		scrollTo(activeIndex);
@@ -123,6 +48,7 @@
 	};
 
 	const prev = () => {
+		if (!reviews.length) return;
 		stopAutoPlay();
 		activeIndex = (activeIndex - 1 + reviews.length) % reviews.length;
 		scrollTo(activeIndex);
@@ -130,7 +56,7 @@
 	};
 
 	const handleScroll = () => {
-		if (!scrollContainer || isDragging) return;
+		if (!scrollContainer || isDragging || !reviews.length) return;
 		const scrollPos = scrollContainer.scrollLeft;
 		const index = Math.round(scrollPos / (scrollContainer.scrollWidth / reviews.length));
 
@@ -203,11 +129,14 @@
 					style:animation-delay="{i * 0.1}s"
 					class:active={i === activeIndex}
 				>
-					<div class="paper-note" style="background: {review.color};">
+					<div class="paper-note" style="background: {review.color || '#FFE499'};">
 						<img src="/assets/paperclip.jpg" alt="clip" class="paper-clip" />
 
-						<div class="client-photo {review.shape}">
-							<img src={review.img} alt={review.author} />
+						<div class="client-photo {review.shape || 'circle'}">
+							<img
+								src={review.img || placeholderImg || '/assets/reviews/default-placeholder.svg'}
+								alt={review.author}
+							/>
 						</div>
 
 						<div class="review-content">

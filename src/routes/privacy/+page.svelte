@@ -5,14 +5,14 @@
 <section class="legal-wrap page-transition">
 	<div class="legal-panel">
 		<header class="legal-header">
-			<span class="legal-pill">LEGAL // DATA PROTECTION</span>
+			<span class="legal-pill">LEGAL | DATA PROTECTION</span>
 			<h1 class="legal-title">Privacy Policy</h1>
-			<p class="legal-updated">Effective Date: November 2026 // Younique Design Studio</p>
+			<p class="legal-updated">Effective Date: November 2026 | Younique Design Studio</p>
 		</header>
 
 		<div class="legal-body">
 			<article class="legal-section">
-				<h2>01 // Information We Collect</h2>
+				<h2>01: Information We Collect</h2>
 				<p>
 					When you submit a project inquiry or book a discovery call through our website, we collect
 					the personal details you voluntarily provide: your name, email address, phone number,
@@ -21,7 +21,7 @@
 			</article>
 
 			<article class="legal-section">
-				<h2>02 // How We Use Your Information</h2>
+				<h2>02: How We Use Your Information</h2>
 				<p>
 					Your contact details and project scoping information are used strictly to evaluate project
 					fit, communicate regarding your inquiry, schedule discovery calls, and deliver contracted
@@ -31,7 +31,7 @@
 			</article>
 
 			<article class="legal-section">
-				<h2>03 // Cookies & Security</h2>
+				<h2>03: Cookies & Security</h2>
 				<p>
 					We use strictly necessary, encrypted <code>HttpOnly</code> session cookies solely for
 					authenticated private client presentation decks (<code>/deck/[client]</code>) and internal
@@ -40,7 +40,7 @@
 			</article>
 
 			<article class="legal-section">
-				<h2>04 // Data Retention & Your Rights</h2>
+				<h2>04: Data Retention & Your Rights</h2>
 				<p>
 					We retain project inquiry records only for as long as needed to handle client
 					communications and legal obligations. You may request access to, correction of, or

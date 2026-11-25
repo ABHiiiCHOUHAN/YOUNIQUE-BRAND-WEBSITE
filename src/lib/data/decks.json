@@ -5,7 +5,7 @@
     "title": "Linkedin Posts",
     "version": "Draft Review",
     "updatedAt": "2026-11-25",
-    "passcodeHash": "1b368b46592492dd33202c0e5c9bb734:0770beebb6ef3e0bdc29575743ec5b78e8c34d639b7894e0264a2e7bd9df66fe2fc8b4e38c71b89519cfe5f99ec5f9408aa8d85a21f2cdb47dcabd57bc5b4e30",
+    "passcodeHash": "1a6dcaa47bb1e8ed2ed40dcaf7867aa9:4033eb9d6f516b357d227d0161e935bd80de700fa4380ce7538a8aa4607615e00ab9f94e4d89db3a0de46ab96eb4e78941bdd64eef9029e6618ce1c7e69d29b6",
     "notes": "THIS IS A DEMO",
     "deliverables": [
       {
@@ -14,13 +14,14 @@
         "url": "https://drive.google.com/file/d/1AaTe3K0C5-ZP95bnzPJ_2ywxUrvvwmTx/view?usp=drive_link",
         "notes": "linkedin post example is here for your review, Let me know what can be fixed."
       }
-    ]
+    ],
+    "clientCompany": ""
   },
   {
     "slug": "demo-client",
     "clientName": "Sample Client Co.",
     "title": "Brand Identity & Launch Cut — Review Deck",
-    "version": "v1.2 // Draft Presentation",
+    "version": "v1.2 | Draft Presentation",
     "updatedAt": "2026-11-25",
     "passcodeHash": "c0d43d1f6f43128d105ae58c1b3fff99:34c5e9844b48f75caf22d3903cb1f5260e799bb99ec6212b8e9025ee9fd6a2fa3f3c587624c7273ee2f2862358a08448ee23ac5b702fce7fcee1c9f1fb7d1110",
     "notes": "Welcome to your private review deck. Below are the latest brand direction boards, high-contrast social launch cuts, and print asset previews for your feedback prior to final export.",

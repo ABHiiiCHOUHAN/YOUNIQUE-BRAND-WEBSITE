@@ -15,7 +15,7 @@
 		</div>
 		<header class="box-header">
 			<span class="status-dot"></span>
-			<span class="label">ERROR // ALERT</span>
+			<span class="label">ERROR | ALERT</span>
 		</header>
 		<p class="error-desc">
 			ERROR NOTE: This link is dead or missing. Let's redirect you to the real work.

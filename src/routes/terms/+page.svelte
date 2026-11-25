@@ -5,14 +5,14 @@
 <section class="legal-wrap page-transition">
 	<div class="legal-panel">
 		<header class="legal-header">
-			<span class="legal-pill">LEGAL // TERMS & IP</span>
+			<span class="legal-pill">LEGAL | TERMS & IP</span>
 			<h1 class="legal-title">Terms of Service</h1>
-			<p class="legal-updated">Effective Date: November 2026 // Younique Design Studio</p>
+			<p class="legal-updated">Effective Date: November 2026 | Younique Design Studio</p>
 		</header>
 
 		<div class="legal-body">
 			<article class="legal-section">
-				<h2>01 // Scope of Creative Services</h2>
+				<h2>01: Scope of Creative Services</h2>
 				<p>
 					All design, motion, video editing, 3D production, and web development engagements are
 					governed by mutually signed project proposals or Statements of Work (SOW). Submissions
@@ -22,7 +22,7 @@
 			</article>
 
 			<article class="legal-section">
-				<h2>02 // Intellectual Property & Client Trademarks</h2>
+				<h2>02: Intellectual Property & Client Trademarks</h2>
 				<p>
 					All client trademarks, logos, brand names, and proprietary product imagery displayed across
 					our portfolio case studies and presentation decks remain the sole intellectual property of
@@ -32,7 +32,7 @@
 			</article>
 
 			<article class="legal-section">
-				<h2>03 // Private Presentation Decks</h2>
+				<h2>03: Private Presentation Decks</h2>
 				<p>
 					Password-protected links under <code>/deck/[client]</code> contain confidential pre-release
 					revisions, drafts, and internal creative strategy intended solely for the designated
@@ -42,7 +42,7 @@
 			</article>
 
 			<article class="legal-section">
-				<h2>04 // Studio Ownership & Contact</h2>
+				<h2>04: Studio Ownership & Contact</h2>
 				<p>
 					Original website code, visual systems, copy, and experimental tools published on this site
 					are copyright &copy; {new Date().getFullYear()} Younique Design Studio. Questions regarding

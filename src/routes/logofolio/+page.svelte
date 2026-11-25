@@ -16,7 +16,7 @@
 <div class="logofolio-page">
 	<header class="page-header">
 		<a href="/" class="back-link">← EXIT PROJECT</a>
-		<h1 class="logo-title">LOGOFOLIO // ARC</h1>
+		<h1 class="logo-title">LOGOFOLIO | ARC</h1>
 	</header>
 
 	<section class="menu-wrap">

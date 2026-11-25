@@ -17,7 +17,7 @@
 <svelte:window bind:scrollY />
 
 <svelte:head>
-	<title>{post.title} // YOUNIQUE</title>
+	<title>{post.title} | YOUNIQUE</title>
 </svelte:head>
 
 <!-- Reading Progress Bar -->
@@ -33,7 +33,7 @@
 	<article class="post-detail">
 		<header class="header-section">
 			<div class="meta">
-				<span class="category">DESIGN // MANIFESTO</span>
+				<span class="category">DESIGN | MANIFESTO</span>
 				<time class="date">{post.date}</time>
 			</div>
 			<h1 class="title">{post.title}</h1>
@@ -52,7 +52,7 @@
 
 		<footer class="post-footer">
 			<div class="footer-line"></div>
-			<p class="end-text">END OF RECORD // DEFY THE DEFAULT</p>
+			<p class="end-text">END OF RECORD | DEFY THE DEFAULT</p>
 		</footer>
 	</article>
 </main>

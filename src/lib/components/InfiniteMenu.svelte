@@ -331,7 +331,7 @@
 				<div class="text-group">
 					<div class="industry">{focusedData.industry}</div>
 					<div class="name">{focusedData.name}</div>
-					<div class="type">TYPE // {focusedData.type}</div>
+					<div class="type">TYPE: {focusedData.type}</div>
 				</div>
 			</div>
 		</div>

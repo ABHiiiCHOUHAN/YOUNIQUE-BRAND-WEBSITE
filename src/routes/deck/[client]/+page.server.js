@@ -3,6 +3,7 @@ import path from 'path';
 import { readJson } from '$lib/server/jsonStore.js';
 import {
 	deckCookieName,
+	deckLockCookieName,
 	verifyDeckPasscode,
 	verifyDeckToken,
 	setDeckCookie,
@@ -20,8 +21,9 @@ export async function load({ params, cookies, locals }) {
 		throw error(404, 'Presentation deck not found.');
 	}
 
+	const isManuallyLocked = cookies.get(deckLockCookieName(slug)) === '1';
 	const token = cookies.get(deckCookieName(slug));
-	const isUnlocked = Boolean(locals.isAdmin || verifyDeckToken(slug, token));
+	const isUnlocked = !isManuallyLocked && Boolean(locals.isAdmin || verifyDeckToken(slug, token));
 
 	if (!isUnlocked) {
 		return {

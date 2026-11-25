@@ -156,7 +156,7 @@
 		<section class="slide slide--intro">
 			<div class="grid">
 				<div class="col-left">
-					<span class="intro-kicker">{data.project.tag} &middot; {data.project.year || '2024'}</span>
+					<span class="intro-kicker">{data.project.tag} | {data.project.year || '2024'}</span>
 					<h1 class="huge-title">{data.project.title.toUpperCase()}</h1>
 				</div>
 				<div class="col-right">
@@ -232,7 +232,7 @@
 				<!-- Special Split Content for Branding -->
 				<div id="logofolio" class="logofolio-3d-wrap">
 					<div class="gallery-label-header">
-						<h2 class="sub-label">01 // LOGOFOLIO</h2>
+						<h2 class="sub-label">01: LOGOFOLIO</h2>
 					</div>
 
 					<div class="infinite-menu-embed">
@@ -241,7 +241,7 @@
 				</div>
 
 				<div id="rebrands" class="gallery-label-header" style="margin-top: 10rem;">
-					<h2 class="sub-label">02 // FULL REBRANDS</h2>
+					<h2 class="sub-label">02: FULL REBRANDS</h2>
 				</div>
 				<div class="gallery-bento layout-1">
 					{#each data.project.gallery.slice(0, 5) as item, i}
@@ -261,7 +261,7 @@
 			{:else if data.project.id === 8}
 				<!-- Dynamic Cuts - Depth Carousel for Video Editing -->
 				<div class="gallery-label-header">
-					<h2 class="sub-label">DYNAMIC EDITS // CUTS</h2>
+					<h2 class="sub-label">DYNAMIC EDITS | CUTS</h2>
 				</div>
 				<div class="depth-carousel-wrapper">
 					<DepthCarousel
@@ -373,7 +373,7 @@
 			{:else if data.project.id === 2}
 				<!-- Browser Mockup for Digital Experiences -->
 				<div class="gallery-label-header">
-					<h2 class="sub-label">DIGITAL // EXPERIENCES</h2>
+					<h2 class="sub-label">DIGITAL | EXPERIENCES</h2>
 				</div>
 				<div class="browser-mockup-wrapper">
 					<!-- Desktop Browser Mockup -->
@@ -771,8 +771,8 @@
 
 	/* Gallery Section */
 	.slide--gallery {
-		background: var(--bg-dark);
-		color: var(--text-light);
+		background: #1c1c1c;
+		color: #fffaf4;
 		min-height: 100vh;
 		padding-top: 6rem;
 		padding-bottom: 6rem;
@@ -1644,7 +1644,8 @@
 		font-size: 1.2rem;
 		font-weight: 900;
 		letter-spacing: 0.2em;
-		opacity: 0.8;
+		color: #fffaf4;
+		opacity: 0.9;
 	}
 
 	.depth-carousel-wrapper {

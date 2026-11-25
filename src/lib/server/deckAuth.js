@@ -18,6 +18,13 @@ export function deckCookieName(slug) {
 	return `deck_session_${safe}`;
 }
 
+export function deckLockCookieName(slug) {
+	const safe = String(slug || '')
+		.toLowerCase()
+		.replace(/[^a-z0-9_-]/g, '');
+	return `deck_locked_${safe}`;
+}
+
 /**
  * Generates a salted scrypt hash of a client deck passcode.
  * Format: "<hexSalt>:<hexDerivedKey>"
@@ -100,8 +107,9 @@ export function verifyDeckToken(slug, token) {
 
 export function setDeckCookie(cookies, slug) {
 	const token = createDeckToken(slug);
+	cookies.delete(deckLockCookieName(slug), { path: '/' });
 	cookies.set(deckCookieName(slug), token, {
-		path: `/deck/${slug}`,
+		path: '/',
 		httpOnly: true,
 		sameSite: 'lax',
 		secure: process.env.NODE_ENV === 'production',
@@ -110,7 +118,13 @@ export function setDeckCookie(cookies, slug) {
 }
 
 export function clearDeckCookie(cookies, slug) {
-	cookies.delete(deckCookieName(slug), {
-		path: `/deck/${slug}`
+	cookies.delete(deckCookieName(slug), { path: '/' });
+	cookies.delete(deckCookieName(slug), { path: `/deck/${slug}` });
+	cookies.set(deckLockCookieName(slug), '1', {
+		path: '/',
+		httpOnly: true,
+		sameSite: 'lax',
+		secure: process.env.NODE_ENV === 'production',
+		maxAge: DECK_SESSION_MAX_AGE
 	});
 }

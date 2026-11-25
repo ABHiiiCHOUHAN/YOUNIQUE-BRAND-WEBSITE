@@ -8,15 +8,15 @@
 </script>
 
 <svelte:head>
-	<title>Admin Login - Younique</title>
+	<title>Admin Sign In - Younique</title>
 	<meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 
 <section class="wrap page-transition">
 	<div class="panel login-panel">
 		<header class="page-header">
-			<h1 class="page-title">Admin Access</h1>
-			<p class="subtitle">Enter password to unlock dashboard</p>
+			<h1 class="page-title">Admin Sign In</h1>
+			<p class="subtitle">Enter your password to access the dashboard</p>
 		</header>
 
 		{#if form?.error}
@@ -43,7 +43,7 @@
 						id="password"
 						name="password"
 						type={showPassword ? 'text' : 'password'}
-						placeholder="••••••••••••"
+						placeholder="Enter admin password"
 						required
 						autocomplete="current-password"
 						disabled={isSubmitting}
@@ -61,7 +61,7 @@
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
-								stroke-width="2.2"
+								stroke-width="2"
 								stroke-linecap="round"
 								stroke-linejoin="round"
 								aria-hidden="true"
@@ -75,14 +75,18 @@
 								viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
-								stroke-width="2.2"
+								stroke-width="2"
 								stroke-linecap="round"
 								stroke-linejoin="round"
 								aria-hidden="true"
 							>
 								<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
-								<path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
-								<path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+								<path
+									d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
+								/>
+								<path
+									d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
+								/>
 								<line x1="2" y1="2" x2="22" y2="22" />
 							</svg>
 						{/if}
@@ -92,7 +96,7 @@
 
 			<div class="actions">
 				<button type="submit" class="btn" disabled={isSubmitting}>
-					{isSubmitting ? 'Verifying...' : 'Log In'}
+					{isSubmitting ? 'Signing in...' : 'Log In'}
 				</button>
 				<a href="/" class="btn btn--outline">Cancel</a>
 			</div>
@@ -102,6 +106,17 @@
 
 <style>
 	.wrap {
+		--adm-surface: var(--color-5, #fffaf4);
+		--adm-input-bg: #ffffff;
+		--adm-subtle-bg: #f1eadf;
+		--adm-border: #1c1c1c;
+		--adm-shadow-ink: #1c1c1c;
+		--adm-text: #1c1c1c;
+		--adm-muted: #57534e;
+		--adm-accent: var(--color-1, #fdd803);
+		--adm-accent-ink: #111111;
+
+		font-family: var(--font-heading, system-ui, -apple-system, sans-serif);
 		padding: 2.5rem clamp(1rem, 4vw, 3rem);
 		width: 100%;
 		margin: 0 auto;
@@ -112,13 +127,25 @@
 		box-sizing: border-box;
 	}
 
+	:global(.dark) .wrap {
+		--adm-surface: #242424;
+		--adm-input-bg: #181818;
+		--adm-subtle-bg: #323232;
+		--adm-border: #c9c4bc;
+		--adm-shadow-ink: #111111;
+		--adm-text: #fffaf4;
+		--adm-muted: #b8b3ac;
+		--adm-accent: #fdd803;
+		--adm-accent-ink: #111111;
+	}
+
 	.login-panel {
 		width: 100%;
-		border-radius: 28px;
-		border: 3px solid var(--color-3);
-		background: var(--color-5);
-		color: var(--color-3);
-		box-shadow: 12px 14px 0px var(--color-3);
+		border-radius: 16px;
+		border: 2px solid var(--adm-border);
+		background: var(--adm-surface);
+		color: var(--adm-text);
+		box-shadow: 5px 5px 0px var(--adm-shadow-ink);
 		padding: clamp(1.5rem, 4vw, 3rem);
 		box-sizing: border-box;
 		display: flex;
@@ -126,7 +153,7 @@
 		justify-content: center;
 	}
 
-	/* PC Version: width is exactly 1.6x of height (672px / 420px = 1.6) */
+	/* PC Version: width is 1.6x of height (672px / 420px = 1.6) */
 	@media (min-width: 680px) {
 		.wrap {
 			max-width: 800px;
@@ -140,37 +167,19 @@
 		}
 	}
 
-	/* Mobile Version */
 	@media (max-width: 679px) {
 		.wrap {
 			max-width: 100%;
-			padding: 1.25rem 0.85rem 2.5rem;
+			padding: 1.25rem 0.9rem 2.5rem;
 			min-height: calc(80vh - 60px);
 		}
 
 		.login-panel {
 			width: 100%;
-			max-width: 100%;
 			height: auto;
 			aspect-ratio: auto;
-			border-radius: 20px;
-			border-width: 2.5px;
-			box-shadow: 6px 6px 0px var(--color-3);
-			padding: 1.5rem 1.15rem;
-		}
-
-		.page-title {
-			font-size: 1.7rem;
-		}
-
-		.subtitle {
-			font-size: 0.85rem;
-		}
-
-		input {
-			padding: 0.85rem 3.2rem 0.85rem 0.95rem;
-			font-size: 16px;
-			box-shadow: 3px 3px 0px var(--color-3);
+			padding: 1.5rem 1.25rem;
+			box-shadow: 4px 4px 0px var(--adm-shadow-ink);
 		}
 
 		.actions {
@@ -183,10 +192,6 @@
 		.actions .btn,
 		.actions .btn--outline {
 			width: 100%;
-			padding: 0.85rem 0.5rem;
-			font-size: 0.95rem;
-			text-align: center;
-			justify-content: center;
 			box-sizing: border-box;
 		}
 	}
@@ -196,31 +201,31 @@
 	}
 
 	.page-title {
-		font-family: var(--font-heading);
-		font-size: clamp(1.75rem, 3.5vw, 2.25rem);
-		font-weight: 900;
-		margin: 0 0 0.4rem;
-		letter-spacing: -0.03em;
-		color: var(--color-3);
+		font-family: var(--font-heading, inherit);
+		font-size: 1.75rem;
+		font-weight: 800;
+		margin: 0 0 0.35rem;
+		letter-spacing: -0.025em;
+		color: var(--adm-text);
 	}
 
 	.subtitle {
-		font-size: 0.95rem;
-		font-weight: 700;
-		opacity: 0.65;
+		font-size: 0.94rem;
+		font-weight: 500;
+		color: var(--adm-muted);
 		margin: 0;
 	}
 
 	.error-status {
-		margin-bottom: 1.5rem;
-		background: #ff5252;
+		margin-bottom: 1.25rem;
+		background: #dc2626;
 		color: #ffffff;
-		border: 2px solid var(--color-3);
-		box-shadow: 4px 4px 0px var(--color-3);
-		padding: 0.65rem 1rem;
+		border: 2px solid var(--adm-border);
+		box-shadow: 2px 2px 0px var(--adm-shadow-ink);
+		padding: 0.65rem 0.95rem;
 		border-radius: 10px;
-		font-weight: 800;
-		font-size: 0.9rem;
+		font-weight: 700;
+		font-size: 0.88rem;
 	}
 
 	.form {
@@ -232,14 +237,13 @@
 	.field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: 0.45rem;
 	}
 
 	.label {
-		font-weight: 900;
-		font-size: 0.9rem;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		font-weight: 700;
+		font-size: 0.86rem;
+		color: var(--adm-text);
 	}
 
 	.input-wrap {
@@ -250,134 +254,121 @@
 
 	input {
 		width: 100%;
-		border-radius: 12px;
-		border: 2px solid var(--color-3);
-		background: var(--color-5);
-		color: var(--color-3);
-		padding: 0.9rem 3.8rem 0.9rem 1rem;
+		border-radius: 10px;
+		border: 1.5px solid var(--adm-border);
+		background: var(--adm-input-bg);
+		color: var(--adm-text);
+		padding: 0.78rem 3.2rem 0.78rem 0.95rem;
 		font: inherit;
-		font-size: 1rem;
-		font-weight: 700;
+		font-size: 16px;
+		font-weight: 600;
 		outline: none;
-		box-shadow: 4px 4px 0px var(--color-3);
-		transition: transform 0.1s;
+		box-shadow: 2px 2px 0px var(--adm-shadow-ink);
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease;
 		appearance: none;
+		box-sizing: border-box;
+	}
+
+	input::placeholder {
+		color: var(--adm-muted);
+		opacity: 0.75;
 	}
 
 	input:focus {
-		border-color: var(--color-1);
-		box-shadow: 0 0 0 4px var(--color-1);
+		border-color: var(--adm-accent);
+		box-shadow: 3px 3px 0px var(--adm-accent);
 	}
 
 	.toggle-btn {
 		position: absolute;
-		right: 14px;
+		right: 10px;
 		top: 50%;
 		transform: translateY(-50%);
 		background: transparent;
 		border: none;
-		padding: 4px;
+		padding: 6px;
 		cursor: pointer;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		border-radius: 8px;
-		color: var(--color-3);
-		opacity: 0.8;
+		border-radius: 6px;
+		color: var(--adm-muted);
 		outline: none;
-		transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.15s ease;
+		box-shadow: none;
+		transition: color 0.15s ease;
 	}
 
-	.toggle-btn:hover {
-		opacity: 1;
-		transform: translateY(-50%) scale(1.15);
-	}
-
-	.toggle-btn:active {
-		transform: translateY(-50%) scale(0.92);
+	.toggle-btn:hover,
+	.toggle-btn:active,
+	.toggle-btn:focus-visible {
+		color: var(--adm-text);
+		transform: translateY(-50%);
+		box-shadow: none;
+		outline: none;
 	}
 
 	.eye-icon {
-		width: 22px;
-		height: 22px;
+		width: 20px;
+		height: 20px;
 		display: block;
-		stroke: var(--color-3);
-		stroke-width: 2.2px;
-		animation: eyeIconPop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-	}
-
-	@keyframes eyeIconPop {
-		0% {
-			transform: scale(0.8);
-			opacity: 0.5;
-		}
-		100% {
-			transform: scale(1);
-			opacity: 1;
-		}
+		stroke: currentColor;
 	}
 
 	.actions {
 		display: flex;
 		align-items: center;
-		gap: 1rem;
-		margin-top: 0.5rem;
+		gap: 0.85rem;
+		margin-top: 0.35rem;
 	}
 
 	.btn {
 		font-family: inherit;
 		border-radius: 999px;
-		padding: 0.85rem 1.8rem;
-		font-weight: 900;
-		font-size: 1rem;
-		border: 2px solid var(--color-3);
-		background: var(--color-1);
-		color: var(--color-3);
+		padding: 0.75rem 1.6rem;
+		font-weight: 800;
+		font-size: 0.92rem;
+		border: 2px solid #111111;
+		background: var(--adm-accent);
+		color: var(--adm-accent-ink);
 		cursor: pointer;
 		text-decoration: none;
-		box-shadow: 4px 4px 0px var(--color-3);
+		outline: none;
+		box-shadow: 3px 3px 0px var(--adm-shadow-ink);
 		transition:
-			transform 120ms ease,
-			box-shadow 120ms ease;
+			background-color 120ms ease,
+			transform 100ms ease,
+			box-shadow 100ms ease;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		white-space: nowrap;
-		line-height: 1;
+		line-height: 1.2;
 	}
 
-	.btn:hover,
-	.btn:focus-visible {
-		transform: translate(-2px, -2px);
-		box-shadow: 6px 6px 0px var(--color-3);
+	.btn:hover:not(:disabled) {
+		background: #ffe234;
 	}
 
-	.btn:active {
+	.btn:active:not(:disabled) {
 		transform: translate(2px, 2px);
-		box-shadow: 2px 2px 0px var(--color-3);
+		box-shadow: 1px 1px 0px var(--adm-shadow-ink);
 	}
 
 	.btn:disabled {
-		opacity: 0.6;
+		opacity: 0.55;
 		cursor: not-allowed;
 	}
 
 	.btn--outline {
-		font-family: inherit;
-		background: transparent;
-		box-shadow: none;
-		color: var(--color-3);
-		white-space: nowrap;
-		line-height: 1;
+		background: var(--adm-surface);
+		border: 2px solid var(--adm-border);
+		color: var(--adm-text);
+		box-shadow: 3px 3px 0px var(--adm-shadow-ink);
 	}
 
 	.btn--outline:hover {
-		background: rgba(0, 0, 0, 0.05);
-		box-shadow: none;
-		transform: none;
-	}
-
-	:global(.dark) .btn--outline:hover {
-		background: rgba(255, 255, 255, 0.08);
+		background: var(--adm-subtle-bg);
 	}
 </style>
