@@ -156,50 +156,61 @@
 		<section class="slide slide--intro">
 			<div class="grid">
 				<div class="col-left">
+					<span class="intro-kicker">{data.project.tag} &middot; {data.project.year || '2024'}</span>
 					<h1 class="huge-title">{data.project.title.toUpperCase()}</h1>
 				</div>
 				<div class="col-right">
 					<div class="summary">
-						<span class="asterisk">*</span>
-						{data.project.desc}
+						<p class="lead-statement">{data.project.desc}</p>
 						<p class="p-rich">
 							{data.project.fullDesc}
 						</p>
 					</div>
 
 					{#if data.project.id === 1}
-						<div class="quick-nav-pills">
-							<a href="#logofolio" class="nav-pill">
-								<span class="pill-num">01</span>
-								<span class="pill-text">LOGOFOLIO</span>
+						<nav class="quick-nav-links" aria-label="Brand Identity Sections">
+							<a href="#logofolio" class="editorial-jump">
+								<span class="jump-num">01</span>
+								<span class="jump-label">LOGOFOLIO</span>
+								<span class="jump-arrow">&darr;</span>
 							</a>
-							<a href="#rebrands" class="nav-pill">
-								<span class="pill-num">02</span>
-								<span class="pill-text">REBRANDING</span>
+							<a href="#rebrands" class="editorial-jump">
+								<span class="jump-num">02</span>
+								<span class="jump-label">REBRANDING</span>
+								<span class="jump-arrow">&darr;</span>
 							</a>
-						</div>
+						</nav>
 					{/if}
 				</div>
 			</div>
 
 			{#if data.project.challenge || data.project.creativeDirection || data.project.resultMetric}
-				<div class="narrative-grid">
+				<div class="editorial-narrative">
 					{#if data.project.challenge}
-						<div class="narrative-card">
-							<span class="narrative-index">01 // THE CHALLENGE</span>
-							<p class="narrative-copy">{data.project.challenge}</p>
+						<div class="editorial-item">
+							<div class="editorial-head">
+								<span class="editorial-num">01</span>
+								<span class="editorial-label">THE CHALLENGE</span>
+							</div>
+							<p class="editorial-copy">{data.project.challenge}</p>
 						</div>
 					{/if}
 					{#if data.project.creativeDirection}
-						<div class="narrative-card">
-							<span class="narrative-index">02 // CREATIVE DIRECTION</span>
-							<p class="narrative-copy">{data.project.creativeDirection}</p>
+						<div class="editorial-item">
+							<div class="editorial-head">
+								<span class="editorial-num">02</span>
+								<span class="editorial-label">CREATIVE DIRECTION</span>
+							</div>
+							<p class="editorial-copy">{data.project.creativeDirection}</p>
 						</div>
 					{/if}
 					{#if data.project.resultMetric}
-						<div class="narrative-card narrative-card--outcome">
-							<span class="narrative-index">03 // THE RESULT METRIC</span>
-							<p class="narrative-outcome-val">{data.project.resultMetric}</p>
+						<div class="editorial-item editorial-item--outcome">
+							<div class="editorial-head">
+								<span class="editorial-num">03</span>
+								<span class="editorial-label">THE RESULT</span>
+							</div>
+							<p class="editorial-outcome">{data.project.resultMetric}</p>
 						</div>
 					{/if}
 				</div>
@@ -632,6 +643,16 @@
 		width: 100%;
 	}
 
+	.intro-kicker {
+		display: block;
+		font-size: 0.78rem;
+		font-weight: 800;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		opacity: 0.55;
+		margin-bottom: 1rem;
+	}
+
 	.huge-title {
 		font-size: clamp(4rem, 12vw, 9rem);
 		line-height: 0.85;
@@ -640,78 +661,111 @@
 		letter-spacing: -0.04em;
 	}
 
-	.summary {
-		font-size: 1.5rem;
-		line-height: 1.4;
-		max-width: 600px;
-	}
-	.asterisk {
-		color: var(--bg-dark);
-		font-weight: 900;
-	}
-	.p-rich {
-		margin-top: 2rem;
-		opacity: 0.8;
-		font-size: 1.15rem;
-	}
-
-	/* Narrative Case Studies (Outcome > Visuals) */
-	.narrative-grid {
-		max-width: 1400px;
-		width: 100%;
-		margin: 4.5rem auto 0;
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 1.75rem;
-	}
-
-	.narrative-card {
-		border: 3px solid var(--text-dark);
-		background: var(--bg-light);
-		color: var(--text-dark);
-		border-radius: 20px;
-		padding: 1.75rem;
-		box-shadow: 6px 7px 0px var(--text-dark);
+	.col-right {
 		display: flex;
 		flex-direction: column;
-		gap: 0.9rem;
+		justify-content: flex-end;
 	}
 
-	.narrative-card--outcome {
-		background: var(--color-1, #ffd600);
-		color: #1c1c1c;
-		border-color: #1c1c1c;
-		box-shadow: 6px 7px 0px #1c1c1c;
+	.summary {
+		max-width: 58ch;
 	}
 
-	.narrative-index {
-		font-size: 0.75rem;
-		font-weight: 900;
-		letter-spacing: 0.08em;
-		opacity: 0.75;
-		text-transform: uppercase;
-	}
-
-	.narrative-copy {
+	.lead-statement {
 		margin: 0;
-		font-size: 0.98rem;
-		line-height: 1.6;
-		font-weight: 600;
-	}
-
-	.narrative-outcome-val {
-		margin: 0;
-		font-size: clamp(1.25rem, 2vw, 1.6rem);
+		font-size: clamp(1.35rem, 2.3vw, 1.9rem);
 		line-height: 1.25;
-		font-weight: 900;
+		font-weight: 800;
 		letter-spacing: -0.02em;
 	}
 
+	.p-rich {
+		margin: 1.35rem 0 0;
+		opacity: 0.78;
+		font-size: 1.02rem;
+		line-height: 1.68;
+		font-weight: 500;
+	}
+
+	/* Unboxed Editorial Narrative (Container-Free Typography) */
+	.editorial-narrative {
+		max-width: 1400px;
+		width: 100%;
+		margin: 5rem auto 0;
+		padding-top: 3rem;
+		border-top: 1px solid rgba(128, 128, 128, 0.25);
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 3.5rem;
+	}
+
+	.editorial-item {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		background: transparent;
+		border: none;
+		padding: 0;
+		box-shadow: none;
+	}
+
+	.editorial-head {
+		display: flex;
+		align-items: baseline;
+		gap: 0.75rem;
+	}
+
+	.editorial-num {
+		font-size: 2rem;
+		font-weight: 300;
+		line-height: 1;
+		opacity: 0.25;
+		letter-spacing: -0.04em;
+	}
+
+	.editorial-label {
+		font-size: 0.72rem;
+		font-weight: 800;
+		letter-spacing: 0.12em;
+		opacity: 0.55;
+		text-transform: uppercase;
+	}
+
+	.editorial-copy {
+		margin: 0;
+		font-size: 0.96rem;
+		line-height: 1.68;
+		font-weight: 500;
+		opacity: 0.85;
+		max-width: 42ch;
+	}
+
+	.editorial-outcome {
+		margin: 0;
+		font-size: clamp(1.3rem, 2.1vw, 1.7rem);
+		line-height: 1.25;
+		font-weight: 900;
+		letter-spacing: -0.025em;
+		position: relative;
+		padding-bottom: 0.65rem;
+	}
+
+	.editorial-outcome::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 48px;
+		height: 3px;
+		background: var(--color-1, #ffd600);
+	}
+
 	@media (max-width: 960px) {
-		.narrative-grid {
+		.editorial-narrative {
 			grid-template-columns: 1fr;
-			margin-top: 3rem;
-			gap: 1.25rem;
+			margin-top: 3.5rem;
+			padding-top: 2.25rem;
+			gap: 2.5rem;
 		}
 	}
 
@@ -1534,54 +1588,48 @@
 		height: 20px;
 	}
 
-	/* --- QUICK NAVIGATION PILLS --- */
-	.quick-nav-pills {
+	/* --- UNBOXED EDITORIAL JUMP LINKS --- */
+	.quick-nav-links {
 		display: flex;
-		gap: 1rem;
-		margin-top: 3rem;
+		flex-wrap: wrap;
+		gap: 2.25rem;
+		margin-top: 2.25rem;
 	}
 
-	.nav-pill {
+	.editorial-jump {
 		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		padding: 0.4rem 0.5rem 0.4rem 1.2rem;
-		background: var(--bg-dark);
-		color: var(--text-light);
-		border-radius: 99px;
+		align-items: baseline;
+		gap: 0.6rem;
+		padding-bottom: 0.45rem;
+		border-bottom: 2px solid currentColor;
+		color: var(--text-dark);
 		text-decoration: none;
-		font-weight: 700;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		font-size: 0.85rem;
 		transition:
-			transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-			background-color 0.2s;
+			transform 0.2s ease,
+			opacity 0.2s ease;
 	}
 
-	.nav-pill:hover {
+	.editorial-jump:hover {
 		transform: translateY(-2px);
-		background: #000;
+		opacity: 0.7;
 	}
 
-	.pill-num {
-		opacity: 0.5;
-		font-family: 'Space Grotesk', monospace;
+	.jump-num {
+		font-weight: 400;
+		opacity: 0.45;
+		font-size: 0.8rem;
 	}
 
-	.pill-text {
-		background: #fff;
-		color: #000;
-		padding: 0.2rem 1rem;
-		border-radius: 99px;
+	.jump-arrow {
+		font-weight: 700;
+		transition: transform 0.2s ease;
 	}
 
-	@media (max-width: 768px) {
-		.quick-nav-pills {
-			gap: 0.5rem;
-			flex-wrap: wrap;
-		}
-		.nav-pill {
-			font-size: 0.85rem;
-			padding: 0.3rem 0.4rem 0.3rem 1rem;
-		}
+	.editorial-jump:hover .jump-arrow {
+		transform: translateY(2px);
 	}
 
 	.gallery-label-header {
